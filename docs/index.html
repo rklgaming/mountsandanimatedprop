@@ -263,6 +263,34 @@ dialog.lb .say{ padding:10px 14px; color:var(--ink-soft); min-height:2.6em; bord
 .mt i{ font-style:normal; font-family:var(--f-head); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-left:7px; }
 .mt.pet{ border-color:rgba(95,207,142,.4); }
 
+/* every model: the picture catalogue (models.json from build_models.py) */
+.mseg{ display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 6px; }
+.mgrid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(158px, 1fr)); gap:10px; margin-top:12px; }
+.mcard{ position:relative; display:flex; flex-direction:column; border:1px solid rgba(217,178,95,.28); border-radius:6px; overflow:hidden; cursor:zoom-in;
+  background:radial-gradient(ellipse 80% 70% at 50% 45%, rgba(122,84,200,.22), transparent 72%), linear-gradient(180deg, rgba(20,18,36,.9), rgba(9,8,16,.94)); }
+.mcard:hover, .mcard:focus-visible{ border-color:var(--gold); outline:none; }
+.mcard .pic{ position:relative; aspect-ratio:1 / 1; overflow:hidden; }
+.mcard img{ position:absolute; left:10px; top:10px; width:calc(100% - 20px); height:calc(100% - 20px); object-fit:contain; filter:drop-shadow(0 6px 10px rgba(0,0,0,.6)); }
+.mcard .cap{ padding:0 10px 10px; text-align:center; }
+.mcard .cap b{ display:block; font-family:var(--f-head); font-size:.92rem; letter-spacing:.04em; color:var(--gold-hi, #f7dd96); line-height:1.2; }
+.mcard .cap span{ display:block; font-size:.86rem; color:var(--ink-soft); font-style:italic; }
+.mcard .tag{ position:absolute; top:8px; left:8px; font-family:var(--f-head); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; padding:3px 7px; border-radius:2px;
+  background:rgba(7,6,12,.82); border:1px solid rgba(217,178,95,.5); color:var(--ink-soft); max-width:calc(100% - 16px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mcard .tag.free{ background:linear-gradient(180deg, #f7dd96, #d9b25f); color:#1a1206; border-color:transparent; }
+@media (max-width:560px){ .mgrid{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; } .mcard .cap b{ font-size:.82rem; } }
+.gta{ margin-top:14px; color:var(--ink-soft); }
+.sheets-h{ margin:26px 0 10px; font-family:var(--f-head); letter-spacing:.08em; color:var(--gold-hi, #f7dd96); }
+.sheets{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:12px; }
+.sheets figure{ margin:0; border:1px solid rgba(217,178,95,.28); border-radius:6px; overflow:hidden; cursor:zoom-in; background:rgba(0,0,0,.3); }
+.sheets figure:hover, .sheets figure:focus-visible{ border-color:var(--gold); outline:none; }
+.sheets img{ display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; }
+.sheets figcaption{ padding:7px 10px; font-family:var(--f-head); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+.sheets figcaption b{ color:var(--gold-hi, #f7dd96); font-weight:700; }
+@media (max-width:560px){ .sheets{ grid-template-columns:1fr; } }
+.gta b{ color:var(--ink); }
+.lb .stage.model{ display:flex; align-items:center; justify-content:center; background:radial-gradient(ellipse at center, rgba(122,84,200,.25), rgba(7,6,12,.95) 70%); }
+.lb .stage.model img{ max-width:100%; max-height:70vh; object-fit:contain; }
+
 /* copy */
 td .cp{ margin-left:8px; font-family:var(--f-head); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px; border-radius:2px;
   border:1px solid var(--line); background:rgba(0,0,0,.3); color:var(--ink-soft); cursor:pointer; vertical-align:middle; }
@@ -306,7 +334,7 @@ details.more[open] > summary::before{ content:"\25BE  "; }
       <a href="#new">What's new</a>
       <a href="#players">Getting a mount</a>
       <a href="#controls">Riding keys</a>
-      <a href="#mounts">Every mount</a>
+      <a href="#mounts">Every model</a>
       <a href="#pets">Props &amp; pets</a>
       <a href="#admins" data-for="admin">Admins</a>
       <a href="#commands">Commands</a>
@@ -361,6 +389,7 @@ details.more[open] > summary::before{ content:"\25BE  "; }
           <li><code>/petsummon</code> calls back a pet mount left far away.</li>
           <li>Your summoned pet stays with you, even on a High Jump.</li>
           <li>Ten props are free for everyone. Shops show only what is for sale.</li>
+          <li><b>Every model</b> <span class="tag-new">new</span>: a picture of every mount and prop, what comes free with the scripts and what is in each add-on pack.</li>
         </ul>
       </div>
     </div>
@@ -385,16 +414,21 @@ details.more[open] > summary::before{ content:"\25BE  "; }
   </section>
 
   <section id="mounts" class="chapter">
-    <h2><span class="num">IV</span>Every mount</h2>
+    <h2><span class="num">IV</span>Every model</h2>
+    <p class="lede">Every mount and prop we sell, as it looks in game. <b>Free</b> ones come with the script; the others are add-on packs you drop next to it. Click one to see it big.</p>
     <div class="mfilter" id="mfilter"></div>
-    <div class="mounts" id="mlist"></div>
+    <div class="mseg" id="mseg"></div>
+    <div class="mgrid" id="mgrid"></div>
     <p class="count" id="mcount"></p>
+    <p class="gta"><b>Also free with Dynamic Mounts:</b> GTA's own animals, set up to ride: dolphin, orca, manta, hammerhead, tiger shark, war boar, ox, stag, cougar and panther.</p>
+    <h3 class="sheets-h">The packs at a glance</h3>
+    <div class="sheets" id="sheets"></div>
   </section>
 
   <section id="pets" class="chapter">
     <h2><span class="num">V</span>Props &amp; pets</h2>
     <div class="steps">
-      <div class="step"><span class="n">1</span><div><h3>Wear props</h3><p><code>/animatedprop</code> opens your <b>Regalia</b>: tails, wings, horns, pets and more. Equip, pick a colour, take it off. A worn prop is kept safe while you wear it.</p></div></div>
+      <div class="step"><span class="n">1</span><div><h3>Wear props</h3><p><code>/animatedprop</code> opens your <b>Regalia</b>: tails, wings, magic circles, pets and more. Equip, pick a colour, take it off. A worn prop is kept safe while you wear it.</p></div></div>
       <div class="step"><span class="n">2</span><div><h3>Your pet</h3><p><code>/petmenu</code>: its moves, <b>Stay</b>, <b>Roam</b>, <b>Stop</b>. <code>/petsummon</code> calls it out at full size or sends it back to your shoulder.</p></div></div>
       <div class="step"><span class="n">3</span><div><h3>Ride your pet</h3><p>Summon it and press <kbd>J</kbd>: its mount stands where it stood. Dismount and your pet is there again, following you.</p></div></div>
       <div class="step"><span class="n">4</span><div><h3>Prop moves</h3><p><code>/apflare</code>, <code>/apswish</code>, <code>/apshake</code>, <code>/apflick</code> play a move on the prop you wear, for all to see.</p></div></div>
@@ -564,7 +598,7 @@ var TASKS = [
     ['Have the mount in your bag (its item).','Press <kbd>F6</kbd>, then <b>Lock</b> on that mount.','The item is used and the mount is yours for good.'],'f6',5,'Some mounts are "Assigned only": only an admin can give those.'],
   ['buy','player','🪙','Buy a mount','buy shop stable price money',
     ['Find a mount shop on the map.','Walk up to the stable hand and press <kbd>E</kbd>.','Buy: the mount goes in your bag; ride it from <kbd>F6</kbd>.'],null,0],
-  ['props','player','✨','Wear a tail, wings or horns','prop tail wings horns circle wear equip regalia',
+  ['props','player','✨','Wear a tail, wings or a magic circle','prop tail wings horns circle wear equip regalia',
     ['Type <code class="copyable">/animatedprop</code>: your <b>Regalia</b> opens.','Pick a kind, then <b>Equip</b> a prop.','Pick its colour; try its moves.','<b>Unequip</b> puts it back in your pack.'],'regalia',2],
   ['try','player','🏛','Try a prop before buying','hall wonders showroom try preview buy',
     ['Go to the Hall of Wonders.','Pick a prop on display and try its colours.','<b>How to get it</b> shows who sells it; <b>Mark it on my map</b>.'],'hall',4],
@@ -607,14 +641,6 @@ var KEYS = {
 };
 var KEYGROUPS = [['Move', ['W','A','S','D']], ['Speed & height', ['Shift','L Ctrl','Space']], ['Actions', ['E','F','G','H','J']], ['Screens', ['F6','F7','F9','Esc']], ['Look', ['Mouse']]];
 
-var MOUNTS = [
-  ['Ironclad Destrier','land'],['Elven Palfrey','land'],['Wayfarer Courser','land'],['Peddler\'s Donkey','land'],['Cougar','land'],['Panther','land'],['Stag','land'],['Ox','land'],['War Boar','land'],
-  ['Amethyst Wolf','pet'],['Void Kitsune','pet'],['Starforged Golem','pet'],['Ninja Dog','pet'],['Dog Scout','pet'],['Cat','pet'],['Ape','pet'],['Toad','pet'],['Ninja Serpent','pet'],['Slug','pet'],['Ninja Kirin','pet'],['Ninja Tortoise (land and sea)','pet'],
-  ['Blood Dragon (twelve colours)','sky'],['Fantasy Dragon','sky'],['Chinese Fantasy Dragon','sky'],['Celestial Dragon','sky'],['Gryphon Boss','sky'],['Fantasy Phoenix','sky'],['Ninja Falcon','sky'],['Broomstick','sky'],['Cloud','sky'],['Gale Fan','sky'],['Dune Disc','sky'],
-  ['Angelic wings','wings'],['Celestial wings','wings'],['Demon wings','wings'],['Fairy wings','wings'],['Vampire wings','wings'],['Hoverboard','wings'],
-  ['Dolphin','water'],['Orca','water'],['Manta','water'],['Hammerhead','water'],['Tiger Shark','water']
-];
-var MKIND = { all:'All', land:'Steeds of the land', pet:'Beasts & pets', sky:'Wings of the sky', wings:'Wings & glide', water:'Tides' };
 
 var MODES = [
   ['free','Free','everyone rides it','g-free'], ['item','Item','needs its item','g-item'], ['vipitem','VIP or item','VIP free, others need the item','g-vipitem'],
@@ -642,7 +668,7 @@ var CMDS = [
   ['J · /ridepet','player','Ride your summoned pet','/ridepet'],
   ['F7 · /rklmountsui','player','Arrange, colour or hide the mount screens','/rklmountsui'],
   ['F9 · /rklmountshide','player','Hide or show all mount screens','/rklmountshide'],
-  ['/animatedprop','player','Your Regalia: wear tails, wings, horns, pets','/animatedprop'],
+  ['/animatedprop','player','Your Regalia: wear tails, wings, magic circles, pets','/animatedprop'],
   ['/petmenu','player','Your pet: moves, Stay, Roam, Stop','/petmenu'],
   ['/petsummon','player','Summon your pet, send it back, or call back a pet mount left far away','/petsummon'],
   ['/apflare · /apswish · /apshake · /apflick','player','Play that move on the prop you wear','/apflare'],
@@ -904,25 +930,941 @@ function drawMatrix(){
   host.appendChild(el('p', 'why', m[1] + ': ' + canRide(MODE, 'none', ITEMS)[1].replace(/^[^:]*:\s*/, '') + (MODE === 'assigned' ? ' Give it in Players with Lock to them.' : '')));
 }
 
-/* ---------------- every mount ---------------- */
-var MK = 'all';
-function drawMounts(){
-  var f = $('#mfilter'); f.innerHTML = '';
-  var inp = el('input'); inp.type = 'search'; inp.placeholder = 'Search a mount'; inp.setAttribute('aria-label', 'Search a mount'); inp.value = drawMounts.q || '';
-  inp.addEventListener('input', function(){ drawMounts.q = inp.value; list(); });
-  f.appendChild(inp);
-  Object.keys(MKIND).forEach(function(k){
-    var b = el('button', 'chip', MKIND[k]); b.type = 'button'; b.setAttribute('aria-pressed', k === MK ? 'true' : 'false');
-    b.addEventListener('click', function(){ MK = k; drawMounts(); }); f.appendChild(b);
-  });
-  list();
-  function list(){
-    var q = (drawMounts.q || '').trim().toLowerCase();
-    var h = $('#mlist'); h.innerHTML = '';
-    var s = MOUNTS.filter(function(m){ return (MK === 'all' || m[1] === MK) && (!q || m[0].toLowerCase().indexOf(q) !== -1); });
-    s.forEach(function(m){ var d = el('span', 'mt' + (m[1] === 'pet' ? ' pet' : ''), m[0]); d.appendChild(el('i', null, MKIND[m[1]])); h.appendChild(d); });
-    $('#mcount').textContent = s.length + ' of ' + MOUNTS.length + ' mounts' + (MK === 'pet' ? ' · ridden through their pet: summon it, press J' : '');
+/* ---------------- every model (pictures) ---------------- */
+var MODELS = {
+ "cats": [
+  [
+   "dragons",
+   "Dragons & flyers"
+  ],
+  [
+   "mwings",
+   "Wings to fly"
+  ],
+  [
+   "land",
+   "Steeds"
+  ],
+  [
+   "beasts",
+   "Beasts"
+  ],
+  [
+   "ride",
+   "Riding props"
+  ],
+  [
+   "tails",
+   "Tails"
+  ],
+  [
+   "circles",
+   "Magic circles"
+  ],
+  [
+   "pwings",
+   "Wings to wear"
+  ],
+  [
+   "pets",
+   "Pets"
+  ]
+ ],
+ "models": [
+  {
+   "name": "Blood Dragon",
+   "sub": "Crimson",
+   "cat": "dragons",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/blood_dragon.webp"
+  },
+  {
+   "name": "Blood Dragon",
+   "sub": "Azure",
+   "cat": "dragons",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/blood_dragon_azure.webp"
+  },
+  {
+   "name": "Demon Wings",
+   "sub": "6 colours",
+   "cat": "mwings",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/mw_demon.webp"
+  },
+  {
+   "name": "Fairy Wings",
+   "sub": "8 colours",
+   "cat": "mwings",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/mw_fairy.webp"
+  },
+  {
+   "name": "Vampire Wings",
+   "sub": "6 colours",
+   "cat": "mwings",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/mw_vampire.webp"
+  },
+  {
+   "name": "Ironclad Destrier",
+   "sub": "",
+   "cat": "land",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ironclad_destrier.webp"
+  },
+  {
+   "name": "Elven Palfrey",
+   "sub": "",
+   "cat": "land",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/elven_palfrey.webp"
+  },
+  {
+   "name": "Wayfarer Courser",
+   "sub": "",
+   "cat": "land",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/wayfarer_courser.webp"
+  },
+  {
+   "name": "Peddler's Donkey",
+   "sub": "",
+   "cat": "land",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/peddler_donkey.webp"
+  },
+  {
+   "name": "Broomstick",
+   "sub": "",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/broombroom.webp"
+  },
+  {
+   "name": "Cloud",
+   "sub": "",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/cloudy.webp"
+  },
+  {
+   "name": "Hoverboard",
+   "sub": "",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/hoverboard.webp"
+  },
+  {
+   "name": "Gale Fan",
+   "sub": "",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/galefan.webp"
+  },
+  {
+   "name": "Dune Disc",
+   "sub": "",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "img": "img/models/sanddisc.webp"
+  },
+  {
+   "name": "One-Tailed Fox",
+   "sub": "Grand Plume · 12 colours",
+   "cat": "tails",
+   "where": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail1.webp"
+  },
+  {
+   "name": "Demon Tail",
+   "sub": "6 colours",
+   "cat": "tails",
+   "where": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/demontail.webp"
+  },
+  {
+   "name": "Dragon Tail",
+   "sub": "5 colours",
+   "cat": "tails",
+   "where": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/dragontail.webp"
+  },
+  {
+   "name": "Arcane Sigil",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle1.webp"
+  },
+  {
+   "name": "Infernal Pyre",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle2.webp"
+  },
+  {
+   "name": "Void Kitsune",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_kitsunen.webp"
+  },
+  {
+   "name": "Two-Tailed Fox",
+   "sub": "Twin Lyre · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail2.webp"
+  },
+  {
+   "name": "Three-Tailed Fox",
+   "sub": "Trident · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail3.webp"
+  },
+  {
+   "name": "Four-Tailed Fox",
+   "sub": "Crescent Pairs · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail4.webp"
+  },
+  {
+   "name": "Five-Tailed Fox",
+   "sub": "Five-Point Star · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail5.webp"
+  },
+  {
+   "name": "Six-Tailed Fox",
+   "sub": "12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail6.webp"
+  },
+  {
+   "name": "Seven-Tailed Fox",
+   "sub": "Comet Fan · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail7.webp"
+  },
+  {
+   "name": "Eight-Tailed Fox",
+   "sub": "Lotus · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail8.webp"
+  },
+  {
+   "name": "Nine-Tailed Fox",
+   "sub": "Celestial Nine · 12 colours",
+   "cat": "tails",
+   "where": "Fox Tails Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/foxtail9.webp"
+  },
+  {
+   "name": "Glacial Ward",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack I",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle3.webp"
+  },
+  {
+   "name": "Verdant Grove",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack I",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle4.webp"
+  },
+  {
+   "name": "Celestial Orrery",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack I",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle5.webp"
+  },
+  {
+   "name": "Ascension Rings",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack I",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle6.webp"
+  },
+  {
+   "name": "Sanctum Wall",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle7.webp"
+  },
+  {
+   "name": "Storm Spiral",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle8.webp"
+  },
+  {
+   "name": "Fenrir Fetter",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle9.webp"
+  },
+  {
+   "name": "Chronogear Engine",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle10.webp"
+  },
+  {
+   "name": "Lung Pearl Dragon",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle11.webp"
+  },
+  {
+   "name": "Blade Carousel",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle12.webp"
+  },
+  {
+   "name": "Weaver Queen",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle13.webp"
+  },
+  {
+   "name": "Phoenix Rebirth",
+   "sub": "large & small · 20 colours",
+   "cat": "circles",
+   "where": "Magic Circles Pack II",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/magiccircle14.webp"
+  },
+  {
+   "name": "Angelic Wings",
+   "sub": "12 colours",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/angelicwings.webp"
+  },
+  {
+   "name": "Celestial Fairy Wings",
+   "sub": "8 colours",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/celestialwings.webp"
+  },
+  {
+   "name": "Fairy Wings",
+   "sub": "8 colours",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/fairywings.webp"
+  },
+  {
+   "name": "Demon Wings",
+   "sub": "6 colours",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/demonwings.webp"
+  },
+  {
+   "name": "Vampire Wings",
+   "sub": "6 colours",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/vampirewings.webp"
+  },
+  {
+   "name": "Demon Wings",
+   "sub": "mount style",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/mountdemonwings.webp"
+  },
+  {
+   "name": "Fairy Wings",
+   "sub": "mount style",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/mountfairywings.webp"
+  },
+  {
+   "name": "Vampire Wings",
+   "sub": "mount style",
+   "cat": "pwings",
+   "where": "Wings Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/mountvampirewings.webp"
+  },
+  {
+   "name": "Ninja Dog",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjadogn.webp"
+  },
+  {
+   "name": "Ninja Dog Scout",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjascoutn.webp"
+  },
+  {
+   "name": "Ninja Cat",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjacatn.webp"
+  },
+  {
+   "name": "Ninja Ape",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjaapen.webp"
+  },
+  {
+   "name": "Ninja Toad",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjatoadn.webp"
+  },
+  {
+   "name": "Ninja Falcon",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjafalconn.webp"
+  },
+  {
+   "name": "Ninja Serpent",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjaserpent.webp"
+  },
+  {
+   "name": "Ninja Slug",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjaslugn.webp"
+  },
+  {
+   "name": "Ninja Tortoise",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Ninja Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_ninjatortoisen.webp"
+  },
+  {
+   "name": "Fantasy Dragon",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_fantasydragonn.webp"
+  },
+  {
+   "name": "Chinese Fantasy Dragon",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_chinesedragonn.webp"
+  },
+  {
+   "name": "Celestial Dragon",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_celdragonn.webp"
+  },
+  {
+   "name": "Fantasy Phoenix",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_firephoenixn.webp"
+  },
+  {
+   "name": "Gryphon Boss",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_gryphonn.webp"
+  },
+  {
+   "name": "Starforged Golem",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_golemn.webp"
+  },
+  {
+   "name": "Abyssal Shark",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_sharkn.webp"
+  },
+  {
+   "name": "Amethyst Wolf",
+   "sub": "shoulder · small · summoned · 20 colours",
+   "cat": "pets",
+   "where": "Fantasy Pets Pack",
+   "free": false,
+   "script": "Dynamic Animated Pets & Props",
+   "img": "img/models/pet_wolfn.webp"
+  },
+  {
+   "name": "Fantasy Dragon",
+   "sub": "20 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/cinderwyrm.webp"
+  },
+  {
+   "name": "Chinese Fantasy Dragon",
+   "sub": "20 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/tianlong.webp"
+  },
+  {
+   "name": "Celestial Dragon",
+   "sub": "20 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/astralwyrm.webp"
+  },
+  {
+   "name": "Gryphon Boss",
+   "sub": "20 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/stormtalon.webp"
+  },
+  {
+   "name": "Fantasy Phoenix",
+   "sub": "20 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/emberwing.webp"
+  },
+  {
+   "name": "Angelic Wings",
+   "sub": "12 colours",
+   "cat": "mwings",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/mw_angelic.webp"
+  },
+  {
+   "name": "Celestial Wings",
+   "sub": "8 colours",
+   "cat": "mwings",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/mw_celestial.webp"
+  },
+  {
+   "name": "Blood Dragon",
+   "sub": "10 more colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/blood_dragon_10.webp"
+  },
+  {
+   "name": "Ninja Dog",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjadog.webp"
+  },
+  {
+   "name": "Ninja Dog Scout",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjascout.webp"
+  },
+  {
+   "name": "Ninja Cat",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjacat.webp"
+  },
+  {
+   "name": "Ninja Ape",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjaape.webp"
+  },
+  {
+   "name": "Ninja Toad",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjatoad.webp"
+  },
+  {
+   "name": "Ninja Falcon",
+   "sub": "flies · 20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjafalcon.webp"
+  },
+  {
+   "name": "Ninja Serpent",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjaserpent.webp"
+  },
+  {
+   "name": "Ninja Slug",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjaslug.webp"
+  },
+  {
+   "name": "Ninja Tortoise",
+   "sub": "land & sea · 20 colours",
+   "cat": "beasts",
+   "where": "Ninja Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/ninjatortoise.webp"
+  },
+  {
+   "name": "Amethyst Wolf",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Fantasy Land Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/duskfang.webp"
+  },
+  {
+   "name": "Void Kitsune",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Fantasy Land Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/nyxtail.webp"
+  },
+  {
+   "name": "Starforged Golem",
+   "sub": "20 colours",
+   "cat": "beasts",
+   "where": "Fantasy Land Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "img": "img/models/stonewarden.webp"
   }
+ ],
+ "sheets": [
+  {
+   "title": "Free with Dynamic Mounts",
+   "free": true,
+   "img": "img/packs/free-with-dynamic-mounts.webp"
+  },
+  {
+   "title": "Free with Dynamic Animated Pets & Props",
+   "free": true,
+   "img": "img/packs/free-with-dynamic-animated-pets-and-props.webp"
+  },
+  {
+   "title": "Fox Tails Pack",
+   "free": false,
+   "for": "Dynamic Animated Pets & Props",
+   "img": "img/packs/fox-tails-pack.webp"
+  },
+  {
+   "title": "Magic Circles Pack I",
+   "free": false,
+   "for": "Dynamic Animated Pets & Props",
+   "img": "img/packs/magic-circles-pack-i.webp"
+  },
+  {
+   "title": "Magic Circles Pack II",
+   "free": false,
+   "for": "Dynamic Animated Pets & Props",
+   "img": "img/packs/magic-circles-pack-ii.webp"
+  },
+  {
+   "title": "Wings Pack",
+   "free": false,
+   "for": "Dynamic Animated Pets & Props",
+   "img": "img/packs/wings-pack.webp"
+  },
+  {
+   "title": "Ninja Pets Pack",
+   "free": false,
+   "for": "Dynamic Animated Pets & Props",
+   "img": "img/packs/ninja-pets-pack.webp"
+  },
+  {
+   "title": "Fantasy Pets Pack",
+   "free": false,
+   "for": "Dynamic Animated Pets & Props",
+   "img": "img/packs/fantasy-pets-pack.webp"
+  },
+  {
+   "title": "Flying Mounts Pack",
+   "free": false,
+   "for": "Dynamic Mounts",
+   "img": "img/packs/flying-mounts-pack.webp"
+  },
+  {
+   "title": "Ninja Mounts Pack",
+   "free": false,
+   "for": "Dynamic Mounts",
+   "img": "img/packs/ninja-mounts-pack.webp"
+  },
+  {
+   "title": "Fantasy Land Mounts Pack",
+   "free": false,
+   "for": "Dynamic Mounts",
+   "img": "img/packs/fantasy-land-mounts-pack.webp"
+  }
+ ]
+};
+var MCAT = 'all', MWHO = 'all';
+var CATN = {}; MODELS.cats.forEach(function(c){ CATN[c[0]] = c[1]; });
+function drawModels(){
+  var f = $('#mfilter'); f.innerHTML = '';
+  var inp = el('input'); inp.type = 'search'; inp.placeholder = 'Search a model (dragon, fox, circle, pet...)'; inp.setAttribute('aria-label', 'Search a model'); inp.value = drawModels.q || '';
+  inp.addEventListener('input', function(){ drawModels.q = inp.value; grid(); });
+  f.appendChild(inp);
+  [['all', 'All']].concat(MODELS.cats).forEach(function(c){
+    var b = el('button', 'chip', c[1]); b.type = 'button'; b.setAttribute('aria-pressed', c[0] === MCAT ? 'true' : 'false');
+    b.addEventListener('click', function(){ MCAT = c[0]; drawModels(); }); f.appendChild(b);
+  });
+  var s = $('#mseg'); s.innerHTML = '';
+  [['all', 'Free + add-on packs'], ['free', 'Free with the scripts'], ['pack', 'Add-on packs']].forEach(function(w){
+    var b = el('button', 'chip', w[1]); b.type = 'button'; b.setAttribute('aria-pressed', w[0] === MWHO ? 'true' : 'false');
+    b.addEventListener('click', function(){ MWHO = w[0]; drawModels(); }); s.appendChild(b);
+  });
+  grid();
+  function grid(){
+    var q = (drawModels.q || '').trim().toLowerCase();
+    var h = $('#mgrid'); h.innerHTML = '';
+    var list = MODELS.models.filter(function(m){
+      return (MCAT === 'all' || m.cat === MCAT) && (MWHO === 'all' || (MWHO === 'free') === m.free) &&
+        (!q || (m.name + ' ' + m.sub + ' ' + m.where + ' ' + m.script + ' ' + (CATN[m.cat] || '') + (m.cat === 'land' ? ' horse' : '')).toLowerCase().indexOf(q) !== -1);
+    });
+    list.forEach(function(m){
+      var c = el('div', 'mcard'); c.tabIndex = 0; c.setAttribute('role', 'button'); c.setAttribute('aria-label', m.name + (m.sub ? ', ' + m.sub : '') + ', ' + m.where);
+      var p = el('div', 'pic'); var im = el('img'); im.src = m.img; im.alt = m.name; im.loading = 'lazy'; p.appendChild(im); c.appendChild(p);
+      var cap = el('div', 'cap'); cap.appendChild(el('b', null, m.name)); if (m.sub) cap.appendChild(el('span', null, m.sub)); c.appendChild(cap);
+      c.appendChild(el('span', 'tag' + (m.free ? ' free' : ''), m.free ? 'Free' : m.where.replace(/ Pack\b/, '')));
+      function open(){
+        $('#lbt').textContent = m.name + (m.sub ? ' · ' + m.sub : '');
+        var host = $('#lbs'); host.innerHTML = ''; host.className = 'stage model';
+        var big = el('img'); big.src = m.img; big.alt = m.name; host.appendChild(big);
+        $('#lbsay').textContent = (m.free ? 'Free with ' + m.script + '.' : 'In the ' + m.where + ' (an add-on for ' + m.script + ').');
+        if (typeof lb.showModal === 'function') lb.showModal(); else window.open(m.img, '_blank');
+      }
+      c.addEventListener('click', open);
+      c.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      h.appendChild(c);
+    });
+    var free = list.filter(function(m){ return m.free; }).length;
+    $('#mcount').textContent = list.length + ' of ' + MODELS.models.length + ' models · ' + free + ' free, ' + (list.length - free) + ' in add-on packs';
+  }
+}
+function drawSheets(){
+  var h = $('#sheets'); if (!h) return; h.innerHTML = '';
+  (MODELS.sheets || []).forEach(function(s){
+    var f = el('figure'); f.tabIndex = 0; f.setAttribute('role', 'button'); f.setAttribute('aria-label', s.title + ', see it big');
+    var im = el('img'); im.src = s.img; im.alt = s.title; im.loading = 'lazy'; f.appendChild(im);
+    var cap = el('figcaption'); cap.appendChild(el('b', null, s.title)); if (!s.free) cap.appendChild(document.createTextNode(' · add-on for ' + s['for'])); f.appendChild(cap);
+    function open(){
+      $('#lbt').textContent = s.title;
+      var host = $('#lbs'); host.innerHTML = ''; host.className = 'stage model';
+      var big = el('img'); big.src = s.img; big.alt = s.title; host.appendChild(big);
+      $('#lbsay').textContent = s.free ? 'These come with the script.' : 'An add-on pack: drop it next to ' + s['for'] + ' and its models appear.';
+      if (typeof lb.showModal === 'function') lb.showModal(); else window.open(s.img, '_blank');
+    }
+    f.addEventListener('click', open);
+    f.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    h.appendChild(f);
+  });
 }
 
 /* ---------------- commands ---------------- */
@@ -955,7 +1897,8 @@ top.addEventListener('click', function(){ window.scrollTo(0, 0); });
 /* ---------------- start ---------------- */
 drawKeys();
 drawMatrix();
-drawMounts();
+drawModels();
+drawSheets();
 var r0 = store('guide-role');
 setRole(r0 === 'player' || r0 === 'admin' ? r0 : 'all');
 var m = /^#do-([a-z]+)$/.exec(location.hash || '');

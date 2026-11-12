@@ -72,23 +72,46 @@ Screens: **F6** My Mounts · **J** ride your pet · **F7** arrange the mount UI 
 
 ---
 
-## IV · Every mount
+## IV · Every model
 
-- **Steeds of the land**: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey, Cougar, Panther, Stag, Ox, War Boar
-- **Beasts & ninja pets**: Amethyst Wolf, Void Kitsune, Starforged Golem, Ninja Dog, Dog Scout, Cat, Ape, Toad, Serpent, Slug, Kirin, and the Ninja Tortoise (land and sea)
-- **Wings of the sky**: Blood Dragon in twelve colours, the Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, Ninja Falcon, Broomstick, Cloud, Gale Fan, Dune Disc
-- **Wings, tides & glide**: Angelic, Celestial, Demon, Fairy and Vampire wings · Dolphin, Orca, Manta, Hammerhead, Tiger Shark · Hoverboard
+A picture of every mount and prop, with what comes free and what is in each add-on pack: **[Every model](https://rklgaming.github.io/mountsandanimatedprop/#mounts)** on the guide page (filter by category, free or pack, and search).
+
+**Free with Dynamic Mounts:** Blood Dragon (Crimson, Azure) · Demon, Fairy and Vampire Wings · Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey · Broomstick, Cloud, Hoverboard, Gale Fan, Dune Disc · GTA's own Dolphin, Orca, Manta, Hammerhead, Tiger Shark, War Boar, Ox, Stag, Cougar, Panther
+
+**Free with Dynamic Animated Pets & Props:** One-Tailed Fox · Demon Tail · Dragon Tail · Arcane Sigil and Infernal Pyre (large and small) · Void Kitsune pet
+
+**Add-on packs:** Flying Mounts (more Blood Dragon colours, Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, Angelic and Celestial Wings) · Ninja Mounts · Fantasy Land Mounts · Fox Tails · Magic Circles I and II · Wings · Ninja Pets · Fantasy Pets
+
+### Free with the scripts
+
+![Free with Dynamic Mounts](docs/img/packs/free-with-dynamic-mounts.webp)
+![Free with Dynamic Animated Pets & Props](docs/img/packs/free-with-dynamic-animated-pets-and-props.webp)
+
+### Add-on packs for Dynamic Mounts
+
+![Flying Mounts Pack](docs/img/packs/flying-mounts-pack.webp)
+![Ninja Mounts Pack](docs/img/packs/ninja-mounts-pack.webp)
+![Fantasy Land Mounts Pack](docs/img/packs/fantasy-land-mounts-pack.webp)
+
+### Add-on packs for Dynamic Animated Pets & Props
+
+![Fox Tails Pack](docs/img/packs/fox-tails-pack.webp)
+![Magic Circles Pack I](docs/img/packs/magic-circles-pack-i.webp)
+![Magic Circles Pack II](docs/img/packs/magic-circles-pack-ii.webp)
+![Wings Pack](docs/img/packs/wings-pack.webp)
+![Ninja Pets Pack](docs/img/packs/ninja-pets-pack.webp)
+![Fantasy Pets Pack](docs/img/packs/fantasy-pets-pack.webp)
 
 ---
 
 ## V · Props & pets
 
-1. **Wear props**: `/animatedprop` opens your **Regalia**: tails, wings, horns, pets and more. Equip, pick a colour, take it off.
+1. **Wear props**: `/animatedprop` opens your **Regalia**: tails, wings, magic circles, pets and more. Equip, pick a colour, take it off.
 2. **Your pet**: `/petmenu` for its moves, **Stay**, **Roam**, **Stop**. `/petsummon` calls it out at full size or sends it back to your shoulder.
 3. **Ride your pet**: summon it and press **J**: its mount stands where it stood. Dismount and your pet is there again.
 4. **Prop moves**: `/apflare`, `/apswish`, `/apshake`, `/apflick` play a move on the prop you wear.
 
-![Regalia: your tails, wings, horns and magic circle, with colours and moves](docs/img/props-wardrobe.png)
+![Regalia: your tails, wings and magic circle, with colours and moves](docs/img/props-wardrobe.png)
 *`/animatedprop` · the Regalia: equip, pick a colour, try the moves.*
 
 ![Hall of Wonders: try on any prop for show, and see how to get it](docs/img/props-hall.png)
