@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mounts and Props Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; a jump bar, What's new, Players, Admins, Server setup, then a searchable command table (the in-game gold-on-ink look) */
+:root{
+  --bg:#f4f5f8; --surface:#ffffff; --ink:#1c2230; --muted:#5b6475; --line:#d9dde6;
+  --accent:#8f6312; --accent-soft:#f3e7cc; --key-bg:#eef0f5; --admin:#7b2d3b; --admin-soft:#f6e3e6; --new:#1f6f5c; --new-soft:#dcf1ea;
+  --f-display:'Cinzel', 'Times New Roman', serif;
+  --f-body:'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --f-mono:'JetBrains Mono', ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11141b; --surface:#191d27; --ink:#ebe5d6; --muted:#a29c8e; --line:#2c3240;
+  --accent:#e2b55a; --accent-soft:#2c2617; --key-bg:#232836; --admin:#e58b98; --admin-soft:#2e1d22; --new:#6fd1b4; --new-soft:#15302a; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#11141b; --surface:#191d27; --ink:#ebe5d6; --muted:#a29c8e; --line:#2c3240;
+  --accent:#e2b55a; --accent-soft:#2c2617; --key-bg:#232836; --admin:#e58b98; --admin-soft:#2e1d22; --new:#6fd1b4; --new-soft:#15302a; color-scheme:dark }
+body{ background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.55; }
+.wrap{ max-width:900px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); display:flex; flex-direction:column; gap:30px; }
+h1,h2,h3{ font-family:var(--f-display); letter-spacing:.04em; text-wrap:balance; margin:0; }
+h1{ font-size:clamp(1.7rem, 4vw, 2.3rem); }
+h2{ font-size:1.35rem; color:var(--accent); }
+h3{ font-size:1rem; letter-spacing:.06em; }
+p{ margin:0; max-width:70ch; }
+ul.plain{ margin:0; padding-left:1.15em; display:flex; flex-direction:column; gap:5px; max-width:72ch; }
+.lede{ color:var(--muted); }
+header{ display:flex; flex-direction:column; gap:10px; border-bottom:1px solid var(--line); padding-bottom:18px; }
+.vers{ display:flex; flex-wrap:wrap; gap:6px; }
+.ver{ font-family:var(--f-mono); font-size:.8rem; padding:2px 8px; border-radius:4px; border:1px solid var(--line); background:var(--surface); color:var(--muted); }
+nav{ display:flex; flex-wrap:wrap; gap:8px; }
+nav a{ font-family:var(--f-display); font-size:.85rem; letter-spacing:.08em; text-decoration:none; color:var(--ink); border:1px solid var(--line); border-radius:4px; padding:5px 12px; background:var(--surface); }
+nav a:hover, nav a:focus-visible{ border-color:var(--accent); color:var(--accent); outline:none; }
+section{ display:flex; flex-direction:column; gap:16px; scroll-margin-top:12px; }
+.step{ display:grid; grid-template-columns:2.2rem 1fr; gap:4px 12px; align-items:start; }
+.step .n{ font-family:var(--f-display); font-weight:700; color:var(--accent); font-size:1.1rem; line-height:1.4; }
+.step > div{ min-width:0; display:flex; flex-direction:column; gap:6px; }
+code, kbd{ font-family:var(--f-mono); font-size:.86em; }
+code{ background:var(--accent-soft); color:var(--ink); padding:1px 6px; border-radius:3px; }
+kbd{ background:var(--key-bg); border:1px solid var(--line); border-bottom-width:2px; border-radius:4px; padding:0 6px; white-space:nowrap; }
+.panel{ background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px; display:flex; flex-direction:column; gap:10px; min-width:0; }
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px; }
+.keys .panel ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:5px; }
+.keys li{ display:flex; gap:10px; justify-content:space-between; align-items:baseline; }
+.keys li span:last-child{ color:var(--muted); text-align:right; }
+.modes{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; }
+.mode{ border:1px solid var(--line); border-radius:5px; padding:8px 10px; background:var(--surface); display:flex; flex-direction:column; gap:2px; }
+.mode b{ font-family:var(--f-display); font-size:.9rem; letter-spacing:.05em; color:var(--accent); }
+.mode span{ font-size:.9rem; color:var(--muted); }
+.note{ border-left:3px solid var(--accent); padding:4px 0 4px 12px; color:var(--muted); max-width:72ch; }
+.badge{ display:inline-block; font-family:var(--f-display); font-size:.72rem; letter-spacing:.1em; border-radius:3px; padding:1px 7px; vertical-align:middle; }
+.badge.admin{ color:var(--admin); background:var(--admin-soft); }
+.badge.new{ color:var(--new); background:var(--new-soft); }
+.news{ display:flex; flex-direction:column; gap:12px; }
+.news .panel h3{ display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; }
+.news .panel h3 small{ font-family:var(--f-body); font-size:.82rem; color:var(--muted); letter-spacing:0; font-weight:400; }
+.kinds{ display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:12px; }
+.kinds .panel ul{ margin:0; padding-left:1.1em; display:flex; flex-direction:column; gap:3px; }
+.kinds .panel p{ color:var(--muted); font-size:.92rem; }
+.tools{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.tools input{ flex:1; min-width:0; font:inherit; padding:8px 12px; border:1px solid var(--line); border-radius:5px; background:var(--surface); color:var(--ink); }
+.tools input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+.chip{ font:inherit; font-size:.88rem; padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; }
+.chip[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:var(--bg); }
+.chip:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.tablebox{ overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface); }
+table{ border-collapse:collapse; width:100%; min-width:640px; }
+th, td{ text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+th{ font-family:var(--f-display); font-size:.78rem; letter-spacing:.1em; color:var(--muted); }
+tr:last-child td{ border-bottom:none; }
+td:first-child code{ white-space:nowrap; }
+td.who{ white-space:nowrap; font-size:.85rem; color:var(--muted); }
+td.who.adm{ color:var(--admin); }
+.count{ color:var(--muted); font-size:.9rem; }
+pre.cfg{ margin:0; overflow-x:auto; background:var(--key-bg); border:1px solid var(--line); border-radius:6px; padding:10px 12px; font-family:var(--f-mono); font-size:.84rem; line-height:1.5; }
+footer{ color:var(--muted); font-size:.9rem; border-top:1px solid var(--line); padding-top:14px; }
+@media (prefers-reduced-motion: reduce){ *{ scroll-behavior:auto !important; } }
+</style>
+
+<style>body{margin:0}</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mounts and Props Guide</h1>
+    <p class="lede">How to ride mounts, wear animated props and ride your pet, everything admins can set in game, and every command. Keys can be changed in game: Settings &gt; Key Bindings &gt; FiveM.</p>
+    <div class="vers">
+      <span class="ver">rklmounts 3.74.0</span><span class="ver">rklflyingmounts 1.0.0</span><span class="ver">rklmountninja 1.0.18</span>
+      <span class="ver">rklmountfantasyland 1.0.6</span><span class="ver">rklpet_ninjakirin</span><span class="ver">rklanimatedprop 1.17.1</span>
+    </div>
+    <nav aria-label="Sections">
+      <a href="#new">What's new</a>
+      <a href="#players">Players</a>
+      <a href="#controls">Riding keys</a>
+      <a href="#mounts">Every mount</a>
+      <a href="#pets">Props and pets</a>
+      <a href="#admins">Admins</a>
+      <a href="#setup">Server setup</a>
+      <a href="#commands">All commands</a>
+    </nav>
+  </header>
+
+  <section id="new">
+    <h2>What's new</h2>
+    <div class="news">
+      <div class="panel"><h3>Admin, all in game <small>Mount Admin and the Ledger</small></h3>
+        <ul class="plain">
+          <li><code>/mountadmin</code> has four tabs: <b>Players</b>, <b>Who rides what</b>, <b>Mounts</b> and <b>Shops</b>. Everything saves at once and stays after a restart.</li>
+          <li>Give or take <b>VIP</b>, lock a whole mount or <b>single colours</b> to a player.</li>
+          <li>Set each mount <b>Free</b>, <b>Item</b>, <b>VIP or item</b>, <b>VIP only</b> or <b>Off</b>, plus one "Mounts need their item" switch.</li>
+          <li><b>Mounts</b> tab: rename, turn on / off, set prices and ride numbers, add a new mount from a copy, no config edits.</li>
+          <li><b>Shops</b> tab: place a mount shop where you stand; players walk up and press <kbd>E</kbd>.</li>
+          <li>The prop Ledger (<code>/apadmin</code>) and Mount Admin are linked: a player's page shows their mounts, with "Open in /mountadmin".</li>
+          <li>The old rklvipsystem <code>/vipadmin</code> is gone (it wiped perks it did not list).</li>
+        </ul>
+      </div>
+      <div class="panel"><h3>Mounts</h3>
+        <ul class="plain">
+          <li>New prop mounts: the <b>Gale Fan</b> (a giant flying war fan) and the <b>Dune Disc</b> (a floating disc of sand). The broomstick, cloud and hoverboard were remade.</li>
+          <li>The land horses and the donkey were remade and renamed: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey.</li>
+          <li>The <b>Ninja Tortoise</b> swims, dives and surfaces in deep water and walks out in the shallows; on land SHIFT now runs on its legs.</li>
+          <li>The <b>Ninja Kirin</b> is the summoned Kirin itself (same model, same colours), rider on its saddle.</li>
+          <li>No height limit when flying. Wings come off when you land. No particles on mounts.</li>
+          <li>Smoother moves: gaits change without a snap, beasts back up and turn on the spot with their own steps, dragons keep their own wing beat, jumping beasts gather their legs, crouching riders sit right on heads and shells.</li>
+          <li>Fixed: a rider who sometimes went invisible to other players (different instance / dungeon buckets).</li>
+          <li>Removed from the mount list (nothing deleted, can be turned back on): the bear, armored wolf, donkeyboost, the ten tailed beasts, the Spider, the Ants and the Frost Wolf, and the ped copies of the Amethyst Wolf / Void Kitsune / Starforged Golem.</li>
+        </ul>
+      </div>
+      <div class="panel"><h3>Pets and props</h3>
+        <ul class="plain">
+          <li><b>Riding your pet is one animal</b>: press <kbd>J</kbd> on your summoned pet and its mount stands on its spot; get off and the pet is right there, following you. No smoke, no re-summon.</li>
+          <li><code>/petsummon</code> also calls back a pet mount you left far away.</li>
+          <li>Every pet's mount is ridden through its pet (unless an admin sets "Normal mount too").</li>
+          <li>The pet follows better: it stays on the ground on jumps and flights, joins you on a High Jump, really stays on Stay.</li>
+          <li>Ten props are free for everyone (the One-Tailed Fox, three mount wings, two pets, two sigils, two pyres).</li>
+          <li>Shops and the Hall of Wonders show only what is for sale.</li>
+        </ul>
+      </div>
+      <div class="panel"><h3>Files <small>for the server owner</small></h3>
+        <ul class="plain">
+          <li>rklmounts and its model packs now live together in <code>resources/[rkl]/[mounts models]/</code>.</li>
+          <li>All the flying mounts (dragons, gryphon, phoenix, wings) are one pack: <code>rklflyingmounts</code>. The ninja pet mounts are <code>rklmountninja</code>, the wolf / kitsune / golem <code>rklmountfantasyland</code>, the Kirin <code>rklpet_ninjakirin</code>.</li>
+          <li>The land horses and the prop mounts stay inside rklmounts.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="players">
+    <h2>Getting a mount</h2>
+    <div class="step"><span class="n">1</span><div><h3>Get it</h3><p>Buy it at a mount shop (walk up and press <kbd>E</kbd>), use its item <code>mount_…</code>, or have it given by an admin. Some mounts are free for everyone. A mount's colours come with it, unless an admin gave you only some colours.</p></div></div>
+    <div class="step"><span class="n">2</span><div><h3>Call it</h3><p>Press <kbd>F6</kbd> (<code>/mountvip</code>) to open <b>My Mounts</b>: it lists every mount you can ride right now. Pick a colour, then <b>Ride</b>. You can also use the item. <b>Send back</b> in F6, or using the item again, puts it away.</p></div></div>
+    <div class="step"><span class="n">3</span><div><h3>VIP keeps it</h3><p>A VIP player can press <b>Lock</b> in F6 to bind a mount from the bag to the character for good. A locked mount needs no item.</p></div></div>
+    <div class="step"><span class="n">4</span><div><h3>Your pet's mount</h3><p>The ninja pets, dragons, gryphon, phoenix, wolf, kitsune and golem are ridden through their pet: summon the pet, then press <kbd>J</kbd>.</p></div></div>
+  </section>
+
+  <section id="controls">
+    <h2>Riding keys</h2>
+    <div class="grid2 keys">
+      <div class="panel"><h3>On land</h3><ul>
+        <li><span><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></span><span>move; the mount runs where the camera looks</span></li>
+        <li><span>tap <kbd>Shift</kbd></span><span>trot (on / off)</span></li>
+        <li><span>hold <kbd>Shift</kbd></span><span>run</span></li>
+        <li><span><kbd>Space</kbd></span><span>jump</span></li>
+        <li><span><kbd>S</kbd></span><span>back up</span></li>
+        <li><span><kbd>H</kbd></span><span>roar (dragons, beasts)</span></li>
+        <li><span><kbd>E</kbd> or <kbd>F</kbd></span><span>get off</span></li>
+        <li><span><kbd>F</kbd> on foot</span><span>send the mount away</span></li>
+      </ul></div>
+      <div class="panel"><h3>In the air</h3><ul>
+        <li><span><kbd>W</kbd> / <kbd>S</kbd></span><span>forward, back</span></li>
+        <li><span><kbd>A</kbd> / <kbd>D</kbd></span><span>turn</span></li>
+        <li><span><kbd>Shift</kbd></span><span>climb (no height limit)</span></li>
+        <li><span><kbd>Left Ctrl</kbd></span><span>go down</span></li>
+        <li><span>mouse</span><span>look around</span></li>
+        <li><span><kbd>G</kbd></span><span>hover in place</span></li>
+        <li><span><kbd>E</kbd></span><span>land</span></li>
+      </ul></div>
+      <div class="panel"><h3>In the water</h3><ul>
+        <li><span><kbd>W</kbd> <kbd>A</kbd> <kbd>D</kbd></span><span>swim, turn</span></li>
+        <li><span><kbd>Left Ctrl</kbd></span><span>dive</span></li>
+        <li><span><kbd>Shift</kbd></span><span>come up</span></li>
+        <li><span><kbd>Space</kbd></span><span>boost</span></li>
+        <li><span>Ninja Tortoise</span><span>swims in deep water, walks out in the shallows</span></li>
+      </ul></div>
+      <div class="panel"><h3>Mount screens</h3><ul>
+        <li><span><kbd>F6</kbd></span><span>My Mounts</span></li>
+        <li><span><kbd>J</kbd></span><span>ride your summoned pet</span></li>
+        <li><span><kbd>F7</kbd></span><span>move, colour or hide the mount UI</span></li>
+        <li><span><kbd>F9</kbd></span><span>hide or show all mount UI</span></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="mounts">
+    <h2>Every mount</h2>
+    <div class="kinds">
+      <div class="panel"><h3>Land</h3><ul>
+        <li>Ironclad Destrier, Elven Palfrey, Wayfarer Courser</li>
+        <li>Peddler's Donkey</li>
+        <li>Cougar, Panther, Stag, Ox, War Boar</li>
+      </ul></div>
+      <div class="panel"><h3>Beasts and ninja pets</h3><ul>
+        <li>Amethyst Wolf, Void Kitsune, Starforged Golem</li>
+        <li>Ninja Dog, Ninja Dog Scout, Ninja Cat, Ninja Ape, Ninja Toad</li>
+        <li>Ninja Serpent, Ninja Slug, Ninja Kirin</li>
+        <li>Ninja Tortoise (land and water)</li>
+      </ul><p>Most are ridden through their pet (<kbd>J</kbd>).</p></div>
+      <div class="panel"><h3>Flying</h3><ul>
+        <li>Blood Dragon (12 colours), Fantasy Dragon, Chinese Fantasy Dragon, Celestial Dragon</li>
+        <li>Gryphon Boss, Fantasy Phoenix, Ninja Falcon</li>
+        <li>Broomstick, Cloud, Gale Fan, Dune Disc</li>
+      </ul></div>
+      <div class="panel"><h3>Wings, water, ground glide</h3><ul>
+        <li>Angelic, Celestial, Demon, Fairy and Vampire wings</li>
+        <li>Dolphin, Orca, Manta, Hammerhead, Tiger Shark</li>
+        <li>Hoverboard</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="pets">
+    <h2>Animated props and pets</h2>
+    <div class="step"><span class="n">1</span><div><h3>Wear props</h3><p><code>/animatedprop</code> opens your <b>Regalia</b>: tails, wings, horns, pets and more. Equip, pick a colour, take it off. Using a prop item equips it; it stays safe in your Regalia while worn.</p></div></div>
+    <div class="step"><span class="n">2</span><div><h3>Your pet</h3><p><code>/petmenu</code> shows your pet's moves, <b>Stay</b>, <b>Roam</b> and <b>Stop</b>. <code>/petsummon</code> calls your pet out at full size or sends it back to your shoulder.</p></div></div>
+    <div class="step"><span class="n">3</span><div><h3>Ride your pet</h3><p>Summon it, press <kbd>J</kbd>: its mount stands where the pet stood. Get off and your pet is right there again, following you. Left its mount far away? <code>/petsummon</code> calls it back.</p></div></div>
+    <div class="step"><span class="n">4</span><div><h3>Prop moves</h3><p><code>/apflare</code>, <code>/apswish</code>, <code>/apshake</code>, <code>/apflick</code> play a move on the prop you wear, when it has that move. Everyone near you sees it.</p></div></div>
+  </section>
+
+  <section id="admins">
+    <h2>For admins <span class="badge admin">ADMIN</span></h2>
+    <div class="grid2">
+      <div class="panel"><h3>Players</h3><p>Search a player online by name or #id. Give or take <b>VIP Stable</b>; for every mount, <b>Lock to them</b> (every colour) or <b>Take back</b>; <b>Colours</b> opens chips to give single colours. "In their bag" and "Locked to them" show what they already have.</p></div>
+      <div class="panel"><h3>Who rides what</h3><p>Each mount gets a mode (below). One switch for "Mounts need their item". A pet's mount has <b>Normal mount too</b>: on = it can also be ridden without its pet. Search, then "Set every mount shown to…" changes many at once.</p></div>
+      <div class="panel"><h3>Mounts</h3><p>Every mount on one list: <b>On / Off</b>, its <b>name</b>, shop <b>price</b>, and its ride numbers (speed, boost, climb, walk / run, top speed, stamina, jump). <b>Back to config</b> undoes a row. <b>Add a mount</b> makes a copy under a new name with an existing model.</p></div>
+      <div class="panel"><h3>Shops</h3><p><b>Add a shop where you stand</b> and name it. Per shop: On / Off, Move here, Go there, Delete (click twice), the stable hand ped, the map icon, and what it sells (every mount on sale, or chosen mounts). Players press <kbd>E</kbd> there.</p></div>
+    </div>
+    <div class="modes" role="list">
+      <div class="mode" role="listitem"><b>Free</b><span>everyone rides it</span></div>
+      <div class="mode" role="listitem"><b>Item</b><span>needs its item (default)</span></div>
+      <div class="mode" role="listitem"><b>VIP or item</b><span>VIP without the item, others with it</span></div>
+      <div class="mode" role="listitem"><b>VIP only</b><span>the item alone is not enough</span></div>
+      <div class="mode" role="listitem"><b>Off</b><span>nobody; the item is kept</span></div>
+    </div>
+    <p class="note">A mount locked to a player always works for them, unless it is Off. Every change is logged in the server console and the player is told.</p>
+    <div class="step"><span class="n">+</span><div><h3>Props: <code>/apadmin</code></h3><p>The <b>Steward's Ledger</b>: give a prop (as an item or as access, for a time), activate a pet's mount, <b>Holders</b> (who has what, offline too), VIP tiers, permissions, shops, the Showroom and the log. A player's page shows their mounts with "Open in /mountadmin". <code>/apfit</code> opens the Fitting Bench.</p></div></div>
+    <div class="step"><span class="n">+</span><div><h3>Tuning: <code>/mountdev</code></h3><p>The full live editor for a mount (speeds, jump height, seats, camera), saved for every player. <code>/mountfit</code> measures a mount's height on the ground again.</p></div></div>
+    <p class="note">Who counts as an admin: for mounts, the ACE <code>rklmounts.admin</code> or the groups admin, superadmin, god, owner. For props, the roles in the Ledger's Permissions tab.</p>
+  </section>
+
+  <section id="setup">
+    <h2>Server setup</h2>
+    <p>Everything starts with <code>ensure [rkl]</code>. Keep these folders together:</p>
+    <pre class="cfg">resources/[rkl]/[mounts models]/rklmounts            the mount script (land + prop mounts inside)
+resources/[rkl]/[mounts models]/rklflyingmounts      dragons, gryphon, phoenix, wings
+resources/[rkl]/[mounts models]/rklmountninja        the ninja pet mounts
+resources/[rkl]/[mounts models]/rklmountfantasyland  wolf, kitsune, golem
+rklpet_ninjakirin  (with the pet packs)              the Kirin: pet, summon and mount
+resources/[rkl]/[animatedprops]/rklanimatedprop      props + pets, with its addon packs</pre>
+    <ul class="plain">
+      <li>If a model pack is missing, the server says so at start and those mounts cannot be called.</li>
+      <li>Do not run the old <code>rklmountdragons</code>, <code>rklmountfantasyfly</code> or <code>rklmountwings</code> next to <code>rklflyingmounts</code>: the same models twice.</li>
+      <li>What admins set in game lives in <code>rklmounts/data/</code>: <code>mounts.json</code>, <code>mount_rules.json</code>, <code>shops.json</code>, <code>mount_overrides.json</code>. Back these up with the server.</li>
+      <li>VIP and mount locks are in the database table <code>awaken_vip_perks</code> (oxmysql).</li>
+      <li>After an update, restart the changed resources (or the server).</li>
+    </ul>
+  </section>
+
+  <section id="commands">
+    <h2>All commands</h2>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search a command or what it does" aria-label="Search commands">
+      <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-f="player" aria-pressed="false">Players</button>
+      <button class="chip" type="button" data-f="admin" aria-pressed="false">Admins</button>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>Command</th><th>Who</th><th>What it does</th><th>Script</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Console commands are typed in the server console (txAdmin) without the slash, or in game by staff with the ACE <code>command.&lt;name&gt;</code>. Updated 2026-11-12. Nothing in this guide has been checked in game by its author.</footer>
+</div>
+
+<script>
+var C = [
+  ['F6 · /mountvip', 'player', 'Open My Mounts: every mount you can ride now, pick a colour, ride, send back, VIP lock', 'Mounts'],
+  ['E at a mount shop', 'player', 'Open that shop’s window and buy a mount', 'Mounts'],
+  ['J · /ridepet', 'player', 'Ride your summoned pet: its mount stands on its spot', 'Mounts'],
+  ['F7 · /rklmountsui', 'player', 'Mount UI settings: move, colour, hide parts', 'Mounts'],
+  ['F9 · /rklmountshide', 'player', 'Hide or show all mount UI', 'Mounts'],
+  ['/animatedprop', 'player', 'Open the Regalia: wear tails, wings, horns, pets', 'Props'],
+  ['/petmenu', 'player', 'Your pet: moves, Stay, Roam, Stop', 'Props'],
+  ['/petsummon', 'player', 'Summon your pet, send it back, or call back a pet mount left far away', 'Props'],
+  ['/apflare · /apswish · /apshake · /apflick', 'player', 'Play that move on the prop you wear', 'Props'],
+  ['/mountadmin', 'admin', 'Mount Admin: Players (VIP, locks, colours), Who rides what, Mounts (names, prices, on / off, new), Shops', 'Mounts'],
+  ['/mountgrant <id> <mount | colour | vip> [off]', 'admin', 'Lock a mount, one colour or VIP to a player by command (console too)', 'Mounts'],
+  ['/mountdev', 'admin', 'Live mount editor: speeds, jump, seats, camera, saved for everyone', 'Mounts'],
+  ['/mountfit [reset | off | on]', 'admin', 'Measure a mount’s height on the ground again, or switch the fit off / on', 'Mounts'],
+  ['/mountdebug', 'admin', 'Mount debug info in F8', 'Mounts'],
+  ['/findanims [dict]', 'admin', 'Check which animation dictionaries load', 'Mounts'],
+  ['/apadmin', 'admin', 'Steward’s Ledger: give props, pet mounts, Holders, VIP, permissions, shops, log', 'Props'],
+  ['/apfit', 'admin', 'Fitting Bench: place a prop on the body', 'Props'],
+  ['apgive <id> <prop> [colour | all]', 'admin', 'Give a prop item (console or ACE)', 'Props'],
+  ['apgiveall <id> [category | all]', 'admin', 'Give every design of a category, all colours (testing)', 'Props'],
+  ['apgrant <player> <scope> [minutes] [colour]', 'admin', 'Give access to a prop without an item', 'Props'],
+  ['aprevoke <player> <scope>', 'admin', 'Take that access back', 'Props'],
+  ['apvip <player> <tier | remove> [days]', 'admin', 'Set or remove a player’s prop VIP tier', 'Props'],
+  ['apaccess [scope] [preset]', 'admin', 'Show or set who may wear a prop, family or category', 'Props'],
+  ['aproles [reset]', 'admin', 'List the staff roles (reset = back to the config)', 'Props'],
+  ['aplog [count]', 'admin', 'The last ledger entries', 'Props'],
+  ['apshop [reset]', 'admin', 'List the prop shops (reset = back to the config)', 'Props'],
+  ['apitems [json]', 'admin', 'Print the items.lua block and pictures for every prop', 'Props'],
+  ['apaddons', 'admin', 'List the prop addons the server found', 'Props'],
+  ['apfitexport', 'admin', 'Write the fitted places to fit_export.json', 'Props'],
+  ['/apdebug', 'admin', 'List every spawned prop in F8', 'Props']
+];
+var f = 'all';
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function draw(){
+  var q = document.getElementById('q').value.trim().toLowerCase();
+  var out = C.filter(function(r){ return (f === 'all' || r[1] === f) && (!q || (r[0] + ' ' + r[2] + ' ' + r[3]).toLowerCase().indexOf(q) !== -1); });
+  document.getElementById('rows').innerHTML = out.map(function(r){
+    return '<tr><td><code>' + esc(r[0]) + '</code></td><td class="who' + (r[1] === 'admin' ? ' adm' : '') + '">' + (r[1] === 'admin' ? 'Admin' : 'Player') + '</td><td>' + esc(r[2]) + '</td><td>' + esc(r[3]) + '</td></tr>';
+  }).join('') || '<tr><td colspan="4">No command matches.</td></tr>';
+  document.getElementById('count').textContent = out.length + ' of ' + C.length + ' commands';
+}
+document.getElementById('q').addEventListener('input', draw);
+Array.prototype.forEach.call(document.querySelectorAll('.chip'), function(b){
+  b.addEventListener('click', function(){
+    f = b.dataset.f;
+    Array.prototype.forEach.call(document.querySelectorAll('.chip'), function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    draw();
+  });
+});
+draw();
+</script>
+
+</body>
+</html>
