@@ -82,6 +82,22 @@ A picture of every mount and prop, with what comes free and what is in each add-
 
 **Add-on packs:** Flying Mounts (more Blood Dragon colours, Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, Angelic and Celestial Wings) · Ninja Mounts · Fantasy Land Mounts · Fox Tails · Magic Circles I and II · Wings · Ninja Pets · Fantasy Pets
 
+### See them turn
+
+<table><tr>
+<td align="center"><img src="docs/img/spin/blood_dragon.webp" width="170" alt="Blood Dragon"><br>Blood Dragon · free</td>
+<td align="center"><img src="docs/img/spin/ironclad_destrier.webp" width="170" alt="Ironclad Destrier"><br>Ironclad Destrier · free</td>
+<td align="center"><img src="docs/img/spin/mw_angelic.webp" width="170" alt="Angelic Wings"><br>Angelic Wings</td>
+<td align="center"><img src="docs/img/spin/cinderwyrm.webp" width="170" alt="Fantasy Dragon"><br>Fantasy Dragon</td>
+</tr><tr>
+<td align="center"><img src="docs/img/spin/pet_ninjadogn.webp" width="170" alt="Ninja Dog pet"><br>Ninja Dog pet</td>
+<td align="center"><img src="docs/img/spin/pet_golemn.webp" width="170" alt="Starforged Golem pet"><br>Starforged Golem pet</td>
+<td align="center"><img src="docs/img/spin/foxtail9.webp" width="170" alt="Nine-Tailed Fox"><br>Nine-Tailed Fox</td>
+<td align="center"><img src="docs/img/spin/magiccircle14.webp" width="170" alt="Phoenix Rebirth"><br>Phoenix Rebirth circle</td>
+</tr></table>
+
+Every model turns on the guide page: point at it in **[Every model](https://rklgaming.github.io/mountsandanimatedprop/#mounts)**.
+
 ### Free with the scripts
 
 ![Free with Dynamic Mounts](docs/img/packs/free-with-dynamic-mounts.webp)

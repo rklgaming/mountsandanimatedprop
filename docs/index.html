@@ -277,6 +277,8 @@ dialog.lb .say{ padding:10px 14px; color:var(--ink-soft); min-height:2.6em; bord
 .mcard .tag{ position:absolute; top:8px; left:8px; font-family:var(--f-head); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; padding:3px 7px; border-radius:2px;
   background:rgba(7,6,12,.82); border:1px solid rgba(217,178,95,.5); color:var(--ink-soft); max-width:calc(100% - 16px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .mcard .tag.free{ background:linear-gradient(180deg, #f7dd96, #d9b25f); color:#1a1206; border-color:transparent; }
+.mcard .spin360{ position:absolute; top:8px; right:8px; font-family:var(--f-head); font-size:.58rem; letter-spacing:.1em; padding:3px 6px; border-radius:2px;
+  background:rgba(7,6,12,.82); border:1px solid rgba(217,178,95,.5); color:var(--gold-hi, #f7dd96); }
 @media (max-width:560px){ .mgrid{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; } .mcard .cap b{ font-size:.82rem; } }
 .gta{ margin-top:14px; color:var(--ink-soft); }
 .sheets-h{ margin:26px 0 10px; font-family:var(--f-head); letter-spacing:.08em; color:var(--gold-hi, #f7dd96); }
@@ -415,7 +417,7 @@ details.more[open] > summary::before{ content:"\25BE  "; }
 
   <section id="mounts" class="chapter">
     <h2><span class="num">IV</span>Every model</h2>
-    <p class="lede">Every mount and prop we sell, as it looks in game. <b>Free</b> ones come with the script; the others are add-on packs you drop next to it. Click one to see it big.</p>
+    <p class="lede">Every mount and prop we sell, as it looks in game. <b>Free</b> ones come with the script; the others are add-on packs you drop next to it. Point at one to see it turn, click it to see it big.</p>
     <div class="mfilter" id="mfilter"></div>
     <div class="mseg" id="mseg"></div>
     <div class="mgrid" id="mgrid"></div>
@@ -978,7 +980,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/blood_dragon.webp"
+   "img": "img/models/blood_dragon.webp",
+   "src": "blood_dragon",
+   "spin": "img/spin/blood_dragon.webp"
   },
   {
    "name": "Blood Dragon",
@@ -987,7 +991,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/blood_dragon_azure.webp"
+   "img": "img/models/blood_dragon_azure.webp",
+   "src": "blood_dragon_azure",
+   "spin": "img/spin/blood_dragon_azure.webp"
   },
   {
    "name": "Demon Wings",
@@ -996,7 +1002,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/mw_demon.webp"
+   "img": "img/models/mw_demon.webp",
+   "src": "rkl_mw_demon",
+   "spin": "img/spin/mw_demon.webp"
   },
   {
    "name": "Fairy Wings",
@@ -1005,7 +1013,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/mw_fairy.webp"
+   "img": "img/models/mw_fairy.webp",
+   "src": "rkl_mw_fairy",
+   "spin": "img/spin/mw_fairy.webp"
   },
   {
    "name": "Vampire Wings",
@@ -1014,7 +1024,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/mw_vampire.webp"
+   "img": "img/models/mw_vampire.webp",
+   "src": "rkl_mw_vampire",
+   "spin": "img/spin/mw_vampire.webp"
   },
   {
    "name": "Ironclad Destrier",
@@ -1023,7 +1035,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/ironclad_destrier.webp"
+   "img": "img/models/ironclad_destrier.webp",
+   "src": "rkl_ironclad_destrier",
+   "spin": "img/spin/ironclad_destrier.webp"
   },
   {
    "name": "Elven Palfrey",
@@ -1032,7 +1046,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/elven_palfrey.webp"
+   "img": "img/models/elven_palfrey.webp",
+   "src": "rkl_elven_palfrey",
+   "spin": "img/spin/elven_palfrey.webp"
   },
   {
    "name": "Wayfarer Courser",
@@ -1041,7 +1057,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/wayfarer_courser.webp"
+   "img": "img/models/wayfarer_courser.webp",
+   "src": "rkl_wayfarer_courser",
+   "spin": "img/spin/wayfarer_courser.webp"
   },
   {
    "name": "Peddler's Donkey",
@@ -1050,7 +1068,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/peddler_donkey.webp"
+   "img": "img/models/peddler_donkey.webp",
+   "src": "rkl_peddler_donkey",
+   "spin": "img/spin/peddler_donkey.webp"
   },
   {
    "name": "Broomstick",
@@ -1059,7 +1079,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/broombroom.webp"
+   "img": "img/models/broombroom.webp",
+   "src": "broombroom",
+   "spin": "img/spin/broombroom.webp"
   },
   {
    "name": "Cloud",
@@ -1068,7 +1090,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/cloudy.webp"
+   "img": "img/models/cloudy.webp",
+   "src": "cloudy",
+   "spin": "img/spin/cloudy.webp"
   },
   {
    "name": "Hoverboard",
@@ -1077,7 +1101,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/hoverboard.webp"
+   "img": "img/models/hoverboard.webp",
+   "src": "hoverboard",
+   "spin": "img/spin/hoverboard.webp"
   },
   {
    "name": "Gale Fan",
@@ -1086,7 +1112,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/galefan.webp"
+   "img": "img/models/galefan.webp",
+   "src": "rkl_galefan",
+   "spin": "img/spin/galefan.webp"
   },
   {
    "name": "Dune Disc",
@@ -1095,7 +1123,9 @@ var MODELS = {
    "where": "Free with Dynamic Mounts",
    "free": true,
    "script": "Dynamic Mounts",
-   "img": "img/models/sanddisc.webp"
+   "img": "img/models/sanddisc.webp",
+   "src": "rkl_sanddisc",
+   "spin": "img/spin/sanddisc.webp"
   },
   {
    "name": "One-Tailed Fox",
@@ -1104,7 +1134,9 @@ var MODELS = {
    "where": "Free with Dynamic Animated Pets & Props",
    "free": true,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail1.webp"
+   "img": "img/models/foxtail1.webp",
+   "src": "rkl_foxtail1",
+   "spin": "img/spin/foxtail1.webp"
   },
   {
    "name": "Demon Tail",
@@ -1113,7 +1145,9 @@ var MODELS = {
    "where": "Free with Dynamic Animated Pets & Props",
    "free": true,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/demontail.webp"
+   "img": "img/models/demontail.webp",
+   "src": "rkl_demontail",
+   "spin": "img/spin/demontail.webp"
   },
   {
    "name": "Dragon Tail",
@@ -1122,7 +1156,9 @@ var MODELS = {
    "where": "Free with Dynamic Animated Pets & Props",
    "free": true,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/dragontail.webp"
+   "img": "img/models/dragontail.webp",
+   "src": "rkl_dragontail",
+   "spin": "img/spin/dragontail.webp"
   },
   {
    "name": "Arcane Sigil",
@@ -1131,7 +1167,9 @@ var MODELS = {
    "where": "Free with Dynamic Animated Pets & Props",
    "free": true,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle1.webp"
+   "img": "img/models/magiccircle1.webp",
+   "src": "rkl_magiccircle1",
+   "spin": "img/spin/magiccircle1.webp"
   },
   {
    "name": "Infernal Pyre",
@@ -1140,7 +1178,9 @@ var MODELS = {
    "where": "Free with Dynamic Animated Pets & Props",
    "free": true,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle2.webp"
+   "img": "img/models/magiccircle2.webp",
+   "src": "rkl_magiccircle2",
+   "spin": "img/spin/magiccircle2.webp"
   },
   {
    "name": "Void Kitsune",
@@ -1149,7 +1189,9 @@ var MODELS = {
    "where": "Free with Dynamic Animated Pets & Props",
    "free": true,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_kitsunen.webp"
+   "img": "img/models/pet_kitsunen.webp",
+   "src": "rkl_pet_kitsunen",
+   "spin": "img/spin/pet_kitsunen.webp"
   },
   {
    "name": "Two-Tailed Fox",
@@ -1158,7 +1200,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail2.webp"
+   "img": "img/models/foxtail2.webp",
+   "src": "rkl_foxtail2",
+   "spin": "img/spin/foxtail2.webp"
   },
   {
    "name": "Three-Tailed Fox",
@@ -1167,7 +1211,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail3.webp"
+   "img": "img/models/foxtail3.webp",
+   "src": "rkl_foxtail3",
+   "spin": "img/spin/foxtail3.webp"
   },
   {
    "name": "Four-Tailed Fox",
@@ -1176,7 +1222,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail4.webp"
+   "img": "img/models/foxtail4.webp",
+   "src": "rkl_foxtail4",
+   "spin": "img/spin/foxtail4.webp"
   },
   {
    "name": "Five-Tailed Fox",
@@ -1185,7 +1233,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail5.webp"
+   "img": "img/models/foxtail5.webp",
+   "src": "rkl_foxtail5",
+   "spin": "img/spin/foxtail5.webp"
   },
   {
    "name": "Six-Tailed Fox",
@@ -1194,7 +1244,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail6.webp"
+   "img": "img/models/foxtail6.webp",
+   "src": "rkl_foxtail6",
+   "spin": "img/spin/foxtail6.webp"
   },
   {
    "name": "Seven-Tailed Fox",
@@ -1203,7 +1255,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail7.webp"
+   "img": "img/models/foxtail7.webp",
+   "src": "rkl_foxtail7",
+   "spin": "img/spin/foxtail7.webp"
   },
   {
    "name": "Eight-Tailed Fox",
@@ -1212,7 +1266,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail8.webp"
+   "img": "img/models/foxtail8.webp",
+   "src": "rkl_foxtail8",
+   "spin": "img/spin/foxtail8.webp"
   },
   {
    "name": "Nine-Tailed Fox",
@@ -1221,7 +1277,9 @@ var MODELS = {
    "where": "Fox Tails Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/foxtail9.webp"
+   "img": "img/models/foxtail9.webp",
+   "src": "rkl_foxtail9",
+   "spin": "img/spin/foxtail9.webp"
   },
   {
    "name": "Glacial Ward",
@@ -1230,7 +1288,9 @@ var MODELS = {
    "where": "Magic Circles Pack I",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle3.webp"
+   "img": "img/models/magiccircle3.webp",
+   "src": "rkl_magiccircle3",
+   "spin": "img/spin/magiccircle3.webp"
   },
   {
    "name": "Verdant Grove",
@@ -1239,7 +1299,9 @@ var MODELS = {
    "where": "Magic Circles Pack I",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle4.webp"
+   "img": "img/models/magiccircle4.webp",
+   "src": "rkl_magiccircle4",
+   "spin": "img/spin/magiccircle4.webp"
   },
   {
    "name": "Celestial Orrery",
@@ -1248,7 +1310,9 @@ var MODELS = {
    "where": "Magic Circles Pack I",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle5.webp"
+   "img": "img/models/magiccircle5.webp",
+   "src": "rkl_magiccircle5",
+   "spin": "img/spin/magiccircle5.webp"
   },
   {
    "name": "Ascension Rings",
@@ -1257,7 +1321,9 @@ var MODELS = {
    "where": "Magic Circles Pack I",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle6.webp"
+   "img": "img/models/magiccircle6.webp",
+   "src": "rkl_magiccircle6",
+   "spin": "img/spin/magiccircle6.webp"
   },
   {
    "name": "Sanctum Wall",
@@ -1266,7 +1332,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle7.webp"
+   "img": "img/models/magiccircle7.webp",
+   "src": "rkl_magiccircle7",
+   "spin": "img/spin/magiccircle7.webp"
   },
   {
    "name": "Storm Spiral",
@@ -1275,7 +1343,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle8.webp"
+   "img": "img/models/magiccircle8.webp",
+   "src": "rkl_magiccircle8",
+   "spin": "img/spin/magiccircle8.webp"
   },
   {
    "name": "Fenrir Fetter",
@@ -1284,7 +1354,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle9.webp"
+   "img": "img/models/magiccircle9.webp",
+   "src": "rkl_magiccircle9",
+   "spin": "img/spin/magiccircle9.webp"
   },
   {
    "name": "Chronogear Engine",
@@ -1293,7 +1365,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle10.webp"
+   "img": "img/models/magiccircle10.webp",
+   "src": "rkl_magiccircle10",
+   "spin": "img/spin/magiccircle10.webp"
   },
   {
    "name": "Lung Pearl Dragon",
@@ -1302,7 +1376,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle11.webp"
+   "img": "img/models/magiccircle11.webp",
+   "src": "rkl_magiccircle11",
+   "spin": "img/spin/magiccircle11.webp"
   },
   {
    "name": "Blade Carousel",
@@ -1311,7 +1387,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle12.webp"
+   "img": "img/models/magiccircle12.webp",
+   "src": "rkl_magiccircle12",
+   "spin": "img/spin/magiccircle12.webp"
   },
   {
    "name": "Weaver Queen",
@@ -1320,7 +1398,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle13.webp"
+   "img": "img/models/magiccircle13.webp",
+   "src": "rkl_magiccircle13",
+   "spin": "img/spin/magiccircle13.webp"
   },
   {
    "name": "Phoenix Rebirth",
@@ -1329,7 +1409,9 @@ var MODELS = {
    "where": "Magic Circles Pack II",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/magiccircle14.webp"
+   "img": "img/models/magiccircle14.webp",
+   "src": "rkl_magiccircle14",
+   "spin": "img/spin/magiccircle14.webp"
   },
   {
    "name": "Angelic Wings",
@@ -1338,7 +1420,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/angelicwings.webp"
+   "img": "img/models/angelicwings.webp",
+   "src": "rkl_angelicwings",
+   "spin": "img/spin/angelicwings.webp"
   },
   {
    "name": "Celestial Fairy Wings",
@@ -1347,7 +1431,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/celestialwings.webp"
+   "img": "img/models/celestialwings.webp",
+   "src": "rkl_celestialwings",
+   "spin": "img/spin/celestialwings.webp"
   },
   {
    "name": "Fairy Wings",
@@ -1356,7 +1442,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/fairywings.webp"
+   "img": "img/models/fairywings.webp",
+   "src": "rkl_fairywings",
+   "spin": "img/spin/fairywings.webp"
   },
   {
    "name": "Demon Wings",
@@ -1365,7 +1453,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/demonwings.webp"
+   "img": "img/models/demonwings.webp",
+   "src": "rkl_demonwings",
+   "spin": "img/spin/demonwings.webp"
   },
   {
    "name": "Vampire Wings",
@@ -1374,7 +1464,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/vampirewings.webp"
+   "img": "img/models/vampirewings.webp",
+   "src": "rkl_vampirewings",
+   "spin": "img/spin/vampirewings.webp"
   },
   {
    "name": "Demon Wings",
@@ -1383,7 +1475,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/mountdemonwings.webp"
+   "img": "img/models/mountdemonwings.webp",
+   "src": "rkl_mountdemonwings",
+   "spin": "img/spin/mountdemonwings.webp"
   },
   {
    "name": "Fairy Wings",
@@ -1392,7 +1486,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/mountfairywings.webp"
+   "img": "img/models/mountfairywings.webp",
+   "src": "rkl_mountfairywings",
+   "spin": "img/spin/mountfairywings.webp"
   },
   {
    "name": "Vampire Wings",
@@ -1401,7 +1497,9 @@ var MODELS = {
    "where": "Wings Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/mountvampirewings.webp"
+   "img": "img/models/mountvampirewings.webp",
+   "src": "rkl_mountvampirewings",
+   "spin": "img/spin/mountvampirewings.webp"
   },
   {
    "name": "Ninja Dog",
@@ -1410,7 +1508,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjadogn.webp"
+   "img": "img/models/pet_ninjadogn.webp",
+   "src": "rkl_pet_ninjadogn",
+   "spin": "img/spin/pet_ninjadogn.webp"
   },
   {
    "name": "Ninja Dog Scout",
@@ -1419,7 +1519,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjascoutn.webp"
+   "img": "img/models/pet_ninjascoutn.webp",
+   "src": "rkl_pet_ninjascoutn",
+   "spin": "img/spin/pet_ninjascoutn.webp"
   },
   {
    "name": "Ninja Cat",
@@ -1428,7 +1530,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjacatn.webp"
+   "img": "img/models/pet_ninjacatn.webp",
+   "src": "rkl_pet_ninjacatn",
+   "spin": "img/spin/pet_ninjacatn.webp"
   },
   {
    "name": "Ninja Ape",
@@ -1437,7 +1541,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjaapen.webp"
+   "img": "img/models/pet_ninjaapen.webp",
+   "src": "rkl_pet_ninjaapen",
+   "spin": "img/spin/pet_ninjaapen.webp"
   },
   {
    "name": "Ninja Toad",
@@ -1446,7 +1552,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjatoadn.webp"
+   "img": "img/models/pet_ninjatoadn.webp",
+   "src": "rkl_pet_ninjatoadn",
+   "spin": "img/spin/pet_ninjatoadn.webp"
   },
   {
    "name": "Ninja Falcon",
@@ -1455,7 +1563,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjafalconn.webp"
+   "img": "img/models/pet_ninjafalconn.webp",
+   "src": "rkl_pet_ninjafalconn",
+   "spin": "img/spin/pet_ninjafalconn.webp"
   },
   {
    "name": "Ninja Serpent",
@@ -1464,7 +1574,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjaserpent.webp"
+   "img": "img/models/pet_ninjaserpent.webp",
+   "src": "rkl_pet_ninjaserpent",
+   "spin": "img/spin/pet_ninjaserpent.webp"
   },
   {
    "name": "Ninja Slug",
@@ -1473,7 +1585,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjaslugn.webp"
+   "img": "img/models/pet_ninjaslugn.webp",
+   "src": "rkl_pet_ninjaslugn",
+   "spin": "img/spin/pet_ninjaslugn.webp"
   },
   {
    "name": "Ninja Tortoise",
@@ -1482,7 +1596,9 @@ var MODELS = {
    "where": "Ninja Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_ninjatortoisen.webp"
+   "img": "img/models/pet_ninjatortoisen.webp",
+   "src": "rkl_pet_ninjatortoisen",
+   "spin": "img/spin/pet_ninjatortoisen.webp"
   },
   {
    "name": "Fantasy Dragon",
@@ -1491,7 +1607,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_fantasydragonn.webp"
+   "img": "img/models/pet_fantasydragonn.webp",
+   "src": "rkl_pet_fantasydragonn",
+   "spin": "img/spin/pet_fantasydragonn.webp"
   },
   {
    "name": "Chinese Fantasy Dragon",
@@ -1500,7 +1618,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_chinesedragonn.webp"
+   "img": "img/models/pet_chinesedragonn.webp",
+   "src": "rkl_pet_chinesedragonn",
+   "spin": "img/spin/pet_chinesedragonn.webp"
   },
   {
    "name": "Celestial Dragon",
@@ -1509,7 +1629,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_celdragonn.webp"
+   "img": "img/models/pet_celdragonn.webp",
+   "src": "rkl_pet_celdragonn",
+   "spin": "img/spin/pet_celdragonn.webp"
   },
   {
    "name": "Fantasy Phoenix",
@@ -1518,7 +1640,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_firephoenixn.webp"
+   "img": "img/models/pet_firephoenixn.webp",
+   "src": "rkl_pet_firephoenixn",
+   "spin": "img/spin/pet_firephoenixn.webp"
   },
   {
    "name": "Gryphon Boss",
@@ -1527,7 +1651,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_gryphonn.webp"
+   "img": "img/models/pet_gryphonn.webp",
+   "src": "rkl_pet_gryphonn",
+   "spin": "img/spin/pet_gryphonn.webp"
   },
   {
    "name": "Starforged Golem",
@@ -1536,7 +1662,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_golemn.webp"
+   "img": "img/models/pet_golemn.webp",
+   "src": "rkl_pet_golemn",
+   "spin": "img/spin/pet_golemn.webp"
   },
   {
    "name": "Abyssal Shark",
@@ -1545,7 +1673,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_sharkn.webp"
+   "img": "img/models/pet_sharkn.webp",
+   "src": "rkl_pet_sharkn",
+   "spin": "img/spin/pet_sharkn.webp"
   },
   {
    "name": "Amethyst Wolf",
@@ -1554,7 +1684,9 @@ var MODELS = {
    "where": "Fantasy Pets Pack",
    "free": false,
    "script": "Dynamic Animated Pets & Props",
-   "img": "img/models/pet_wolfn.webp"
+   "img": "img/models/pet_wolfn.webp",
+   "src": "rkl_pet_wolfn",
+   "spin": "img/spin/pet_wolfn.webp"
   },
   {
    "name": "Fantasy Dragon",
@@ -1563,7 +1695,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/cinderwyrm.webp"
+   "img": "img/models/cinderwyrm.webp",
+   "src": "cinderwyrm",
+   "spin": "img/spin/cinderwyrm.webp"
   },
   {
    "name": "Chinese Fantasy Dragon",
@@ -1572,7 +1706,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/tianlong.webp"
+   "img": "img/models/tianlong.webp",
+   "src": "tianlong",
+   "spin": "img/spin/tianlong.webp"
   },
   {
    "name": "Celestial Dragon",
@@ -1581,7 +1717,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/astralwyrm.webp"
+   "img": "img/models/astralwyrm.webp",
+   "src": "astralwyrm",
+   "spin": "img/spin/astralwyrm.webp"
   },
   {
    "name": "Gryphon Boss",
@@ -1590,7 +1728,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/stormtalon.webp"
+   "img": "img/models/stormtalon.webp",
+   "src": "stormtalon",
+   "spin": "img/spin/stormtalon.webp"
   },
   {
    "name": "Fantasy Phoenix",
@@ -1599,7 +1739,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/emberwing.webp"
+   "img": "img/models/emberwing.webp",
+   "src": "emberwing",
+   "spin": "img/spin/emberwing.webp"
   },
   {
    "name": "Angelic Wings",
@@ -1608,7 +1750,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/mw_angelic.webp"
+   "img": "img/models/mw_angelic.webp",
+   "src": "rkl_mw_angelic",
+   "spin": "img/spin/mw_angelic.webp"
   },
   {
    "name": "Celestial Wings",
@@ -1617,7 +1761,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/mw_celestial.webp"
+   "img": "img/models/mw_celestial.webp",
+   "src": "rkl_mw_celestial",
+   "spin": "img/spin/mw_celestial.webp"
   },
   {
    "name": "Blood Dragon",
@@ -1626,7 +1772,9 @@ var MODELS = {
    "where": "Flying Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/blood_dragon_10.webp"
+   "img": "img/models/blood_dragon_10.webp",
+   "src": "blood_dragon_10",
+   "spin": "img/spin/blood_dragon_10.webp"
   },
   {
    "name": "Ninja Dog",
@@ -1635,7 +1783,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjadog.webp"
+   "img": "img/models/ninjadog.webp",
+   "src": "ninjadog",
+   "spin": "img/spin/ninjadog.webp"
   },
   {
    "name": "Ninja Dog Scout",
@@ -1644,7 +1794,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjascout.webp"
+   "img": "img/models/ninjascout.webp",
+   "src": "ninjascout",
+   "spin": "img/spin/ninjascout.webp"
   },
   {
    "name": "Ninja Cat",
@@ -1653,7 +1805,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjacat.webp"
+   "img": "img/models/ninjacat.webp",
+   "src": "ninjacat",
+   "spin": "img/spin/ninjacat.webp"
   },
   {
    "name": "Ninja Ape",
@@ -1662,7 +1816,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjaape.webp"
+   "img": "img/models/ninjaape.webp",
+   "src": "ninjaape",
+   "spin": "img/spin/ninjaape.webp"
   },
   {
    "name": "Ninja Toad",
@@ -1671,7 +1827,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjatoad.webp"
+   "img": "img/models/ninjatoad.webp",
+   "src": "ninjatoad",
+   "spin": "img/spin/ninjatoad.webp"
   },
   {
    "name": "Ninja Falcon",
@@ -1680,7 +1838,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjafalcon.webp"
+   "img": "img/models/ninjafalcon.webp",
+   "src": "ninjafalcon",
+   "spin": "img/spin/ninjafalcon.webp"
   },
   {
    "name": "Ninja Serpent",
@@ -1689,7 +1849,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjaserpent.webp"
+   "img": "img/models/ninjaserpent.webp",
+   "src": "ninjaserpent",
+   "spin": "img/spin/ninjaserpent.webp"
   },
   {
    "name": "Ninja Slug",
@@ -1698,7 +1860,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjaslug.webp"
+   "img": "img/models/ninjaslug.webp",
+   "src": "ninjaslug",
+   "spin": "img/spin/ninjaslug.webp"
   },
   {
    "name": "Ninja Tortoise",
@@ -1707,7 +1871,9 @@ var MODELS = {
    "where": "Ninja Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/ninjatortoise.webp"
+   "img": "img/models/ninjatortoise.webp",
+   "src": "ninjatortoise",
+   "spin": "img/spin/ninjatortoise.webp"
   },
   {
    "name": "Amethyst Wolf",
@@ -1716,7 +1882,9 @@ var MODELS = {
    "where": "Fantasy Land Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/duskfang.webp"
+   "img": "img/models/duskfang.webp",
+   "src": "duskfang",
+   "spin": "img/spin/duskfang.webp"
   },
   {
    "name": "Void Kitsune",
@@ -1725,7 +1893,9 @@ var MODELS = {
    "where": "Fantasy Land Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/nyxtail.webp"
+   "img": "img/models/nyxtail.webp",
+   "src": "nyxtail",
+   "spin": "img/spin/nyxtail.webp"
   },
   {
    "name": "Starforged Golem",
@@ -1734,7 +1904,9 @@ var MODELS = {
    "where": "Fantasy Land Mounts Pack",
    "free": false,
    "script": "Dynamic Mounts",
-   "img": "img/models/stonewarden.webp"
+   "img": "img/models/stonewarden.webp",
+   "src": "stonewarden",
+   "spin": "img/spin/stonewarden.webp"
   }
  ],
  "sheets": [
@@ -1833,11 +2005,16 @@ function drawModels(){
       var p = el('div', 'pic'); var im = el('img'); im.src = m.img; im.alt = m.name; im.loading = 'lazy'; p.appendChild(im); c.appendChild(p);
       var cap = el('div', 'cap'); cap.appendChild(el('b', null, m.name)); if (m.sub) cap.appendChild(el('span', null, m.sub)); c.appendChild(cap);
       c.appendChild(el('span', 'tag' + (m.free ? ' free' : ''), m.free ? 'Free' : m.where.replace(/ Pack\b/, '')));
+      if (m.spin) {                                              // a turntable: hover spins it, the big view shows it turning
+        c.appendChild(el('span', 'spin360', '360°'));
+        c.addEventListener('mouseenter', function(){ im.src = m.spin; });
+        c.addEventListener('mouseleave', function(){ im.src = m.img; });
+      }
       function open(){
         $('#lbt').textContent = m.name + (m.sub ? ' · ' + m.sub : '');
         var host = $('#lbs'); host.innerHTML = ''; host.className = 'stage model';
-        var big = el('img'); big.src = m.img; big.alt = m.name; host.appendChild(big);
-        $('#lbsay').textContent = (m.free ? 'Free with ' + m.script + '.' : 'In the ' + m.where + ' (an add-on for ' + m.script + ').');
+        var big = el('img'); big.src = m.spin || m.img; big.alt = m.name; host.appendChild(big);
+        $('#lbsay').textContent = (m.free ? 'Free with ' + m.script + '.' : 'In the ' + m.where + ' (an add-on for ' + m.script + ').') + (m.spin ? ' Turning all the way round.' : '');
         if (typeof lb.showModal === 'function') lb.showModal(); else window.open(m.img, '_blank');
       }
       c.addEventListener('click', open);
