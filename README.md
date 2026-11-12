@@ -5,7 +5,11 @@
 
 How to ride mounts, wear animated props and ride your pet, all that admins can set in game, and every command.
 
-**[Open the illustrated guide](https://rklgaming.github.io/mountsandanimatedprop/)** &nbsp;·&nbsp; every key can be changed in *Settings › Key Bindings › FiveM*
+### **[✦ Open the interactive guide ✦](https://rklgaming.github.io/mountsandanimatedprop/)**
+
+*Type what you want to do and get the steps · tour every screen with numbered parts · a key map for land, sky and water · check who can ride a mount · copy any command.*
+
+Every key can be changed in *Settings › Key Bindings › FiveM*
 
 </div>
 
@@ -19,6 +23,7 @@ How to ride mounts, wear animated props and ride your pet, all that admins can s
 - **Assigned only** *(new)*: a mount only for the players it was given to. VIP alone is not enough.
 - **Holders** *(new)*: everyone who has access, offline too. Take it back from there, even from a player who is not online.
 - **Logs** *(new)*: who gave or took access, when, and to whom. Search an admin, a player or a mount.
+- A speed set in `/mountdev` now goes to every colour of that mount *(new)*.
 - Rename mounts, turn them on or off, set prices and speeds, add a new mount from a copy.
 - Place mount shops where you stand; players walk up and press **E**.
 
@@ -124,7 +129,7 @@ Screens: **F6** My Mounts · **J** ride your pet · **F7** arrange the mount UI 
 |---|---|
 | ![Steward's Ledger](docs/img/props-ledger.png) *The Steward's Ledger: who may wear each prop* | ![Pet mounts](docs/img/props-petmounts.png) *Holders: who has which pet mount* |
 
-**Tuning**: `/mountdev` edits a mount live for everyone; `/mountfit` measures a mount's height on the ground again.
+**Tuning**: `/mountdev` edits a mount live for everyone (a speed, top speed, stamina or jump goes to every colour of it); `/mountfit` measures a mount's height on the ground again.
 
 ---
 
