@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mounts and Props Guide</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="How to ride mounts, wear animated props and ride your pet, what admins can set in game, and every command: with a task finder, screen tours and a key map.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
 <style>
@@ -137,10 +137,158 @@ td.what{ color:var(--ink-soft); }
 footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:italic; display:flex; flex-direction:column; align-items:center; gap:10px; }
 @media (max-width:520px){ body{ font-size:17px; } .chapter{ padding:20px 16px 18px; } }
 @media (prefers-reduced-motion: reduce){ *{ scroll-behavior:auto !important; } }
-</style>
 
+/* ===================== the interactive parts ===================== */
+html{ scroll-behavior:smooth; }
+section, .taskview, .tour{ scroll-margin-top:76px; }          /* not under the sticky bar */
+@media (max-width:640px){ section, .taskview, .tour{ scroll-margin-top:118px; } }
+[hidden]{ display:none !important; }
+button{ font:inherit; }
+.btn{ font-family:var(--f-head); font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; padding:8px 14px; border-radius:2px; border:1px solid var(--line);
+  background:rgba(0,0,0,.3); color:var(--ink); cursor:pointer; }
+.btn:hover{ border-color:var(--gold); color:var(--gold-hi); }
+.btn:focus-visible, .pin:focus-visible, .key:focus-visible, .task:focus-visible{ outline:2px solid var(--gold-hi); outline-offset:2px; }
+.btn.gold{ background:linear-gradient(180deg, var(--gold-hi), var(--gold)); color:var(--night); border-color:var(--gold); }
+
+/* the bar that stays on top: who you are + the finder */
+.bar{ position:sticky; top:0; z-index:20; margin:0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding:10px max(16px, env(safe-area-inset-left, 0px));
+  background:linear-gradient(180deg, rgba(11,9,18,.97), rgba(11,9,18,.88)); border-bottom:1px solid var(--line); backdrop-filter:blur(6px);
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.bar .lbl{ font-family:var(--f-head); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); }
+.seg{ display:inline-flex; border:1px solid var(--line); border-radius:2px; overflow:hidden; }
+.seg button{ border:0; border-right:1px solid var(--line); background:rgba(0,0,0,.3); color:var(--ink); cursor:pointer; padding:7px 13px;
+  font-family:var(--f-head); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; }
+.seg button:last-child{ border-right:0; }
+.seg button[aria-pressed="true"]{ background:linear-gradient(180deg, var(--gold-hi), var(--gold)); color:var(--night); }
+.bar .find{ flex:1; min-width:200px; display:flex; }
+.bar input{ flex:1; min-width:0; font:inherit; font-size:1rem; padding:7px 12px; border:1px solid var(--line); border-radius:2px; background:rgba(0,0,0,.4); color:var(--ink); }
+.bar input:focus{ outline:1px solid var(--gold); }
+body[data-role="player"] [data-for="admin"], body[data-role="admin"] [data-for="player"]{ display:none !important; }
+
+/* How do I ... ? */
+.finder{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.35fr); gap:16px; align-items:start; }
+.tasklist{ display:flex; flex-direction:column; gap:6px; max-height:560px; overflow:auto; padding-right:4px; }
+.tgroup{ font-family:var(--f-head); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); margin:6px 0 2px; }
+.task{ text-align:left; display:flex; gap:10px; align-items:center; padding:9px 12px; border-radius:2px; border:1px solid rgba(217,178,95,.18);
+  background:rgba(0,0,0,.25); color:var(--ink); cursor:pointer; font-size:1rem; }
+.task:hover{ border-color:var(--gold); }
+.task[aria-selected="true"]{ border-color:var(--gold); background:linear-gradient(90deg, rgba(217,178,95,.18), rgba(0,0,0,.25)); color:var(--gold-hi); }
+.task .ico{ width:22px; text-align:center; flex:none; color:var(--gold); }
+.taskview{ background:rgba(0,0,0,.25); border:1px solid rgba(217,178,95,.28); border-radius:3px; padding:16px 18px; display:flex; flex-direction:column; gap:12px; min-height:200px; }
+.taskview h3{ font-size:1.15rem; }
+.taskview ol{ margin:0; padding-left:1.4em; display:flex; flex-direction:column; gap:8px; }
+.taskview ol li{ color:var(--ink); }
+.taskview ol li::marker{ color:var(--gold); font-family:var(--f-head); }
+.taskview .tip{ border-left:2px solid var(--sapphire); padding:2px 0 2px 12px; color:var(--ink-soft); font-style:italic; }
+.taskview .acts{ display:flex; flex-wrap:wrap; gap:8px; }
+.copyable{ cursor:pointer; }
+.copyable:hover{ border-color:var(--gold-hi); }
+.empty{ color:var(--ink-faint); font-style:italic; }
+
+/* screen tours: numbered pins on a screenshot, the parts listed beside it */
+.tour{ display:flex; flex-direction:column; gap:12px; }
+.tour .tabs{ display:flex; flex-wrap:wrap; gap:6px; }
+.tour .tabs button{ font-family:var(--f-head); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; padding:6px 11px; border-radius:2px;
+  border:1px solid var(--line); background:rgba(0,0,0,.3); color:var(--ink); cursor:pointer; }
+.tour .tabs button[aria-selected="true"]{ background:linear-gradient(180deg, var(--gold-hi), var(--gold)); color:var(--night); border-color:var(--gold); }
+.tour .body{ display:grid; grid-template-columns:minmax(0, 1.9fr) minmax(0, 1fr); gap:14px; align-items:start; }
+.stage{ position:relative; border:1px solid var(--line); border-radius:3px; overflow:hidden; box-shadow:0 8px 22px rgba(0,0,0,.45); background:var(--night); }
+.stage img{ display:block; width:100%; height:auto; }
+.stage.small{ max-width:440px; margin-inline:auto; width:100%; }
+.pin{ position:absolute; transform:translate(-50%, -50%); width:28px; height:28px; border-radius:50%; border:2px solid var(--night); cursor:pointer;
+  background:radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 60%, var(--gold-deep)); color:var(--night); font-family:var(--f-head); font-weight:700;
+  font-size:.82rem; display:grid; place-items:center; padding:0; box-shadow:0 0 0 2px rgba(217,178,95,.45), 0 3px 10px rgba(0,0,0,.6); }
+.pin.on{ background:radial-gradient(circle at 35% 30%, #cfe0ff, var(--sapphire) 60%, #34508e); box-shadow:0 0 0 3px rgba(126,166,255,.7), 0 0 18px rgba(126,166,255,.8); z-index:2; }
+.pin.on::after{ content:""; position:absolute; inset:-9px; border-radius:50%; border:2px solid rgba(126,166,255,.7); animation:ping 1.4s ease-out infinite; }
+@keyframes ping{ from{ transform:scale(.6); opacity:1; } to{ transform:scale(1.5); opacity:0; } }
+.parts{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.parts li button{ width:100%; text-align:left; display:grid; grid-template-columns:26px 1fr; gap:2px 10px; padding:8px 10px; border-radius:2px; cursor:pointer;
+  border:1px solid rgba(217,178,95,.16); background:rgba(0,0,0,.22); color:var(--ink); }
+.parts li button b{ grid-column:2; font-family:var(--f-head); font-size:.85rem; letter-spacing:.05em; color:var(--gold); }
+.parts li button span.n{ grid-row:1 / 3; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; font-family:var(--f-head); font-size:.78rem;
+  color:var(--night); background:var(--gold); }
+.parts li button span.t{ grid-column:2; color:var(--ink-soft); font-size:.93rem; }
+.parts li button[aria-pressed="true"]{ border-color:var(--sapphire); background:rgba(126,166,255,.10); }
+.parts li button[aria-pressed="true"] span.n{ background:var(--sapphire); }
+.tour .zoom{ align-self:flex-start; }
+.tour .cap{ color:var(--ink-soft); font-style:italic; font-size:.95rem; }
+
+/* the full-size viewer */
+dialog.lb{ width:min(1500px, 96vw); max-height:94vh; padding:0; border:1px solid var(--gold); border-radius:3px; background:var(--night); color:var(--ink); overflow:auto; }
+dialog.lb::backdrop{ background:rgba(4,3,8,.82); }
+dialog.lb .head{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 14px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--night); z-index:3; }
+dialog.lb .head h3{ font-size:1rem; }
+dialog.lb .stage{ border:0; border-radius:0; box-shadow:none; }
+dialog.lb .say{ padding:10px 14px; color:var(--ink-soft); min-height:2.6em; border-top:1px solid var(--line); }
+
+/* riding keys */
+.km{ display:flex; flex-direction:column; gap:14px; }
+.keygroups{ display:flex; flex-wrap:wrap; gap:16px 22px; }
+.kg{ display:flex; flex-direction:column; gap:6px; }
+.kg > span{ font-family:var(--f-head); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); }
+.kg .row{ display:flex; gap:6px; flex-wrap:wrap; }
+.key{ min-width:46px; height:44px; padding:0 10px; display:grid; place-items:center; cursor:pointer; font-family:var(--f-mono); font-size:.82rem; color:var(--ink-faint);
+  background:linear-gradient(180deg, #2a2236, #1a1524); border:1px solid #3c3247; border-bottom-width:4px; border-radius:6px; transition:.15s; }
+.key.wide{ min-width:110px; }
+.key.used{ color:var(--ink); border-color:#7a6236; background:linear-gradient(180deg, #3d3150, #261e33); box-shadow:0 0 12px rgba(217,178,95,.22); }
+.key.on{ color:var(--night); background:linear-gradient(180deg, var(--gold-hi), var(--gold)); border-color:var(--gold-deep); box-shadow:0 0 18px rgba(217,178,95,.55); }
+.keysay{ min-height:2.4em; padding:10px 14px; border:1px solid var(--line); border-radius:2px; background:rgba(0,0,0,.3); }
+.keysay b{ font-family:var(--f-mono); }
+.keylist{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:6px 18px; margin:0; padding:0; list-style:none; }
+.keylist li{ display:flex; gap:10px; justify-content:space-between; align-items:baseline; border-bottom:1px dashed rgba(217,178,95,.12); padding:3px 0; cursor:pointer; }
+.keylist li span:last-child{ color:var(--ink-soft); text-align:right; font-size:.95rem; }
+
+/* who can ride it */
+.matrix{ display:flex; flex-direction:column; gap:12px; }
+.modes .mode{ cursor:pointer; text-align:left; font:inherit; color:inherit; }
+.modes .mode[aria-pressed="true"]{ border-color:currentColor; box-shadow:0 0 16px rgba(217,178,95,.18), inset 0 0 0 1px currentColor; }
+.sw{ display:inline-flex; align-items:center; gap:10px; cursor:pointer; user-select:none; }
+.sw input{ width:44px; height:24px; appearance:none; border-radius:12px; background:#2a2236; border:1px solid var(--line); position:relative; cursor:pointer; flex:none; }
+.sw input::after{ content:""; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:var(--ink-faint); transition:.15s; }
+.sw input:checked{ background:rgba(95,207,142,.35); border-color:var(--emerald); }
+.sw input:checked::after{ left:22px; background:var(--emerald); }
+.riders{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:8px; }
+.riders div{ border:1px solid rgba(217,178,95,.18); border-radius:3px; padding:10px 12px; background:rgba(0,0,0,.25); display:flex; flex-direction:column; gap:4px; }
+.riders div b{ font-family:var(--f-head); font-size:.82rem; letter-spacing:.05em; }
+.riders .yes{ border-color:rgba(95,207,142,.55); } .riders .yes em{ color:var(--emerald); }
+.riders .no{ border-color:rgba(212,86,107,.45); opacity:.85; } .riders .no em{ color:var(--ruby); }
+.riders em{ font-style:normal; font-family:var(--f-head); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; }
+.why{ color:var(--ink-soft); font-style:italic; }
+
+/* every mount */
+.mfilter{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.mfilter input{ flex:1; min-width:180px; font:inherit; font-size:1rem; padding:7px 12px; border:1px solid var(--line); border-radius:2px; background:rgba(0,0,0,.35); color:var(--ink); }
+.mounts{ display:flex; flex-wrap:wrap; gap:7px; }
+.mt{ padding:5px 11px; border-radius:2px; border:1px solid rgba(217,178,95,.22); background:rgba(0,0,0,.25); font-size:.97rem; }
+.mt i{ font-style:normal; font-family:var(--f-head); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-left:7px; }
+.mt.pet{ border-color:rgba(95,207,142,.4); }
+
+/* copy */
+td .cp{ margin-left:8px; font-family:var(--f-head); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px; border-radius:2px;
+  border:1px solid var(--line); background:rgba(0,0,0,.3); color:var(--ink-soft); cursor:pointer; vertical-align:middle; }
+td .cp:hover{ color:var(--gold-hi); border-color:var(--gold); }
+.toast{ position:fixed; left:50%; bottom:22px; transform:translate(-50%, 20px); opacity:0; pointer-events:none; transition:.2s; z-index:50;
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold)); color:var(--night); font-family:var(--f-head); letter-spacing:.08em; padding:9px 16px; border-radius:2px; }
+.toast.show{ opacity:1; transform:translate(-50%, 0); }
+.top{ position:fixed; right:16px; bottom:18px; z-index:30; width:42px; height:42px; border-radius:50%; border:1px solid var(--gold); background:rgba(11,9,18,.9);
+  color:var(--gold-hi); cursor:pointer; font-size:1.2rem; display:grid; place-items:center; }
+details.more > summary{ cursor:pointer; font-family:var(--f-head); letter-spacing:.1em; color:var(--gold); list-style:none; }
+details.more > summary::before{ content:"\25B8  "; }
+details.more[open] > summary::before{ content:"\25BE  "; }
+
+@media (max-width:820px){
+  .finder, .tour .body{ grid-template-columns:1fr; }
+  .tasklist{ max-height:none; }
+}
+@media (max-width:520px){
+  .pin{ width:22px; height:22px; font-size:.7rem; }
+  .bar .lbl{ display:none; }
+  .key{ min-width:40px; height:40px; }
+}
+@media (prefers-reduced-motion: reduce){ .pin.on::after{ animation:none; } html{ scroll-behavior:auto; } }
+</style>
 </head>
-<body>
+<body data-role="all">
 <div class="wrap">
   <header class="hero">
     <svg class="crest" viewBox="0 0 200 170" aria-hidden="true">
@@ -154,28 +302,48 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
     <p>How to ride mounts, wear animated props and ride your pet, all that admins can set in game, and every command.</p>
     <div class="flourish"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg></div>
     <nav aria-label="Chapters">
+      <a href="#how">How do I…?</a>
       <a href="#new">What's new</a>
       <a href="#players">Getting a mount</a>
       <a href="#controls">Riding keys</a>
       <a href="#mounts">Every mount</a>
       <a href="#pets">Props &amp; pets</a>
-      <a href="#admins">Admins</a>
+      <a href="#admins" data-for="admin">Admins</a>
       <a href="#commands">Commands</a>
     </nav>
   </header>
 
+  <div class="bar" role="region" aria-label="Who are you, and search">
+    <span class="lbl">I am</span>
+    <div class="seg" id="role" role="group" aria-label="Show the guide for">
+      <button type="button" data-r="all" aria-pressed="true">Everyone</button>
+      <button type="button" data-r="player" aria-pressed="false">A player</button>
+      <button type="button" data-r="admin" aria-pressed="false">An admin</button>
+    </div>
+    <div class="find"><input id="ask" type="search" placeholder="How do I…  (try: fly, ride my pet, give a mount, logs)" aria-label="Search what you want to do" autocomplete="off"></div>
+  </div>
+
+  <section id="how" class="chapter">
+    <h2><span class="num">✦</span>How do I…?</h2>
+    <p class="lede">Pick what you want to do: the steps, the keys and the screen to look at.</p>
+    <div class="finder">
+      <div class="tasklist" id="tasks" role="listbox" aria-label="Things you can do"></div>
+      <div class="taskview" id="taskview" aria-live="polite"></div>
+    </div>
+  </section>
+
   <section id="new" class="chapter">
     <h2><span class="num">I</span>What's new</h2>
     <div class="cards">
-      <div class="card"><h3>Admin, all in game</h3>
+      <div class="card" data-for="admin"><h3>Admin, all in game</h3>
         <ul class="plain">
           <li><code>/mountadmin</code>: six tabs, <b>Players</b>, <b>Who rides what</b>, <b>Mounts</b>, <b>Shops</b>, <b>Holders</b> and <b>Logs</b>. Saved at once, kept after a restart.</li>
           <li>Pick a player and give them exactly the mounts (or single colours) they may ride.</li>
           <li><b>Assigned only</b> <span class="tag-new">new</span>: a mount only for the players it was given to. VIP alone is not enough.</li>
           <li><b>Holders</b> <span class="tag-new">new</span>: everyone who has access, offline too. Take it back from there, even from a player who is not online.</li>
           <li><b>Logs</b> <span class="tag-new">new</span>: who gave or took access, when, and to whom. Search an admin, a player or a mount.</li>
-          <li>Rename mounts, turn them on or off, set prices and speeds, add a new mount from a copy.</li>
-          <li>Place mount shops where you stand; players walk up and press <kbd>E</kbd>.</li>
+          <li>A speed set in <code>/mountdev</code> now goes to every colour of that mount <span class="tag-new">new</span>.</li>
+          <li>Rename mounts, turn them on or off, set prices and speeds, add a new mount from a copy. Place mount shops where you stand.</li>
         </ul>
       </div>
       <div class="card"><h3>Mounts</h3>
@@ -184,15 +352,14 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
           <li>Called flying props land on the ground: the Dune Disc, Cloud, Gale Fan and Broomstick no longer sink into it.</li>
           <li>The horses and the donkey remade: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey.</li>
           <li>The <b>Ninja Tortoise</b> swims, dives and runs on its legs; the <b>Ninja Kirin</b> is the summoned Kirin itself.</li>
-          <li>No height limit in the sky. Wings come off when you land.</li>
-          <li>Smoother moves everywhere; a rider no longer goes invisible to others.</li>
+          <li>No height limit in the sky. Wings come off when you land. A rider no longer goes invisible to others.</li>
         </ul>
       </div>
       <div class="card"><h3>Pets &amp; props</h3>
         <ul class="plain">
           <li>Your pet and its mount are one animal: <kbd>J</kbd> on your summoned pet, and when you get off it is right there.</li>
           <li><code>/petsummon</code> calls back a pet mount left far away.</li>
-          <li>The pet follows better on jumps, flights and Stay.</li>
+          <li>Your summoned pet stays with you, even on a High Jump.</li>
           <li>Ten props are free for everyone. Shops show only what is for sale.</li>
         </ul>
       </div>
@@ -203,65 +370,25 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
     <h2><span class="num">II</span>Getting a mount</h2>
     <div class="steps">
       <div class="step"><span class="n">1</span><div><h3>Earn it</h3><p>Buy it at a mount shop (walk up, press <kbd>E</kbd>), use its item, or receive it from an admin. Some mounts are free for all. Its colours come with it, unless you were given only some.</p></div></div>
-      <div class="step"><span class="n">2</span><div><h3>Call it</h3><p>Press <kbd>F6</kbd> (<code>/mountvip</code>) for <b>My Mounts</b>: every mount you may ride right now. Pick a colour, then <b>Ride</b>. <b>Send back</b> puts it away.</p></div></div>
+      <div class="step"><span class="n">2</span><div><h3>Call it</h3><p>Press <kbd>F6</kbd> (<code>/mountvip</code>) for <b>My Mounts</b>: every mount you may ride right now. Pick a colour, then <b>Ride</b>. It comes to you; press <kbd>E</kbd> to get on. <b>Send back</b> puts it away.</p></div></div>
       <div class="step"><span class="n">3</span><div><h3>Keep it</h3><p>A VIP can press <b>Lock</b> in F6 to bind a mount from the bag to the character for good.</p></div></div>
       <div class="step"><span class="n">4</span><div><h3>Your pet's mount</h3><p>The ninja pets, dragons, gryphon, phoenix, wolf, kitsune and golem are ridden through their pet: summon it, then press <kbd>J</kbd>.</p></div></div>
     </div>
-    <div class="shots">
-      <figure class="shot small"><a href="img/stable-f6.png" target="_blank" rel="noopener"><img src="img/stable-f6.png" alt="My Mounts (F6): every mount you may ride, its colours, Lock and Ride" loading="lazy"></a><figcaption>F6 · My Mounts: pick a colour, then Ride. A VIP can Lock a mount from the bag.</figcaption></figure>
-    </div>
+    <div class="tour" data-screens="f6"></div>
   </section>
 
   <section id="controls" class="chapter">
     <h2><span class="num">III</span>Riding keys</h2>
-    <div class="cards keys">
-      <div class="card"><h3>On land</h3><ul>
-        <li><span><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></span><span>ride where the camera looks</span></li>
-        <li><span>tap <kbd>Shift</kbd></span><span>trot</span></li>
-        <li><span>hold <kbd>Shift</kbd></span><span>gallop</span></li>
-        <li><span><kbd>Space</kbd></span><span>leap</span></li>
-        <li><span><kbd>S</kbd></span><span>step back</span></li>
-        <li><span><kbd>H</kbd></span><span>roar</span></li>
-        <li><span><kbd>E</kbd> / <kbd>F</kbd></span><span>dismount</span></li>
-        <li><span><kbd>F</kbd> on foot</span><span>send it away</span></li>
-      </ul></div>
-      <div class="card"><h3>In the sky</h3><ul>
-        <li><span><kbd>W</kbd> / <kbd>S</kbd></span><span>forward, back</span></li>
-        <li><span><kbd>A</kbd> / <kbd>D</kbd></span><span>turn</span></li>
-        <li><span><kbd>Shift</kbd></span><span>climb, no limit</span></li>
-        <li><span><kbd>Left Ctrl</kbd></span><span>descend</span></li>
-        <li><span>mouse</span><span>look around</span></li>
-        <li><span><kbd>G</kbd></span><span>hover in place</span></li>
-        <li><span><kbd>E</kbd></span><span>land</span></li>
-      </ul></div>
-      <div class="card"><h3>In the water</h3><ul>
-        <li><span><kbd>W</kbd> <kbd>A</kbd> <kbd>D</kbd></span><span>swim, turn</span></li>
-        <li><span><kbd>Left Ctrl</kbd></span><span>dive</span></li>
-        <li><span><kbd>Shift</kbd></span><span>surface</span></li>
-        <li><span><kbd>Space</kbd></span><span>surge</span></li>
-      </ul></div>
-      <div class="card"><h3>Screens</h3><ul>
-        <li><span><kbd>F6</kbd></span><span>My Mounts</span></li>
-        <li><span><kbd>J</kbd></span><span>ride your pet</span></li>
-        <li><span><kbd>F7</kbd></span><span>arrange the mount UI</span></li>
-        <li><span><kbd>F9</kbd></span><span>hide the mount UI</span></li>
-      </ul></div>
-    </div>
+    <p class="lede">Pick where you ride; the keys that work there light up. Click a key to see what it does.</p>
+    <div class="km" id="km"></div>
     <p class="note">Every key can be changed: Settings › Key Bindings › FiveM.</p>
   </section>
 
   <section id="mounts" class="chapter">
     <h2><span class="num">IV</span>Every mount</h2>
-    <div class="cards">
-      <div class="card"><h3>Steeds of the land</h3><ul class="plain">
-        <li>Ironclad Destrier, Elven Palfrey, Wayfarer Courser</li><li>Peddler's Donkey</li><li>Cougar, Panther, Stag, Ox, War Boar</li></ul></div>
-      <div class="card"><h3>Beasts &amp; ninja pets</h3><ul class="plain">
-        <li>Amethyst Wolf, Void Kitsune, Starforged Golem</li><li>Ninja Dog, Dog Scout, Cat, Ape, Toad</li><li>Ninja Serpent, Slug, Kirin</li><li>Ninja Tortoise, land and sea</li></ul></div>
-      <div class="card"><h3>Wings of the sky</h3><ul class="plain">
-        <li>Blood Dragon in twelve colours</li><li>Fantasy, Chinese Fantasy and Celestial Dragons</li><li>Gryphon Boss, Fantasy Phoenix, Ninja Falcon</li><li>Broomstick, Cloud, Gale Fan, Dune Disc</li></ul></div>
-      <div class="card"><h3>Wings, tides &amp; glide</h3><ul class="plain">
-        <li>Angelic, Celestial, Demon, Fairy and Vampire wings</li><li>Dolphin, Orca, Manta, Hammerhead, Tiger Shark</li><li>Hoverboard</li></ul></div>
-    </div>
+    <div class="mfilter" id="mfilter"></div>
+    <div class="mounts" id="mlist"></div>
+    <p class="count" id="mcount"></p>
   </section>
 
   <section id="pets" class="chapter">
@@ -272,46 +399,24 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
       <div class="step"><span class="n">3</span><div><h3>Ride your pet</h3><p>Summon it and press <kbd>J</kbd>: its mount stands where it stood. Dismount and your pet is there again, following you.</p></div></div>
       <div class="step"><span class="n">4</span><div><h3>Prop moves</h3><p><code>/apflare</code>, <code>/apswish</code>, <code>/apshake</code>, <code>/apflick</code> play a move on the prop you wear, for all to see.</p></div></div>
     </div>
-    <div class="shots">
-      <figure class="shot"><a href="img/props-wardrobe.png" target="_blank" rel="noopener"><img src="img/props-wardrobe.png" alt="Regalia: your tails, wings, horns and magic circle, with colours and moves" loading="lazy"></a><figcaption>/animatedprop · the Regalia: equip, pick a colour, try the moves.</figcaption></figure>
-      <figure class="shot"><a href="img/props-hall.png" target="_blank" rel="noopener"><img src="img/props-hall.png" alt="Hall of Wonders: try on any prop for show, and see how to get it" loading="lazy"></a><figcaption>The Hall of Wonders: try any prop on for show, and see where to buy it or who may wear it.</figcaption></figure>
-    </div>
+    <div class="tour" data-screens="regalia,hall"></div>
   </section>
 
-  <section id="admins" class="chapter">
+  <section id="admins" class="chapter" data-for="admin">
     <h2><span class="num">VI</span>For admins</h2>
-    <div class="cards">
-      <div class="card"><h3>Players</h3><p>Find a player online. Give or take <b>VIP</b>. For each mount: <b>Lock to them</b> (every colour), <b>Take back</b>, or <b>Colours</b> to give single colours. This is how you choose exactly what each player may ride.</p></div>
-      <div class="card"><h3>Who rides what</h3><p>Each mount gets one of the modes below, plus one switch for "Mounts need their item". A pet's mount can also be a <b>Normal mount too</b>. Search, then set every mount shown at once.</p></div>
-      <div class="card"><h3>Mounts</h3><p>Every mount on one list: on or off, its name, price and riding numbers. <b>Back to config</b> undoes a row; <b>Add a mount</b> copies one under a new name.</p></div>
-      <div class="card"><h3>Shops</h3><p><b>Add a shop where you stand</b>. Move it, visit it, give it a stable hand and a map mark, and choose what it sells. Players press <kbd>E</kbd> there.</p></div>
-      <div class="card"><h3>Holders <span class="tag-new">new</span></h3><p>Everyone who holds VIP, a mount, a single colour or a pet's mount, online <i>or offline</i>. Search a name, #id or mount; filter by kind or by Online / Offline. The <b>&#10005;</b> on a row takes it back (click twice), <b>Take back all</b> clears a player.</p></div>
-      <div class="card"><h3>Logs <span class="tag-new">new</span></h3><p>Every access change, newest first: when, which admin, gave or took back, what, to whom, and from where (Players, Holders, Who rides what or <code>/mountgrant</code>). Search an admin, a player, a #id or a mount; filter by kind.</p></div>
-    </div>
-    <div class="shots">
-      <figure class="shot"><a href="img/admin-players.png" target="_blank" rel="noopener"><img src="img/admin-players.png" alt="Mount Admin, Players tab" loading="lazy"></a><figcaption>Players: VIP, Lock to them, single colours.</figcaption></figure>
-      <figure class="shot"><a href="img/admin-rules.png" target="_blank" rel="noopener"><img src="img/admin-rules.png" alt="Mount Admin, Who rides what tab" loading="lazy"></a><figcaption>Who rides what: one mode per mount.</figcaption></figure>
-      <figure class="shot"><a href="img/admin-mounts.png" target="_blank" rel="noopener"><img src="img/admin-mounts.png" alt="Mount Admin, Mounts tab" loading="lazy"></a><figcaption>Mounts: names, prices, speeds, on or off.</figcaption></figure>
-      <figure class="shot"><a href="img/admin-shops.png" target="_blank" rel="noopener"><img src="img/admin-shops.png" alt="Mount Admin, Shops tab" loading="lazy"></a><figcaption>Shops: placed where you stand.</figcaption></figure>
-      <figure class="shot"><a href="img/admin-holders.png" target="_blank" rel="noopener"><img src="img/admin-holders.png" alt="Mount Admin, Holders tab" loading="lazy"></a><figcaption>Holders: everyone with access, offline too.</figcaption></figure>
-      <figure class="shot"><a href="img/admin-logs.png" target="_blank" rel="noopener"><img src="img/admin-logs.png" alt="Mount Admin, Logs tab" loading="lazy"></a><figcaption>Logs: who gave or took access, and when.</figcaption></figure>
-    </div>
-    <div class="modes" role="list">
-      <div class="mode g-free" role="listitem"><b><i></i>Free</b><span>everyone rides it</span></div>
-      <div class="mode g-item" role="listitem"><b><i></i>Item</b><span>needs its item</span></div>
-      <div class="mode g-vipitem" role="listitem"><b><i></i>VIP or item</b><span>VIP free, others need the item</span></div>
-      <div class="mode g-vip" role="listitem"><b><i></i>VIP only</b><span>every VIP rides it</span></div>
-      <div class="mode g-assigned" role="listitem"><b><i></i>Assigned only</b><span>only who you gave it to</span></div>
-      <div class="mode g-off" role="listitem"><b><i></i>Off</b><span>nobody rides it</span></div>
-    </div>
+    <p class="lede"><code>/mountadmin</code> has six tabs. Take the tour: pick a tab, then a numbered part.</p>
+    <div class="tour" data-screens="players,rules,mounts,shops,holders,logs"></div>
+
+    <h3>Who can ride it?</h3>
+    <p class="why">Pick a mode (and the "Mounts need their item" switch) to see who may ride a mount set to it.</p>
+    <div class="matrix" id="matrix"></div>
     <p class="note">To give a player only certain mounts: set those mounts to Assigned only, then in Players lock to each player what they may ride. A mount locked to a player always works for them, unless it is Off.</p>
+
+    <h3>Props and pets: <code>/apadmin</code></h3>
+    <p class="why">The Steward's Ledger: give a prop (as an item or as access, for a time), turn on a pet's mount, see who holds what, VIP tiers, roles, shops, the Showroom and the log. <code>/apfit</code> opens the Fitting Bench.</p>
+    <div class="tour" data-screens="ledger,petmounts"></div>
     <div class="cards">
-      <div class="card"><h3>Props: <code>/apadmin</code></h3><p>The Steward's Ledger: give a prop (as an item or as access, for a time), turn on a pet's mount, see who holds what, VIP tiers, roles, shops, the Showroom and the log. <code>/apfit</code> opens the Fitting Bench.</p></div>
-      <div class="card"><h3>Tuning</h3><p><code>/mountdev</code> edits a mount live (speeds, jump, seats, camera) for everyone. <code>/mountfit</code> measures a mount's height on the ground again.</p></div>
-    </div>
-    <div class="shots">
-      <figure class="shot"><a href="img/props-ledger.png" target="_blank" rel="noopener"><img src="img/props-ledger.png" alt="The Steward's Ledger, Props and locks" loading="lazy"></a><figcaption>The Steward's Ledger: who may wear each prop.</figcaption></figure>
-      <figure class="shot"><a href="img/props-petmounts.png" target="_blank" rel="noopener"><img src="img/props-petmounts.png" alt="The Steward's Ledger, pet mount holders" loading="lazy"></a><figcaption>Holders: who has which pet mount.</figcaption></figure>
+      <div class="card"><h3>Tuning</h3><p><code>/mountdev</code> edits a mount live for everyone. A speed, top speed, stamina or jump set there goes to every colour of that mount. <code>/mountfit</code> measures a mount's height on the ground again.</p></div>
     </div>
   </section>
 
@@ -330,7 +435,7 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
         <tbody id="rows"></tbody>
       </table>
     </div>
-    <p class="note">Console commands are typed in the server console without the slash, or in game by staff allowed to use them.</p>
+    <p class="note">Click <b>copy</b> to copy a command. Console commands are typed in the server console without the slash, or in game by staff allowed to use them.</p>
   </section>
 
   <footer>
@@ -339,54 +444,529 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
   </footer>
 </div>
 
-<script>
-var C = [
-  ['F6 · /mountvip', 'player', 'My Mounts: every mount you may ride now, colour, ride, send back, VIP lock'],
-  ['E at a mount shop', 'player', 'Open that shop and buy a mount'],
-  ['J · /ridepet', 'player', 'Ride your summoned pet'],
-  ['F7 · /rklmountsui', 'player', 'Arrange, colour or hide the mount UI'],
-  ['F9 · /rklmountshide', 'player', 'Hide or show all mount UI'],
-  ['/animatedprop', 'player', 'Your Regalia: wear tails, wings, horns, pets'],
-  ['/petmenu', 'player', 'Your pet: moves, Stay, Roam, Stop'],
-  ['/petsummon', 'player', 'Summon your pet, send it back, or call back a pet mount left far away'],
-  ['/apflare · /apswish · /apshake · /apflick', 'player', 'Play that move on the prop you wear'],
-  ['/mountadmin', 'admin', 'Mount Admin: Players, Who rides what, Mounts, Shops, Holders, Logs'],
-  ['/mountgrant <id> <mount | colour | vip> [off]', 'admin', 'Lock a mount, one colour or VIP to a player (console too)'],
-  ['/mountdev', 'admin', 'Edit a mount live for everyone'],
-  ['/mountfit [reset | off | on]', 'admin', 'Measure a mount’s height on the ground again'],
-  ['/mountdebug · /findanims [dict]', 'admin', 'Debug tools'],
-  ['/apadmin', 'admin', 'The Steward’s Ledger for props and pets'],
-  ['/apfit', 'admin', 'The Fitting Bench'],
-  ['/apdebug', 'admin', 'List every spawned prop in F8'],
-  ['apgive <id> <prop> [colour | all]', 'admin', 'Give a prop item'],
-  ['apgiveall <id> [category | all]', 'admin', 'Give every design of a category'],
-  ['apgrant <player> <scope> [minutes] [colour]', 'admin', 'Give access to a prop without an item'],
-  ['aprevoke <player> <scope>', 'admin', 'Take that access back'],
-  ['apvip <player> <tier | remove> [days]', 'admin', 'Set or remove a player’s prop VIP tier'],
-  ['apaccess [scope] [preset]', 'admin', 'Who may wear a prop, family or category'],
-  ['aproles · aplog · apshop', 'admin', 'Staff roles, the log, the prop shops'],
-  ['apitems · apaddons · apfitexport', 'admin', 'Item list, found addons, fit export']
-];
-var f = 'all';
-function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
-function draw(){
-  var q = document.getElementById('q').value.trim().toLowerCase();
-  var out = C.filter(function(r){ return (f === 'all' || r[1] === f) && (!q || (r[0] + ' ' + r[2]).toLowerCase().indexOf(q) !== -1); });
-  document.getElementById('rows').innerHTML = out.map(function(r){
-    return '<tr><td><code>' + esc(r[0]) + '</code></td><td class="who' + (r[1] === 'admin' ? ' adm' : '') + '">' + (r[1] === 'admin' ? 'Admin' : 'Player') + '</td><td class="what">' + esc(r[2]) + '</td></tr>';
-  }).join('') || '<tr><td colspan="3">No command matches.</td></tr>';
-  document.getElementById('count').textContent = out.length + ' of ' + C.length + ' commands';
-}
-document.getElementById('q').addEventListener('input', draw);
-Array.prototype.forEach.call(document.querySelectorAll('.chip'), function(b){
-  b.addEventListener('click', function(){
-    f = b.dataset.f;
-    Array.prototype.forEach.call(document.querySelectorAll('.chip'), function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-    draw();
-  });
-});
-draw();
-</script>
+<dialog class="lb" id="lb" aria-label="Screenshot, full size">
+  <div class="head"><h3 id="lbt"></h3><button class="btn" type="button" id="lbx">Close ✕</button></div>
+  <div class="stage" id="lbs"></div>
+  <div class="say" id="lbsay"></div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+<button class="top" type="button" id="top" aria-label="Back to the top" hidden>↑</button>
 
+<script>
+(function(){
+'use strict';
+/* ---------------- data ---------------- */
+// the screens: the picture, and its numbered parts [x %, y %, name, what it does]
+var SCREENS = {
+  f6: { img:'img/stable-f6.png', small:true, title:'F6 · My Mounts', role:'player', pins:[
+    [26,21,'A mount you may ride','Every mount you may ride right now is listed: bought, given, free or VIP.'],
+    [72,21,'Why you may ride it','"VIP: locked to you", "VIP", "In your bag" or "Free".'],
+    [40,27,'Its colours','Click a colour first; the one in gold is the one you will ride.'],
+    [83,21,'Ride','Calls it: it comes to you. Press E next to it to get on. While riding this says Send back.'],
+    [72.5,52,'Lock (VIP)','A VIP binds a mount from the bag to the character for good: the item is used, the mount stays.'],
+    [86,10,'Close','Or press Esc.'] ]},
+  regalia: { img:'img/props-wardrobe.png', title:'/animatedprop · the Regalia', role:'player', pins:[
+    [12,22,'Kinds','All, tails, wings, horns, magic circles: show one kind.'],
+    [19,33,'Equip','Puts the prop on. While you wear it the item is kept safe in its slot.'],
+    [29,41,'What you wear','One card per kind; Unequip puts the item back in your pack.'],
+    [50,52,'Your character','Drag to turn, wheel to zoom.'],
+    [87,47,'Colour','Each colour is its own item; pick a gem to swap.'],
+    [87,63,'Moves','Try the moves; the flourishes are seen by everyone near you.'],
+    [50,95,'Camera','Back, side, front, zoom, turn.'] ]},
+  hall: { img:'img/props-hall.png', title:'The Hall of Wonders', role:'player', pins:[
+    [50,11.5,'For show only','Nothing is given: what you try comes off when you leave.'],
+    [13,24,'On display','Every prop of the hall, by kind, with its price or how you get it.'],
+    [87,32,'Try a colour','See it in every colour.'],
+    [87,57,'How to get it','Who sells it and for how much, or who may wear it free.'],
+    [88,60.5,'Mark it on my map','Puts the merchant on your map.'],
+    [93,80,'Leave hall','Or Esc.'] ]},
+  players: { img:'img/admin-players.png', title:'/mountadmin · Players', role:'admin', pins:[
+    [3.6,31,'The six tabs','Players, Who rides what, Mounts, Shops, Holders, Logs.'],
+    [24,19,'Find a player','Search a name or #id; everyone online is listed.'],
+    [46,18,'The player you picked','VIP on or off, how many mounts are locked to them, how many are in their bag.'],
+    [75,35,'Take back','Takes a locked mount (every colour) away from them.'],
+    [68,50,'Colours','Give only some colours of a mount.'],
+    [74,50,'Lock to them','Gives them the mount, every colour, for good.'],
+    [88,25,'VIP Stable','Give or take VIP. VIP can lock mounts from their bag.'],
+    [88,41,'At a glance','What they have: locked, in the bag, single colours.'] ]},
+  rules: { img:'img/admin-rules.png', title:'/mountadmin · Who rides what', role:'admin', pins:[
+    [28,27,'Mounts need their item','One switch: off = every mount set to Item can be ridden without it.'],
+    [68,21,'What each mode means','Free, Item, VIP or item, VIP only, Assigned only, Off.'],
+    [40,37,'Search mounts','Find a mount, or narrow the list before setting many at once.'],
+    [78,37,'Set every mount shown','One mode for every mount the search shows.'],
+    [45,43,'A mount\'s mode','Click a mode on its row; it is saved at once.'] ]},
+  mounts: { img:'img/admin-mounts.png', title:'/mountadmin · Mounts', role:'admin', pins:[
+    [45,22,'Add a mount','Copy a mount under a new name (and model).'],
+    [88,36,'Filter','All, On, Off, Changed, New.'],
+    [30,44,'Name, on or off','Rename it, or switch the whole mount and its colours off.'],
+    [52,44,'Price','Its price in the shops; empty = not sold.'],
+    [35,51,'Ride numbers','Walk, run, speed, top speed, stamina, jump: for every colour at once.'],
+    [53,55,'Back to config','Undoes your changes on that mount.'] ]},
+  shops: { img:'img/admin-shops.png', title:'/mountadmin · Shops', role:'admin', pins:[
+    [45,22,'Add a shop where you stand','Type a name, press Add: the shop is placed where you stand, its stable hand facing your way.'],
+    [32,37.5,'Name, on or off','Rename or close a shop.'],
+    [49,59,'Move here, Go there, Delete','Move the shop to where you stand, or go to it.'],
+    [26,65.5,'Stable hand','The ped who stands there (none = no ped).'],
+    [46,65.5,'Map icon','Show it on the map, its icon and colour.'],
+    [30,69.5,'What it sells','Every mount on sale, or only the mounts you choose.'],
+    [32,73.5,'Chosen mounts','Click mounts to sell them here.'] ]},
+  holders: { img:'img/admin-holders.png', title:'/mountadmin · Holders', role:'admin', pins:[
+    [37,32.5,'Search','A name, #id, character or mount: searches everyone, offline too.'],
+    [68,32.5,'By kind','Everything, VIP, Mounts, Colours, Pet mounts.'],
+    [92,32.5,'Online or offline','Show everyone, only online, or only offline players.'],
+    [24,38.5,'A player','Green dot = online with #id; offline players are listed too.'],
+    [34,44.5,'Take back one','The ✕ on a row: click twice.'],
+    [53,38.5,'Take back all','Everything this player has: click twice.'] ]},
+  logs: { img:'img/admin-logs.png', title:'/mountadmin · Logs', role:'admin', pins:[
+    [44,26.5,'Search','An admin, a player, a #id or a mount.'],
+    [85,26.5,'By kind','Everything, Gave, Took back, Who rides what.'],
+    [22,31.5,'When','Newest first.'],
+    [29,31.5,'Which admin','Their name and #id (or the server console).'],
+    [44.5,31.5,'What happened','Gave, took back, or changed (Who rides what).'],
+    [73,31.5,'To whom','The player, #id when online.'],
+    [88,35.5,'From where','Players, Holders, Who rides what, /mountgrant or /apadmin.'] ]},
+  ledger: { img:'img/props-ledger.png', title:'/apadmin · the Steward\'s Ledger', role:'admin', pins:[
+    [14.6,36,'The Ledger\'s tabs','Players, props and locks, fitting, holders, VIP, permissions, shops, showroom, the log.'],
+    [26,50,'The armoury','Every prop by kind and family; pick one to set its rule.'],
+    [57,33,'Who may wear it','Everyone, item holders, jobs, chosen players, VIP: tick one or more.'],
+    [57,71,'Chosen players','Players who may wear it by name, always or until a date.'],
+    [88,33,'Sale','Its price and where it is sold.'],
+    [88,70,'Showroom','Show it in the Hall of Wonders.'],
+    [72,93,'Save rule','Nothing changes until you save.'] ]},
+  petmounts: { img:'img/props-petmounts.png', title:'/apadmin · Holders (pet mounts)', role:'admin', pins:[
+    [30,22,'Filters','Pet mounts, a mount, a colour, online or offline.'],
+    [95,17.5,'Add','Turn on a pet\'s mount for a player.'],
+    [40,30,'Who has it','The character, the mount, its colours, when last seen.'],
+    [93,30.5,'Edit or remove','Change the colours, or take it away.'] ]}
+};
+
+// what people want to do: [id, role, icon, title, words, steps (html), screen, pin, tip]
+var TASKS = [
+  ['call','player','🐎','Call my mount','summon f6 ride mount mountvip',
+    ['Press <kbd>F6</kbd> (or type <code class="copyable">/mountvip</code>): <b>My Mounts</b> opens.','If it has colours, click the colour you want.','Press <b>Ride</b>: it comes to you.','Walk up and press <kbd>E</kbd> to get on.'],'f6',4,'Not in the list? You do not have it yet: buy it at a mount shop, or ask an admin.'],
+  ['colour','player','🎨','Ride another colour','color colour variant skin',
+    ['Press <kbd>F6</kbd>.','Under the mount, click the colour (the gold one is chosen).','Press <b>Ride</b>.'],'f6',3,'Only the colours you own are shown.'],
+  ['away','player','↩','Send my mount away','dismiss send back away',
+    ['Get off with <kbd>E</kbd> or <kbd>F</kbd>.','On foot, press <kbd>F</kbd>: it leaves. Or press <kbd>F6</kbd> and <b>Send back</b>.'],'f6',4],
+  ['fly','player','🦅','Fly: up, down, hover, land','fly sky up down climb descend hover land dragon wings',
+    ['<kbd>W</kbd> / <kbd>S</kbd>: forward and back. <kbd>A</kbd> / <kbd>D</kbd>: turn. The mouse looks around.','<kbd>Shift</kbd>: climb (no height limit). <kbd>Left Ctrl</kbd>: go down.','<kbd>G</kbd>: hover in place.','<kbd>E</kbd>: land.'],null,0,'The key map in Riding keys shows them all.','sky'],
+  ['land','player','🐴','Ride on land: trot, gallop, jump','horse land trot gallop sprint jump leap run',
+    ['<kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>: ride where the camera looks.','Tap <kbd>Shift</kbd>: trot. Hold <kbd>Shift</kbd>: gallop.','<kbd>Space</kbd>: leap. <kbd>S</kbd>: step back. <kbd>H</kbd>: roar.','<kbd>E</kbd> or <kbd>F</kbd>: get off.'],null,0,null,'land'],
+  ['swim','player','🌊','Swim and dive','water swim dive sea dolphin orca tortoise',
+    ['<kbd>W</kbd> <kbd>A</kbd> <kbd>D</kbd>: swim and turn.','<kbd>Left Ctrl</kbd>: dive. <kbd>Shift</kbd>: back to the surface.','<kbd>Space</kbd>: surge.'],null,0,'The Ninja Tortoise swims and walks on land.','water'],
+  ['pet','player','🐉','Ride my pet','pet ride j summon mount kirin dragon wolf',
+    ['Summon your pet at full size: <code class="copyable">/petsummon</code>.','Stand next to it and press <kbd>J</kbd>: its mount stands where it stood, and you ride.','Get off: your pet is there again and follows you.'],null,0,'Your pet stays with you, even on a High Jump.'],
+  ['petstay','player','🐾','Make my pet stay, roam or stop','pet stay follow roam stop menu',
+    ['Type <code class="copyable">/petmenu</code>.','Choose <b>Stay</b>, <b>Roam</b> or <b>Stop</b>, or a move.'],null,0],
+  ['petback','player','📯','Call back a pet mount left far away','pet far lost call back recall',
+    ['Type <code class="copyable">/petsummon</code>: it comes back to you.'],null,0],
+  ['lock','player','🔒','Keep a mount for good (VIP)','vip lock keep bind forever bag',
+    ['Have the mount in your bag (its item).','Press <kbd>F6</kbd>, then <b>Lock</b> on that mount.','The item is used and the mount is yours for good.'],'f6',5,'Some mounts are "Assigned only": only an admin can give those.'],
+  ['buy','player','🪙','Buy a mount','buy shop stable price money',
+    ['Find a mount shop on the map.','Walk up to the stable hand and press <kbd>E</kbd>.','Buy: the mount goes in your bag; ride it from <kbd>F6</kbd>.'],null,0],
+  ['props','player','✨','Wear a tail, wings or horns','prop tail wings horns circle wear equip regalia',
+    ['Type <code class="copyable">/animatedprop</code>: your <b>Regalia</b> opens.','Pick a kind, then <b>Equip</b> a prop.','Pick its colour; try its moves.','<b>Unequip</b> puts it back in your pack.'],'regalia',2],
+  ['try','player','🏛','Try a prop before buying','hall wonders showroom try preview buy',
+    ['Go to the Hall of Wonders.','Pick a prop on display and try its colours.','<b>How to get it</b> shows who sells it; <b>Mark it on my map</b>.'],'hall',4],
+  ['ui','player','🧭','Move or hide the mount screens','ui hud hide move arrange f7 f9',
+    ['<kbd>F7</kbd> (<code class="copyable">/rklmountsui</code>): arrange, colour or hide the mount screens.','<kbd>F9</kbd>: hide or show them all.'],null,0,null,'screens'],
+  ['keys','player','⌨','Change a key','keys bind keybind controls change',
+    ['Open the pause menu: Settings › Key Bindings › FiveM.','Find the mount keys and set your own.'],null,0],
+
+  ['give','admin','🎁','Give a player a mount','give lock player mount admin grant',
+    ['Type <code class="copyable">/mountadmin</code>, tab <b>Players</b>.','Search the player (name or #id) and click them.','On the mount, press <b>Lock to them</b>: every colour is theirs, for good.'],'players',6,'From the console: <code class="copyable">/mountgrant &lt;id&gt; &lt;mount&gt;</code>'],
+  ['givecolour','admin','🎨','Give only one colour','colour color single give',
+    ['<code class="copyable">/mountadmin</code> › <b>Players</b> › pick the player.','On the mount, open <b>Colours</b> and tick the colours to give.'],'players',5],
+  ['vip','admin','👑','Give or take VIP','vip give take',
+    ['<code class="copyable">/mountadmin</code> › <b>Players</b> › pick the player.','<b>VIP Stable</b>: give VIP, or <b>Take VIP back</b>.'],'players',7,'Console: <code class="copyable">/mountgrant &lt;id&gt; vip [off]</code>'],
+  ['assigned','admin','🔷','Make a mount only for chosen players','assigned only chosen private exclusive',
+    ['<code class="copyable">/mountadmin</code> › <b>Who rides what</b>: set the mount to <b>Assigned only</b>.','<b>Players</b> › each player who may ride it › <b>Lock to them</b>.'],'rules',5,'VIP or the item alone are not enough for an Assigned only mount.'],
+  ['mode','admin','⚙','Make a mount free, VIP only or off','mode free vip off item rules who rides what',
+    ['<code class="copyable">/mountadmin</code> › <b>Who rides what</b>.','Click the mode on the mount\'s row: saved at once.','Many at once: search, then <b>Set every mount shown</b>.'],'rules',5,'Not sure which mode? Try "Who can ride it?" below.'],
+  ['take','admin','✖','Take access back (offline too)','take back remove revoke offline holders',
+    ['<code class="copyable">/mountadmin</code> › <b>Holders</b>.','Search the player or the mount.','Click the <b>✕</b> on a row twice, or <b>Take back all</b> twice.'],'holders',5,'An online player loses it at once and is told.'],
+  ['logs','admin','📜','See who gave or took access','logs log history audit who gave',
+    ['<code class="copyable">/mountadmin</code> › <b>Logs</b>.','Search an admin, a player or a mount, or pick Gave / Took back.'],'logs',1],
+  ['shop','admin','🏪','Place a mount shop','shop place stable add map',
+    ['Stand where the shop should be, facing the way the stable hand should look.','<code class="copyable">/mountadmin</code> › <b>Shops</b>: type a name, press <b>Add</b>.','Choose <b>Every mount on sale</b> or <b>Chosen mounts</b>, the map icon and the stable hand.'],'shops',1],
+  ['speed','admin','⚡','Change a mount\'s speed','speed fast slow run walk top speed stamina jump mountdev',
+    ['<code class="copyable">/mountadmin</code> › <b>Mounts</b>: type the new walk, run, speed or top speed. It goes to every colour.','Or ride it and use <code class="copyable">/mountdev</code>: a speed set there goes to every colour too.','<b>Back to config</b> undoes it.'],'mounts',5,'Every player gets the change at once; no restart.'],
+  ['rename','admin','🏷','Rename, price or switch off a mount','rename name price off disable',
+    ['<code class="copyable">/mountadmin</code> › <b>Mounts</b>.','Type a new name or price, or press <b>Off</b>.'],'mounts',3],
+  ['newmount','admin','➕','Add a new mount from a copy','new add copy clone mount model',
+    ['<code class="copyable">/mountadmin</code> › <b>Mounts</b> › <b>Add a mount</b>.','Pick the mount to copy, type a name (and a model if it has its own).','Press <b>Add</b>; set who may ride it in Who rides what.'],'mounts',1,'A new 3D model needs its files on the server and a restart first.'],
+  ['prop','admin','🧚','Give a prop or a pet mount','prop pet give apadmin grant access ledger',
+    ['Type <code class="copyable">/apadmin</code>: the Steward\'s Ledger.','<b>Players</b> to give a prop (as an item or as access, for a time), <b>Holders</b> › <b>Add</b> to turn on a pet\'s mount.'],'petmounts',2,'Commands: <code class="copyable">apgive</code>, <code class="copyable">apgrant</code>, <code class="copyable">aprevoke</code>.']
+];
+
+var KEYS = {
+  land:   { name:'On land', keys:{ W:'ride forward, where the camera looks', A:'turn left', S:'step back', D:'turn right', Shift:'tap: trot · hold: gallop', Space:'leap', H:'roar', E:'get off', F:'get off · on foot: send it away' } },
+  sky:    { name:'In the sky', keys:{ W:'forward', S:'back', A:'turn left', D:'turn right', Shift:'climb (no limit)', 'L Ctrl':'go down', G:'hover in place', E:'land', Mouse:'look around' } },
+  water:  { name:'In the water', keys:{ W:'swim', A:'turn left', D:'turn right', 'L Ctrl':'dive', Shift:'back to the surface', Space:'surge' } },
+  screens:{ name:'Screens', keys:{ F6:'My Mounts', J:'ride your pet', F7:'arrange the mount screens', F9:'hide or show the mount screens', Esc:'close a screen' } }
+};
+var KEYGROUPS = [['Move', ['W','A','S','D']], ['Speed & height', ['Shift','L Ctrl','Space']], ['Actions', ['E','F','G','H','J']], ['Screens', ['F6','F7','F9','Esc']], ['Look', ['Mouse']]];
+
+var MOUNTS = [
+  ['Ironclad Destrier','land'],['Elven Palfrey','land'],['Wayfarer Courser','land'],['Peddler\'s Donkey','land'],['Cougar','land'],['Panther','land'],['Stag','land'],['Ox','land'],['War Boar','land'],
+  ['Amethyst Wolf','pet'],['Void Kitsune','pet'],['Starforged Golem','pet'],['Ninja Dog','pet'],['Dog Scout','pet'],['Cat','pet'],['Ape','pet'],['Toad','pet'],['Ninja Serpent','pet'],['Slug','pet'],['Ninja Kirin','pet'],['Ninja Tortoise (land and sea)','pet'],
+  ['Blood Dragon (twelve colours)','sky'],['Fantasy Dragon','sky'],['Chinese Fantasy Dragon','sky'],['Celestial Dragon','sky'],['Gryphon Boss','sky'],['Fantasy Phoenix','sky'],['Ninja Falcon','sky'],['Broomstick','sky'],['Cloud','sky'],['Gale Fan','sky'],['Dune Disc','sky'],
+  ['Angelic wings','wings'],['Celestial wings','wings'],['Demon wings','wings'],['Fairy wings','wings'],['Vampire wings','wings'],['Hoverboard','wings'],
+  ['Dolphin','water'],['Orca','water'],['Manta','water'],['Hammerhead','water'],['Tiger Shark','water']
+];
+var MKIND = { all:'All', land:'Steeds of the land', pet:'Beasts & pets', sky:'Wings of the sky', wings:'Wings & glide', water:'Tides' };
+
+var MODES = [
+  ['free','Free','everyone rides it','g-free'], ['item','Item','needs its item','g-item'], ['vipitem','VIP or item','VIP free, others need the item','g-vipitem'],
+  ['vip','VIP only','every VIP rides it','g-vip'], ['assigned','Assigned only','only who you gave it to','g-assigned'], ['off','Off','nobody rides it','g-off']
+];
+var PEOPLE = [['item','Has its item','not VIP'], ['vip','A VIP','without the item'], ['given','Given to them','Lock to them, or that colour'], ['none','Anyone else','no item, not VIP']];
+function canRide(mode, who, itemsOn){
+  if (mode === 'off') return [false, 'Off: nobody, not even a player it was given to.'];
+  if (who === 'given') return [true, 'A mount locked to a player always works for them, unless it is Off.'];
+  if (mode === 'free') return [true, 'Free: everyone.'];
+  if (mode === 'assigned') return [false, 'Assigned only: only players it was given to; VIP and the item do not count.'];
+  if (mode === 'vip') return [who === 'vip', who === 'vip' ? 'VIP only: every VIP.' : 'VIP only: not without VIP, item or not.'];
+  if (mode === 'vipitem') {
+    if (who === 'vip') return [true, 'VIP or item: a VIP rides free.'];
+    if (!itemsOn) return [true, 'The item switch is off: no item needed.'];
+    return [who === 'item', who === 'item' ? 'VIP or item: the item is enough.' : 'VIP or item: needs VIP or the item.'];
+  }
+  if (!itemsOn) return [true, 'The item switch is off: a mount set to Item needs no item.'];
+  return [who === 'item', who === 'item' ? 'Item: the item is enough.' : 'Item: needs its item (VIP alone is not enough).'];
+}
+
+var CMDS = [
+  ['F6 · /mountvip','player','My Mounts: every mount you may ride now, colour, ride, send back, VIP lock','/mountvip'],
+  ['E at a mount shop','player','Open that shop and buy a mount',null],
+  ['J · /ridepet','player','Ride your summoned pet','/ridepet'],
+  ['F7 · /rklmountsui','player','Arrange, colour or hide the mount screens','/rklmountsui'],
+  ['F9 · /rklmountshide','player','Hide or show all mount screens','/rklmountshide'],
+  ['/animatedprop','player','Your Regalia: wear tails, wings, horns, pets','/animatedprop'],
+  ['/petmenu','player','Your pet: moves, Stay, Roam, Stop','/petmenu'],
+  ['/petsummon','player','Summon your pet, send it back, or call back a pet mount left far away','/petsummon'],
+  ['/apflare · /apswish · /apshake · /apflick','player','Play that move on the prop you wear','/apflare'],
+  ['/mountadmin','admin','Mount Admin: Players, Who rides what, Mounts, Shops, Holders, Logs','/mountadmin'],
+  ['/mountgrant <id> <mount | colour | vip> [off]','admin','Lock a mount, one colour or VIP to a player (console too)','/mountgrant '],
+  ['/mountdev','admin','Edit a mount live for everyone; speeds go to every colour','/mountdev'],
+  ['/mountfit [reset | off | on]','admin','Measure a mount’s height on the ground again','/mountfit'],
+  ['/mountdebug · /findanims [dict]','admin','Debug tools','/mountdebug'],
+  ['/apadmin','admin','The Steward’s Ledger for props and pets','/apadmin'],
+  ['/apfit','admin','The Fitting Bench','/apfit'],
+  ['/apdebug','admin','List every spawned prop in F8','/apdebug'],
+  ['apgive <id> <prop> [colour | all]','admin','Give a prop item','apgive '],
+  ['apgiveall <id> [category | all]','admin','Give every design of a category','apgiveall '],
+  ['apgrant <player> <scope> [minutes] [colour]','admin','Give access to a prop without an item','apgrant '],
+  ['aprevoke <player> <scope>','admin','Take that access back','aprevoke '],
+  ['apvip <player> <tier | remove> [days]','admin','Set or remove a player’s prop VIP tier','apvip '],
+  ['apaccess [scope] [preset]','admin','Who may wear a prop, family or category','apaccess'],
+  ['aproles · aplog · apshop','admin','Staff roles, the log, the prop shops','aproles'],
+  ['apitems · apaddons · apfitexport','admin','Item list, found addons, fit export','apitems']
+];
+
+/* ---------------- helpers ---------------- */
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+var toastT;
+function toast(t){ var b = $('#toast'); b.textContent = t; b.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function(){ b.classList.remove('show'); }, 1600); }
+function copy(t){
+  function done(){ toast('Copied: ' + t.trim()); }
+  if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(done, fallback); } else { fallback(); }
+  function fallback(){ var a = el('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select();
+    try { document.execCommand('copy'); done(); } catch (e) { toast('Select and copy: ' + t); } a.remove(); }
+}
+document.addEventListener('click', function(e){
+  var c = e.target.closest && e.target.closest('.copyable');
+  if (c) copy(c.textContent.replace(/<[^>]*>/g, '').replace(/\s*\[.*$/, ''));
+});
+
+/* ---------------- who are you ---------------- */
+var ROLE = 'all';
+function setRole(r){
+  ROLE = r;
+  document.body.setAttribute('data-role', r);
+  $$('#role button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.r === r ? 'true' : 'false'); });
+  store('guide-role', r);
+  drawTasks();
+  drawCmds();
+}
+$$('#role button').forEach(function(b){ b.addEventListener('click', function(){ setRole(b.dataset.r); }); });
+
+/* ---------------- screen tours ---------------- */
+var lb = $('#lb');
+function stageFor(id, onPin, eager){
+  var s = SCREENS[id];
+  var st = el('div', 'stage' + (s.small ? ' small' : ''));
+  var img = el('img'); img.src = s.img; img.alt = s.title; img.loading = eager ? 'eager' : 'lazy'; st.appendChild(img);
+  s.pins.forEach(function(p, i){
+    var b = el('button', 'pin', String(i + 1)); b.type = 'button';
+    b.style.left = p[0] + '%'; b.style.top = p[1] + '%';
+    b.setAttribute('aria-label', (i + 1) + ': ' + p[2]); b.title = p[2];
+    b.addEventListener('click', function(ev){ ev.stopPropagation(); onPin(i); });
+    st.appendChild(b);
+  });
+  return st;
+}
+function markPin(st, i){ $$('.pin', st).forEach(function(b, k){ b.classList.toggle('on', k === i); }); }
+function openLightbox(id, i){
+  var s = SCREENS[id];
+  $('#lbt').textContent = s.title;
+  var host = $('#lbs'); host.innerHTML = ''; host.className = 'stage';
+  var st = stageFor(id, function(k){ say(k); }, true);
+  st.className = 'stage'; host.replaceWith(st); st.id = 'lbs';
+  function say(k){ markPin(st, k); var p = s.pins[k]; $('#lbsay').innerHTML = ''; var b = el('b', null, (k + 1) + '. ' + p[2] + ': '); $('#lbsay').appendChild(b); $('#lbsay').appendChild(document.createTextNode(p[3])); }
+  if (i != null && i >= 0) say(i); else $('#lbsay').textContent = 'Click a number to see what that part does.';
+  if (typeof lb.showModal === 'function') lb.showModal(); else window.open(s.img, '_blank');
+}
+$('#lbx').addEventListener('click', function(){ lb.close(); });
+lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
+
+var TOURS = [];
+function buildTour(host){
+  var ids = host.dataset.screens.split(',');
+  var t = { host:host, ids:ids, cur:ids[0], pin:-1 };
+  var tabs = el('div', 'tabs'); tabs.setAttribute('role', 'tablist');
+  if (ids.length > 1) host.appendChild(tabs);
+  var body = el('div', 'body'); host.appendChild(body);
+  ids.forEach(function(id){
+    var b = el('button', null, SCREENS[id].title.replace(/^.*·\s*/, '')); b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.id = id;
+    b.addEventListener('click', function(){ t.show(id, -1); });
+    tabs.appendChild(b);
+  });
+  t.show = function(id, pin){
+    t.cur = id; t.pin = pin;
+    $$('button', tabs).forEach(function(b){ b.setAttribute('aria-selected', b.dataset.id === id ? 'true' : 'false'); });
+    body.innerHTML = '';
+    var left = el('div'); left.style.display = 'flex'; left.style.flexDirection = 'column'; left.style.gap = '8px';
+    var st = stageFor(id, function(k){ pick(k); });
+    left.appendChild(st);
+    var zb = el('button', 'btn zoom', 'Full size ⤢'); zb.type = 'button';
+    zb.addEventListener('click', function(){ openLightbox(id, t.pin); });
+    st.addEventListener('click', function(){ openLightbox(id, t.pin); });
+    st.style.cursor = 'zoom-in';
+    left.appendChild(zb);
+    body.appendChild(left);
+    var right = el('div'); right.style.display = 'flex'; right.style.flexDirection = 'column'; right.style.gap = '8px';
+    right.appendChild(el('h3', null, SCREENS[id].title));
+    var ul = el('ul', 'parts');
+    SCREENS[id].pins.forEach(function(p, k){
+      var li = el('li'); var b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
+      b.appendChild(el('span', 'n', String(k + 1))); b.appendChild(el('b', null, p[2])); b.appendChild(el('span', 't', p[3]));
+      b.addEventListener('click', function(){ pick(k); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    right.appendChild(ul);
+    body.appendChild(right);
+    function pick(k){
+      t.pin = k; markPin(st, k);
+      $$('button', ul).forEach(function(b, j){ b.setAttribute('aria-pressed', j === k ? 'true' : 'false'); });
+    }
+    if (pin >= 0) pick(pin);
+  };
+  t.show(ids[0], -1);
+  TOURS.push(t);
+}
+$$('.tour').forEach(buildTour);
+function showScreen(id, pin){
+  for (var i = 0; i < TOURS.length; i++) {
+    if (TOURS[i].ids.indexOf(id) !== -1) {
+      var t = TOURS[i];
+      var sec = t.host.closest('section');
+      if (sec && getComputedStyle(sec).display === 'none') setRole('all');
+      t.show(id, pin);
+      t.host.scrollIntoView({ block:'start' });
+      return;
+    }
+  }
+}
+
+/* ---------------- How do I ... ? ---------------- */
+var CUR = null;
+function taskOk(t){ return ROLE === 'all' || t[1] === ROLE; }
+function match(t, q){ return !q || (t[3] + ' ' + t[4]).toLowerCase().indexOf(q) !== -1 || q.split(/\s+/).every(function(w){ return (t[3] + ' ' + t[4]).toLowerCase().indexOf(w) !== -1; }); }
+function drawTasks(){
+  var q = ($('#ask').value || '').trim().toLowerCase();
+  var host = $('#tasks'); host.innerHTML = '';
+  var shown = TASKS.filter(function(t){ return taskOk(t) && match(t, q); });
+  ['player','admin'].forEach(function(r){
+    var list = shown.filter(function(t){ return t[1] === r; });
+    if (!list.length) return;
+    host.appendChild(el('div', 'tgroup', r === 'player' ? 'Players' : 'Admins'));
+    list.forEach(function(t){
+      var b = el('button', 'task'); b.type = 'button'; b.setAttribute('role', 'option'); b.dataset.id = t[0];
+      b.setAttribute('aria-selected', CUR === t[0] ? 'true' : 'false');
+      b.appendChild(el('span', 'ico', t[2])); b.appendChild(el('span', null, t[3]));
+      b.addEventListener('click', function(){ openTask(t[0], true); });
+      host.appendChild(b);
+    });
+  });
+  if (!shown.length) host.appendChild(el('p', 'empty', 'Nothing matches. Try other words, or switch "I am" to Everyone.'));
+  if (!CUR || !shown.some(function(t){ return t[0] === CUR; })) { if (shown.length) openTask(shown[0][0], false); else $('#taskview').innerHTML = ''; }
+}
+function openTask(id, user){
+  var t = TASKS.filter(function(x){ return x[0] === id; })[0]; if (!t) return;
+  CUR = id;
+  $$('#tasks .task').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.id === id ? 'true' : 'false'); });
+  var v = $('#taskview'); v.innerHTML = '';
+  var h = el('h3'); h.textContent = t[2] + '  ' + t[3]; v.appendChild(h);
+  var ol = el('ol'); t[5].forEach(function(s){ var li = el('li'); li.innerHTML = s; ol.appendChild(li); }); v.appendChild(ol);
+  if (t[8]) { var tip = el('p', 'tip'); tip.innerHTML = t[8]; v.appendChild(tip); }
+  var acts = el('div', 'acts');
+  if (t[6]) { var sb = el('button', 'btn gold', 'Show me on the screen'); sb.type = 'button'; sb.addEventListener('click', function(){ showScreen(t[6], t[7] - 1); }); acts.appendChild(sb); }
+  if (t[9]) { var kb = el('button', 'btn gold', 'Show the keys'); kb.type = 'button'; kb.addEventListener('click', function(){ setKeys(t[9]); $('#controls').scrollIntoView({ block:'start' }); }); acts.appendChild(kb); }
+  var lk = el('button', 'btn', 'Copy a link to this'); lk.type = 'button';
+  lk.addEventListener('click', function(){ copy(location.href.replace(/#.*$/, '') + '#do-' + t[0]); });
+  acts.appendChild(lk);
+  v.appendChild(acts);
+  if (user) try { history.replaceState(null, '', '#do-' + t[0]); } catch (e) {}
+  if (user && window.innerWidth < 820) v.scrollIntoView({ block:'start' });     // on a phone the steps are below the list
+}
+$('#ask').addEventListener('input', function(){ drawTasks(); });
+$('#ask').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') { var f = $('#tasks .task'); if (f) { openTask(f.dataset.id, true); $('#how').scrollIntoView({ block:'start' }); } }
+});
+$('#ask').addEventListener('focus', function(){ if ($('#how').getBoundingClientRect().top > window.innerHeight) $('#how').scrollIntoView({ block:'start' }); });
+
+/* ---------------- riding keys ---------------- */
+var KM = 'land', KSEL = null;
+function setKeys(m){ KM = m; KSEL = null; drawKeys(); }
+function drawKeys(){
+  var host = $('#km'); host.innerHTML = '';
+  var seg = el('div', 'seg'); seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', 'Where you ride');
+  Object.keys(KEYS).forEach(function(m){
+    var b = el('button', null, KEYS[m].name); b.type = 'button'; b.setAttribute('aria-pressed', m === KM ? 'true' : 'false');
+    b.addEventListener('click', function(){ setKeys(m); }); seg.appendChild(b);
+  });
+  host.appendChild(seg);
+  var map = KEYS[KM].keys;
+  var groups = el('div', 'keygroups');
+  KEYGROUPS.forEach(function(g){
+    var kg = el('div', 'kg'); kg.appendChild(el('span', null, g[0]));
+    var row = el('div', 'row');
+    g[1].forEach(function(k){
+      var b = el('button', 'key' + (k.length > 3 ? ' wide' : '') + (map[k] ? ' used' : '') + (KSEL === k ? ' on' : ''), k); b.type = 'button';
+      b.setAttribute('aria-label', k + (map[k] ? ': ' + map[k] : ': not used here'));
+      b.addEventListener('click', function(){ KSEL = k; drawKeys(); });
+      b.addEventListener('mouseenter', function(){ sayKey(k); });
+      row.appendChild(b);
+    });
+    kg.appendChild(row); groups.appendChild(kg);
+  });
+  host.appendChild(groups);
+  var say = el('div', 'keysay'); say.id = 'keysay'; host.appendChild(say);
+  sayKey(KSEL);
+  var ul = el('ul', 'keylist');
+  Object.keys(map).forEach(function(k){
+    var li = el('li'); var a = el('span'); var kb = el('kbd', null, k); a.appendChild(kb); li.appendChild(a); li.appendChild(el('span', null, map[k]));
+    li.addEventListener('click', function(){ KSEL = k; drawKeys(); });
+    ul.appendChild(li);
+  });
+  host.appendChild(ul);
+}
+function sayKey(k){
+  var s = $('#keysay'); if (!s) return; s.innerHTML = '';
+  if (!k) { s.textContent = 'Click or point at a key.'; return; }
+  var map = KEYS[KM].keys;
+  var b = el('b', null, k); s.appendChild(b);
+  s.appendChild(document.createTextNode(map[k] ? '  ·  ' + map[k] : '  ·  not used ' + KEYS[KM].name.toLowerCase()));
+}
+
+/* ---------------- who can ride it ---------------- */
+var MODE = 'assigned', ITEMS = true;
+function drawMatrix(){
+  var host = $('#matrix'); host.innerHTML = '';
+  var g = el('div', 'modes'); g.setAttribute('role', 'group'); g.setAttribute('aria-label', 'Modes');
+  MODES.forEach(function(m){
+    var b = el('button', 'mode ' + m[3]); b.type = 'button'; b.setAttribute('aria-pressed', m[0] === MODE ? 'true' : 'false');
+    var bb = el('b'); bb.appendChild(el('i')); bb.appendChild(document.createTextNode(m[1])); b.appendChild(bb); b.appendChild(el('span', null, m[2]));
+    b.addEventListener('click', function(){ MODE = m[0]; drawMatrix(); });
+    g.appendChild(b);
+  });
+  host.appendChild(g);
+  var sw = el('label', 'sw'); var cb = el('input'); cb.type = 'checkbox'; cb.checked = ITEMS;
+  cb.addEventListener('change', function(){ ITEMS = cb.checked; drawMatrix(); });
+  sw.appendChild(cb); sw.appendChild(document.createTextNode('Mounts need their item: ' + (ITEMS ? 'on' : 'off')));
+  host.appendChild(sw);
+  var who = el('div', 'riders');
+  PEOPLE.forEach(function(p){
+    var r = canRide(MODE, p[0], ITEMS);
+    var d = el('div', r[0] ? 'yes' : 'no');
+    d.appendChild(el('em', null, r[0] ? '✓ rides' : '✕ cannot ride'));
+    d.appendChild(el('b', null, p[1]));
+    d.appendChild(el('span', 'why', p[2]));
+    d.title = r[1];
+    who.appendChild(d);
+  });
+  host.appendChild(who);
+  var m = MODES.filter(function(x){ return x[0] === MODE; })[0];
+  host.appendChild(el('p', 'why', m[1] + ': ' + canRide(MODE, 'none', ITEMS)[1].replace(/^[^:]*:\s*/, '') + (MODE === 'assigned' ? ' Give it in Players with Lock to them.' : '')));
+}
+
+/* ---------------- every mount ---------------- */
+var MK = 'all';
+function drawMounts(){
+  var f = $('#mfilter'); f.innerHTML = '';
+  var inp = el('input'); inp.type = 'search'; inp.placeholder = 'Search a mount'; inp.setAttribute('aria-label', 'Search a mount'); inp.value = drawMounts.q || '';
+  inp.addEventListener('input', function(){ drawMounts.q = inp.value; list(); });
+  f.appendChild(inp);
+  Object.keys(MKIND).forEach(function(k){
+    var b = el('button', 'chip', MKIND[k]); b.type = 'button'; b.setAttribute('aria-pressed', k === MK ? 'true' : 'false');
+    b.addEventListener('click', function(){ MK = k; drawMounts(); }); f.appendChild(b);
+  });
+  list();
+  function list(){
+    var q = (drawMounts.q || '').trim().toLowerCase();
+    var h = $('#mlist'); h.innerHTML = '';
+    var s = MOUNTS.filter(function(m){ return (MK === 'all' || m[1] === MK) && (!q || m[0].toLowerCase().indexOf(q) !== -1); });
+    s.forEach(function(m){ var d = el('span', 'mt' + (m[1] === 'pet' ? ' pet' : ''), m[0]); d.appendChild(el('i', null, MKIND[m[1]])); h.appendChild(d); });
+    $('#mcount').textContent = s.length + ' of ' + MOUNTS.length + ' mounts' + (MK === 'pet' ? ' · ridden through their pet: summon it, press J' : '');
+  }
+}
+
+/* ---------------- commands ---------------- */
+var CF = 'all';
+function drawCmds(){
+  var q = $('#q').value.trim().toLowerCase();
+  var out = CMDS.filter(function(r){ return (CF === 'all' || r[1] === CF) && (ROLE === 'all' || r[1] === ROLE) && (!q || (r[0] + ' ' + r[2]).toLowerCase().indexOf(q) !== -1); });
+  var tb = $('#rows'); tb.innerHTML = '';
+  out.forEach(function(r){
+    var tr = el('tr'); var a = el('td'); a.appendChild(el('code', null, r[0]));
+    if (r[3]) { var c = el('button', 'cp', 'copy'); c.type = 'button'; c.setAttribute('aria-label', 'Copy ' + r[3].trim()); c.addEventListener('click', function(){ copy(r[3]); }); a.appendChild(c); }
+    tr.appendChild(a);
+    tr.appendChild(el('td', 'who' + (r[1] === 'admin' ? ' adm' : ''), r[1] === 'admin' ? 'Admin' : 'Player'));
+    tr.appendChild(el('td', 'what', r[2]));
+    tb.appendChild(tr);
+  });
+  if (!out.length) { var tr = el('tr'); var td = el('td', null, 'No command matches.'); td.colSpan = 3; tr.appendChild(td); tb.appendChild(tr); }
+  $('#count').textContent = out.length + ' of ' + CMDS.length + ' commands';
+}
+$('#q').addEventListener('input', drawCmds);
+$$('#commands .chip').forEach(function(b){
+  b.addEventListener('click', function(){ CF = b.dataset.f; $$('#commands .chip').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); drawCmds(); });
+});
+
+/* ---------------- back to top ---------------- */
+var top = $('#top');
+window.addEventListener('scroll', function(){ top.hidden = window.scrollY < 700; }, { passive:true });
+top.addEventListener('click', function(){ window.scrollTo(0, 0); });
+
+/* ---------------- start ---------------- */
+drawKeys();
+drawMatrix();
+drawMounts();
+var r0 = store('guide-role');
+setRole(r0 === 'player' || r0 === 'admin' ? r0 : 'all');
+var m = /^#do-([a-z]+)$/.exec(location.hash || '');
+if (m && TASKS.some(function(t){ return t[0] === m[1]; })) {
+  var t = TASKS.filter(function(x){ return x[0] === m[1]; })[0];
+  if (!taskOk(t)) setRole('all');
+  openTask(m[1], false);
+  setTimeout(function(){ $('#how').scrollIntoView({ block:'start' }); }, 50);
+}
+window.GUIDE = { tasks:TASKS.length, screens:Object.keys(SCREENS).length, open:openTask, show:showScreen, role:setRole };
+})();
+</script>
 </body>
 </html>
