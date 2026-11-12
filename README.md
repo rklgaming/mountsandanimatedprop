@@ -14,9 +14,10 @@ How to ride mounts, wear animated props and ride your pet, all that admins can s
 ## I · What's new
 
 **Admin, all in game**
-- `/mountadmin` has four tabs: **Players**, **Who rides what**, **Mounts** and **Shops**. Saved at once, kept after a restart.
+- `/mountadmin` has five tabs: **Players**, **Who rides what**, **Mounts**, **Shops** and **Holders**. Saved at once, kept after a restart.
 - Pick a player and give them exactly the mounts (or single colours) they may ride.
 - **Assigned only** *(new)*: a mount only for the players it was given to. VIP alone is not enough.
+- **Holders** *(new)*: everyone who has access, offline too. Take it back from there, even from a player who is not online.
 - Rename mounts, turn them on or off, set prices and speeds, add a new mount from a copy.
 - Place mount shops where you stand; players walk up and press **E**.
 
@@ -97,6 +98,7 @@ Screens: **F6** My Mounts · **J** ride your pet · **F7** arrange the mount UI 
   *To give a player only certain mounts: set those mounts to Assigned only, then in Players lock to each player what they may ride.*
 - **Mounts**: every mount on one list: on or off, its name, price and riding numbers; **Back to config** undoes a row; **Add a mount** copies one under a new name.
 - **Shops**: add a shop where you stand; move it, give it a stable hand and a map mark, choose what it sells.
+- **Holders**: everyone who holds VIP, a mount, a single colour or a pet's mount, online or offline. Search a name, #id or mount; filter by kind or by online / offline. The ✕ on a row takes it back (click twice); **Take back all** clears a player.
 
 **`/apadmin`**: the Steward's Ledger for props and pets: give a prop (as an item or as access, for a time), turn on a pet's mount, see who holds what, VIP tiers, roles, shops, the Showroom and the log. `/apfit` opens the Fitting Bench.
 
@@ -117,7 +119,7 @@ Screens: **F6** My Mounts · **J** ride your pet · **F7** arrange the mount UI 
 | `/petmenu` | Player | Your pet: moves, Stay, Roam, Stop |
 | `/petsummon` | Player | Summon your pet, send it back, or call back a pet mount |
 | `/apflare` `/apswish` `/apshake` `/apflick` | Player | A move on the prop you wear |
-| `/mountadmin` | Admin | Players, Who rides what, Mounts, Shops |
+| `/mountadmin` | Admin | Players, Who rides what, Mounts, Shops, Holders |
 | `/mountgrant <id> <mount \| colour \| vip> [off]` | Admin | Lock a mount, a colour or VIP to a player |
 | `/mountdev` | Admin | Edit a mount live |
 | `/mountfit [reset \| off \| on]` | Admin | Measure a mount's height again |

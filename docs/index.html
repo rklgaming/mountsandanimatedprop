@@ -160,9 +160,10 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
     <div class="cards">
       <div class="card"><h3>Admin, all in game</h3>
         <ul class="plain">
-          <li><code>/mountadmin</code>: four tabs, <b>Players</b>, <b>Who rides what</b>, <b>Mounts</b> and <b>Shops</b>. Saved at once, kept after a restart.</li>
+          <li><code>/mountadmin</code>: five tabs, <b>Players</b>, <b>Who rides what</b>, <b>Mounts</b>, <b>Shops</b> and <b>Holders</b>. Saved at once, kept after a restart.</li>
           <li>Pick a player and give them exactly the mounts (or single colours) they may ride.</li>
           <li><b>Assigned only</b> <span class="tag-new">new</span>: a mount only for the players it was given to. VIP alone is not enough.</li>
+          <li><b>Holders</b> <span class="tag-new">new</span>: everyone who has access, offline too. Take it back from there, even from a player who is not online.</li>
           <li>Rename mounts, turn them on or off, set prices and speeds, add a new mount from a copy.</li>
           <li>Place mount shops where you stand; players walk up and press <kbd>E</kbd>.</li>
         </ul>
@@ -266,6 +267,7 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
       <div class="card"><h3>Who rides what</h3><p>Each mount gets one of the modes below, plus one switch for "Mounts need their item". A pet's mount can also be a <b>Normal mount too</b>. Search, then set every mount shown at once.</p></div>
       <div class="card"><h3>Mounts</h3><p>Every mount on one list: on or off, its name, price and riding numbers. <b>Back to config</b> undoes a row; <b>Add a mount</b> copies one under a new name.</p></div>
       <div class="card"><h3>Shops</h3><p><b>Add a shop where you stand</b>. Move it, visit it, give it a stable hand and a map mark, and choose what it sells. Players press <kbd>E</kbd> there.</p></div>
+      <div class="card"><h3>Holders <span class="tag-new">new</span></h3><p>Everyone who holds VIP, a mount, a single colour or a pet's mount, online <i>or offline</i>. Search a name, #id or mount; filter by kind or by Online / Offline. The <b>&#10005;</b> on a row takes it back (click twice), <b>Take back all</b> clears a player.</p></div>
     </div>
     <div class="modes" role="list">
       <div class="mode g-free" role="listitem"><b><i></i>Free</b><span>everyone rides it</span></div>
@@ -317,7 +319,7 @@ var C = [
   ['/petmenu', 'player', 'Your pet: moves, Stay, Roam, Stop'],
   ['/petsummon', 'player', 'Summon your pet, send it back, or call back a pet mount left far away'],
   ['/apflare · /apswish · /apshake · /apflick', 'player', 'Play that move on the prop you wear'],
-  ['/mountadmin', 'admin', 'Mount Admin: Players, Who rides what, Mounts, Shops'],
+  ['/mountadmin', 'admin', 'Mount Admin: Players, Who rides what, Mounts, Shops, Holders'],
   ['/mountgrant <id> <mount | colour | vip> [off]', 'admin', 'Lock a mount, one colour or VIP to a player (console too)'],
   ['/mountdev', 'admin', 'Edit a mount live for everyone'],
   ['/mountfit [reset | off | on]', 'admin', 'Measure a mount’s height on the ground again'],
