@@ -57,6 +57,15 @@ nav a{ font-family:var(--f-head); font-size:.8rem; letter-spacing:.14em; text-tr
 nav a::before{ content:"\25C6"; font-size:.6em; color:var(--gold); margin-right:7px; vertical-align:middle; }
 nav a:hover, nav a:focus-visible{ color:var(--gold-hi); border-color:var(--gold); box-shadow:0 0 12px rgba(217,178,95,.25); outline:none; }
 
+/* screenshots: framed like the chapters, a caption under each */
+.shots{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap:16px; }
+.shot{ margin:0; display:flex; flex-direction:column; gap:8px; }
+.shot a{ display:block; border:1px solid var(--line); border-radius:3px; overflow:hidden; box-shadow:0 8px 22px rgba(0,0,0,.45); background:var(--night); }
+.shot a:hover, .shot a:focus-visible{ border-color:var(--gold); box-shadow:0 0 16px rgba(217,178,95,.3); outline:none; }
+.shot img{ display:block; width:100%; height:auto; }
+.shot figcaption{ color:var(--ink-soft); font-style:italic; font-size:.95rem; text-align:center; }
+.shot.small{ max-width:420px; margin-inline:auto; width:100%; }
+
 /* a chapter: vellum framed in gold, corner flourishes */
 section{ scroll-margin-top:14px; }
 .chapter{ position:relative; background:linear-gradient(180deg, var(--vellum2), var(--vellum)); border:1px solid var(--line); border-radius:3px; padding:26px 26px 24px;
@@ -160,10 +169,11 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
     <div class="cards">
       <div class="card"><h3>Admin, all in game</h3>
         <ul class="plain">
-          <li><code>/mountadmin</code>: five tabs, <b>Players</b>, <b>Who rides what</b>, <b>Mounts</b>, <b>Shops</b> and <b>Holders</b>. Saved at once, kept after a restart.</li>
+          <li><code>/mountadmin</code>: six tabs, <b>Players</b>, <b>Who rides what</b>, <b>Mounts</b>, <b>Shops</b>, <b>Holders</b> and <b>Logs</b>. Saved at once, kept after a restart.</li>
           <li>Pick a player and give them exactly the mounts (or single colours) they may ride.</li>
           <li><b>Assigned only</b> <span class="tag-new">new</span>: a mount only for the players it was given to. VIP alone is not enough.</li>
           <li><b>Holders</b> <span class="tag-new">new</span>: everyone who has access, offline too. Take it back from there, even from a player who is not online.</li>
+          <li><b>Logs</b> <span class="tag-new">new</span>: who gave or took access, when, and to whom. Search an admin, a player or a mount.</li>
           <li>Rename mounts, turn them on or off, set prices and speeds, add a new mount from a copy.</li>
           <li>Place mount shops where you stand; players walk up and press <kbd>E</kbd>.</li>
         </ul>
@@ -171,6 +181,7 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
       <div class="card"><h3>Mounts</h3>
         <ul class="plain">
           <li>New: the <b>Gale Fan</b>, a giant flying war fan, and the <b>Dune Disc</b>, a floating disc of sand. The broomstick, cloud and hoverboard were remade.</li>
+          <li>Called flying props land on the ground: the Dune Disc, Cloud, Gale Fan and Broomstick no longer sink into it.</li>
           <li>The horses and the donkey remade: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey.</li>
           <li>The <b>Ninja Tortoise</b> swims, dives and runs on its legs; the <b>Ninja Kirin</b> is the summoned Kirin itself.</li>
           <li>No height limit in the sky. Wings come off when you land.</li>
@@ -195,6 +206,9 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
       <div class="step"><span class="n">2</span><div><h3>Call it</h3><p>Press <kbd>F6</kbd> (<code>/mountvip</code>) for <b>My Mounts</b>: every mount you may ride right now. Pick a colour, then <b>Ride</b>. <b>Send back</b> puts it away.</p></div></div>
       <div class="step"><span class="n">3</span><div><h3>Keep it</h3><p>A VIP can press <b>Lock</b> in F6 to bind a mount from the bag to the character for good.</p></div></div>
       <div class="step"><span class="n">4</span><div><h3>Your pet's mount</h3><p>The ninja pets, dragons, gryphon, phoenix, wolf, kitsune and golem are ridden through their pet: summon it, then press <kbd>J</kbd>.</p></div></div>
+    </div>
+    <div class="shots">
+      <figure class="shot small"><a href="img/stable-f6.png" target="_blank" rel="noopener"><img src="img/stable-f6.png" alt="My Mounts (F6): every mount you may ride, its colours, Lock and Ride" loading="lazy"></a><figcaption>F6 · My Mounts: pick a colour, then Ride. A VIP can Lock a mount from the bag.</figcaption></figure>
     </div>
   </section>
 
@@ -258,6 +272,10 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
       <div class="step"><span class="n">3</span><div><h3>Ride your pet</h3><p>Summon it and press <kbd>J</kbd>: its mount stands where it stood. Dismount and your pet is there again, following you.</p></div></div>
       <div class="step"><span class="n">4</span><div><h3>Prop moves</h3><p><code>/apflare</code>, <code>/apswish</code>, <code>/apshake</code>, <code>/apflick</code> play a move on the prop you wear, for all to see.</p></div></div>
     </div>
+    <div class="shots">
+      <figure class="shot"><a href="img/props-wardrobe.png" target="_blank" rel="noopener"><img src="img/props-wardrobe.png" alt="Regalia: your tails, wings, horns and magic circle, with colours and moves" loading="lazy"></a><figcaption>/animatedprop · the Regalia: equip, pick a colour, try the moves.</figcaption></figure>
+      <figure class="shot"><a href="img/props-hall.png" target="_blank" rel="noopener"><img src="img/props-hall.png" alt="Hall of Wonders: try on any prop for show, and see how to get it" loading="lazy"></a><figcaption>The Hall of Wonders: try any prop on for show, and see where to buy it or who may wear it.</figcaption></figure>
+    </div>
   </section>
 
   <section id="admins" class="chapter">
@@ -268,6 +286,15 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
       <div class="card"><h3>Mounts</h3><p>Every mount on one list: on or off, its name, price and riding numbers. <b>Back to config</b> undoes a row; <b>Add a mount</b> copies one under a new name.</p></div>
       <div class="card"><h3>Shops</h3><p><b>Add a shop where you stand</b>. Move it, visit it, give it a stable hand and a map mark, and choose what it sells. Players press <kbd>E</kbd> there.</p></div>
       <div class="card"><h3>Holders <span class="tag-new">new</span></h3><p>Everyone who holds VIP, a mount, a single colour or a pet's mount, online <i>or offline</i>. Search a name, #id or mount; filter by kind or by Online / Offline. The <b>&#10005;</b> on a row takes it back (click twice), <b>Take back all</b> clears a player.</p></div>
+      <div class="card"><h3>Logs <span class="tag-new">new</span></h3><p>Every access change, newest first: when, which admin, gave or took back, what, to whom, and from where (Players, Holders, Who rides what or <code>/mountgrant</code>). Search an admin, a player, a #id or a mount; filter by kind.</p></div>
+    </div>
+    <div class="shots">
+      <figure class="shot"><a href="img/admin-players.png" target="_blank" rel="noopener"><img src="img/admin-players.png" alt="Mount Admin, Players tab" loading="lazy"></a><figcaption>Players: VIP, Lock to them, single colours.</figcaption></figure>
+      <figure class="shot"><a href="img/admin-rules.png" target="_blank" rel="noopener"><img src="img/admin-rules.png" alt="Mount Admin, Who rides what tab" loading="lazy"></a><figcaption>Who rides what: one mode per mount.</figcaption></figure>
+      <figure class="shot"><a href="img/admin-mounts.png" target="_blank" rel="noopener"><img src="img/admin-mounts.png" alt="Mount Admin, Mounts tab" loading="lazy"></a><figcaption>Mounts: names, prices, speeds, on or off.</figcaption></figure>
+      <figure class="shot"><a href="img/admin-shops.png" target="_blank" rel="noopener"><img src="img/admin-shops.png" alt="Mount Admin, Shops tab" loading="lazy"></a><figcaption>Shops: placed where you stand.</figcaption></figure>
+      <figure class="shot"><a href="img/admin-holders.png" target="_blank" rel="noopener"><img src="img/admin-holders.png" alt="Mount Admin, Holders tab" loading="lazy"></a><figcaption>Holders: everyone with access, offline too.</figcaption></figure>
+      <figure class="shot"><a href="img/admin-logs.png" target="_blank" rel="noopener"><img src="img/admin-logs.png" alt="Mount Admin, Logs tab" loading="lazy"></a><figcaption>Logs: who gave or took access, and when.</figcaption></figure>
     </div>
     <div class="modes" role="list">
       <div class="mode g-free" role="listitem"><b><i></i>Free</b><span>everyone rides it</span></div>
@@ -281,6 +308,10 @@ footer{ text-align:center; color:var(--ink-faint); font-size:.92rem; font-style:
     <div class="cards">
       <div class="card"><h3>Props: <code>/apadmin</code></h3><p>The Steward's Ledger: give a prop (as an item or as access, for a time), turn on a pet's mount, see who holds what, VIP tiers, roles, shops, the Showroom and the log. <code>/apfit</code> opens the Fitting Bench.</p></div>
       <div class="card"><h3>Tuning</h3><p><code>/mountdev</code> edits a mount live (speeds, jump, seats, camera) for everyone. <code>/mountfit</code> measures a mount's height on the ground again.</p></div>
+    </div>
+    <div class="shots">
+      <figure class="shot"><a href="img/props-ledger.png" target="_blank" rel="noopener"><img src="img/props-ledger.png" alt="The Steward's Ledger, Props and locks" loading="lazy"></a><figcaption>The Steward's Ledger: who may wear each prop.</figcaption></figure>
+      <figure class="shot"><a href="img/props-petmounts.png" target="_blank" rel="noopener"><img src="img/props-petmounts.png" alt="The Steward's Ledger, pet mount holders" loading="lazy"></a><figcaption>Holders: who has which pet mount.</figcaption></figure>
     </div>
   </section>
 
@@ -319,7 +350,7 @@ var C = [
   ['/petmenu', 'player', 'Your pet: moves, Stay, Roam, Stop'],
   ['/petsummon', 'player', 'Summon your pet, send it back, or call back a pet mount left far away'],
   ['/apflare · /apswish · /apshake · /apflick', 'player', 'Play that move on the prop you wear'],
-  ['/mountadmin', 'admin', 'Mount Admin: Players, Who rides what, Mounts, Shops, Holders'],
+  ['/mountadmin', 'admin', 'Mount Admin: Players, Who rides what, Mounts, Shops, Holders, Logs'],
   ['/mountgrant <id> <mount | colour | vip> [off]', 'admin', 'Lock a mount, one colour or VIP to a player (console too)'],
   ['/mountdev', 'admin', 'Edit a mount live for everyone'],
   ['/mountfit [reset | off | on]', 'admin', 'Measure a mount’s height on the ground again'],
