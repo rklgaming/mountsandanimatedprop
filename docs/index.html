@@ -277,6 +277,7 @@ dialog.lb .say{ padding:10px 14px; color:var(--ink-soft); min-height:2.6em; bord
 .mcard .tag{ position:absolute; top:8px; left:8px; font-family:var(--f-head); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; padding:3px 7px; border-radius:2px;
   background:rgba(7,6,12,.82); border:1px solid rgba(217,178,95,.5); color:var(--ink-soft); max-width:calc(100% - 16px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .mcard .tag.free{ background:linear-gradient(180deg, #f7dd96, #d9b25f); color:#1a1206; border-color:transparent; }
+.mcard .mnew{ position:absolute; top:30px; left:8px; }
 .mcard .spin360{ position:absolute; top:8px; right:8px; font-family:var(--f-head); font-size:.58rem; letter-spacing:.1em; padding:3px 6px; border-radius:2px;
   background:rgba(7,6,12,.82); border:1px solid rgba(217,178,95,.5); color:var(--gold-hi, #f7dd96); }
 @media (max-width:560px){ .mgrid{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; } .mcard .cap b{ font-size:.82rem; } }
@@ -378,6 +379,8 @@ details.more[open] > summary::before{ content:"\25BE  "; }
       </div>
       <div class="card"><h3>Mounts</h3>
         <ul class="plain">
+          <li><b>Spirit Colossus</b> <span class="tag-new">new</span>: a giant winged spirit warrior of glowing crystal, sword in hand, as big as the phoenix. It walks on all fours, bounds, flies with the sword out ahead and lands on its feet with a fist slam. With its <b>Bone Form</b> and <b>Armored Form</b>, 10 colours each, in the Flying Mounts Pack.</li>
+          <li><b>Umbra Cloud</b>, <b>Tide Cloud</b> and <b>Crimson Cloud</b> <span class="tag-new">new</span>: three animated clouds to ride, of ink, water and blood. They keep moving, parked or in flight. Free with Dynamic Mounts.</li>
           <li>New: the <b>Gale Fan</b>, a giant flying war fan, and the <b>Dune Disc</b>, a floating disc of sand. The broomstick, cloud and hoverboard were remade.</li>
           <li>Called flying props land on the ground: the Dune Disc, Cloud, Gale Fan and Broomstick no longer sink into it.</li>
           <li>The horses and the donkey remade: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey.</li>
@@ -417,7 +420,7 @@ details.more[open] > summary::before{ content:"\25BE  "; }
 
   <section id="mounts" class="chapter">
     <h2><span class="num">IV</span>Every model</h2>
-    <p class="lede">Every mount and prop we sell, as it looks in game. <b>Free</b> ones come with the script; the others are add-on packs you drop next to it. Point at one to see it turn, click it to see it big.</p>
+    <p class="lede">Every mount and prop we sell, as it looks in game. <b>Free</b> ones come with the script; the others are add-on packs you drop next to it. Point at one to see it turn, click it to see it big. <b>New</b> shows the latest.</p>
     <div class="mfilter" id="mfilter"></div>
     <div class="mseg" id="mseg"></div>
     <div class="mgrid" id="mgrid"></div>
@@ -1128,6 +1131,42 @@ var MODELS = {
    "spin": "img/spin/sanddisc.webp"
   },
   {
+   "name": "Umbra Cloud",
+   "sub": "ink & violet glow · animated",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "new": true,
+   "img": "img/models/umbracloud.webp",
+   "src": "rkl_umbracloud",
+   "spin": "img/spin/umbracloud.webp"
+  },
+  {
+   "name": "Tide Cloud",
+   "sub": "water · animated",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "new": true,
+   "img": "img/models/tidecloud.webp",
+   "src": "rkl_tidecloud",
+   "spin": "img/spin/tidecloud.webp"
+  },
+  {
+   "name": "Crimson Cloud",
+   "sub": "blood red · animated",
+   "cat": "ride",
+   "where": "Free with Dynamic Mounts",
+   "free": true,
+   "script": "Dynamic Mounts",
+   "new": true,
+   "img": "img/models/crimsoncloud.webp",
+   "src": "rkl_crimsoncloud",
+   "spin": "img/spin/crimsoncloud.webp"
+  },
+  {
    "name": "One-Tailed Fox",
    "sub": "Grand Plume · 12 colours",
    "cat": "tails",
@@ -1777,6 +1816,42 @@ var MODELS = {
    "spin": "img/spin/blood_dragon_10.webp"
   },
   {
+   "name": "Spirit Colossus",
+   "sub": "10 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "new": true,
+   "img": "img/models/spiritcolossus.webp",
+   "src": "spiritcolossus",
+   "spin": "img/spin/spiritcolossus.webp"
+  },
+  {
+   "name": "Spirit Colossus",
+   "sub": "Bone Form · 10 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "new": true,
+   "img": "img/models/spiritbone.webp",
+   "src": "spiritbone",
+   "spin": "img/spin/spiritbone.webp"
+  },
+  {
+   "name": "Spirit Colossus",
+   "sub": "Armored Form · 10 colours",
+   "cat": "dragons",
+   "where": "Flying Mounts Pack",
+   "free": false,
+   "script": "Dynamic Mounts",
+   "new": true,
+   "img": "img/models/spiritarmored.webp",
+   "src": "spiritarmored",
+   "spin": "img/spin/spiritarmored.webp"
+  },
+  {
    "name": "Ninja Dog",
    "sub": "20 colours",
    "cat": "beasts",
@@ -1988,7 +2063,7 @@ function drawModels(){
     b.addEventListener('click', function(){ MCAT = c[0]; drawModels(); }); f.appendChild(b);
   });
   var s = $('#mseg'); s.innerHTML = '';
-  [['all', 'Free + add-on packs'], ['free', 'Free with the scripts'], ['pack', 'Add-on packs']].forEach(function(w){
+  [['all', 'Free + add-on packs'], ['free', 'Free with the scripts'], ['pack', 'Add-on packs'], ['new', 'New']].forEach(function(w){
     var b = el('button', 'chip', w[1]); b.type = 'button'; b.setAttribute('aria-pressed', w[0] === MWHO ? 'true' : 'false');
     b.addEventListener('click', function(){ MWHO = w[0]; drawModels(); }); s.appendChild(b);
   });
@@ -1997,7 +2072,7 @@ function drawModels(){
     var q = (drawModels.q || '').trim().toLowerCase();
     var h = $('#mgrid'); h.innerHTML = '';
     var list = MODELS.models.filter(function(m){
-      return (MCAT === 'all' || m.cat === MCAT) && (MWHO === 'all' || (MWHO === 'free') === m.free) &&
+      return (MCAT === 'all' || m.cat === MCAT) && (MWHO === 'all' || (MWHO === 'new' ? !!m.new : (MWHO === 'free') === m.free)) &&
         (!q || (m.name + ' ' + m.sub + ' ' + m.where + ' ' + m.script + ' ' + (CATN[m.cat] || '') + (m.cat === 'land' ? ' horse' : '')).toLowerCase().indexOf(q) !== -1);
     });
     list.forEach(function(m){
@@ -2005,6 +2080,7 @@ function drawModels(){
       var p = el('div', 'pic'); var im = el('img'); im.src = m.img; im.alt = m.name; im.loading = 'lazy'; p.appendChild(im); c.appendChild(p);
       var cap = el('div', 'cap'); cap.appendChild(el('b', null, m.name)); if (m.sub) cap.appendChild(el('span', null, m.sub)); c.appendChild(cap);
       c.appendChild(el('span', 'tag' + (m.free ? ' free' : ''), m.free ? 'Free' : m.where.replace(/ Pack\b/, '')));
+      if (m.new) c.appendChild(el('span', 'tag-new mnew', 'New'));
       if (m.spin) {                                              // a turntable: hover spins it, the big view shows it turning
         c.appendChild(el('span', 'spin360', '360°'));
         c.addEventListener('mouseenter', function(){ im.src = m.spin; });
