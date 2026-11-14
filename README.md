@@ -28,6 +28,8 @@ Every key can be changed in *Settings › Key Bindings › FiveM*
 - Place mount shops where you stand; players walk up and press **E**.
 
 **Mounts**
+- **Spirit Colossus** *(new)*: a giant winged spirit warrior of glowing crystal, sword in hand, as big as the phoenix. It walks on all fours, bounds, flies with the sword out ahead and lands on its feet with a fist slam. With its **Bone Form** and **Armored Form**, 10 colours each, in the Flying Mounts Pack.
+- **Umbra Cloud**, **Tide Cloud** and **Crimson Cloud** *(new)*: three animated clouds to ride, of ink, water and blood. They keep moving, parked or in flight. Free with Dynamic Mounts.
 - New: the **Gale Fan**, a giant flying war fan, and the **Dune Disc**, a floating disc of sand. The broomstick, cloud and hoverboard were remade.
 - Called flying props land on the ground: the Dune Disc, Cloud, Gale Fan and Broomstick no longer sink into it.
 - The horses and the donkey remade: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey.
@@ -76,11 +78,11 @@ Screens: **F6** My Mounts · **J** ride your pet · **F7** arrange the mount UI 
 
 A picture of every mount and prop, with what comes free and what is in each add-on pack: **[Every model](https://rklgaming.github.io/mountsandanimatedprop/#mounts)** on the guide page (filter by category, free or pack, and search).
 
-**Free with Dynamic Mounts:** Blood Dragon (Crimson, Azure) · Demon, Fairy and Vampire Wings · Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey · Broomstick, Cloud, Hoverboard, Gale Fan, Dune Disc · GTA's own Dolphin, Orca, Manta, Hammerhead, Tiger Shark, War Boar, Ox, Stag, Cougar, Panther
+**Free with Dynamic Mounts:** Blood Dragon (Crimson, Azure) · Demon, Fairy and Vampire Wings · Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey · Broomstick, Cloud, Hoverboard, Gale Fan, Dune Disc · Umbra Cloud, Tide Cloud, Crimson Cloud (animated) · GTA's own Dolphin, Orca, Manta, Hammerhead, Tiger Shark, War Boar, Ox, Stag, Cougar, Panther
 
 **Free with Dynamic Animated Pets & Props:** One-Tailed Fox · Demon Tail · Dragon Tail · Arcane Sigil and Infernal Pyre (large and small) · Void Kitsune pet
 
-**Add-on packs:** Flying Mounts (more Blood Dragon colours, Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, Angelic and Celestial Wings) · Ninja Mounts · Fantasy Land Mounts · Fox Tails · Magic Circles I and II · Wings · Ninja Pets · Fantasy Pets
+**Add-on packs:** Flying Mounts (more Blood Dragon colours, Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, the Spirit Colossus with its Bone and Armored Forms, Angelic and Celestial Wings) · Ninja Mounts · Fantasy Land Mounts · Fox Tails · Magic Circles I and II · Wings · Ninja Pets · Fantasy Pets
 
 ### See them turn
 
@@ -94,6 +96,11 @@ A picture of every mount and prop, with what comes free and what is in each add-
 <td align="center"><img src="docs/img/spin/pet_golemn.webp" width="170" alt="Starforged Golem pet"><br>Starforged Golem pet</td>
 <td align="center"><img src="docs/img/spin/foxtail9.webp" width="170" alt="Nine-Tailed Fox"><br>Nine-Tailed Fox</td>
 <td align="center"><img src="docs/img/spin/magiccircle14.webp" width="170" alt="Phoenix Rebirth"><br>Phoenix Rebirth circle</td>
+</tr><tr>
+<td align="center"><img src="docs/img/spin/spiritcolossus.webp" width="170" alt="Spirit Colossus"><br>Spirit Colossus · new</td>
+<td align="center"><img src="docs/img/spin/spiritbone.webp" width="170" alt="Spirit Colossus, Bone Form"><br>Bone Form · new</td>
+<td align="center"><img src="docs/img/spin/umbracloud.webp" width="170" alt="Umbra Cloud"><br>Umbra Cloud · free · new</td>
+<td align="center"><img src="docs/img/spin/tidecloud.webp" width="170" alt="Tide Cloud"><br>Tide Cloud · free · new</td>
 </tr></table>
 
 Every model turns on the guide page: point at it in **[Every model](https://rklgaming.github.io/mountsandanimatedprop/#mounts)**.
