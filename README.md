@@ -29,7 +29,8 @@ Every key can be changed in *Settings › Key Bindings › FiveM*
 
 **Mounts**
 - **Spirit Colossus** *(new)*: a giant winged spirit warrior of glowing crystal, sword in hand, as big as the phoenix. It walks on all fours, bounds, flies with the sword out ahead and lands on its feet with a fist slam. With its **Bone Form** and **Armored Form**, 10 colours each, in the Flying Mounts Pack.
-- **Umbra Cloud**, **Tide Cloud** and **Crimson Cloud** *(new)*: three animated clouds to ride, of ink, water and blood. They keep moving, parked or in flight. Free with Dynamic Mounts.
+- **Umbra Cloud**, **Tide Cloud** and **Crimson Cloud** *(new)*: three animated clouds to ride, of ink, water and blood. They keep moving, parked or in flight. In the Cloud Mounts Pack.
+- Ride your new pets *(new)*: the **Necrotic Bear** gallops and rears up, the **Six-Eyed Spider** scuttles on eight legs, the **King Cobra** slithers with you on its head, the **Stormcrest Hawk** flies, and the **Ninja Kirin** runs. Summon the pet, press **J**.
 - New: the **Gale Fan**, a giant flying war fan, and the **Dune Disc**, a floating disc of sand. The broomstick, cloud and hoverboard were remade.
 - Called flying props land on the ground: the Dune Disc, Cloud, Gale Fan and Broomstick no longer sink into it.
 - The horses and the donkey remade: Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey.
@@ -41,6 +42,8 @@ Every key can be changed in *Settings › Key Bindings › FiveM*
 - Your pet and its mount are one animal: **J** on your summoned pet, and when you get off it is right there.
 - `/petsummon` calls back a pet mount left far away.
 - The pet follows better on jumps, flights and Stay.
+- New pets *(new)*: the **Necrotic Bear**, **Six-Eyed Spider**, **King Cobra**, **Stormcrest Hawk** and **Ninja Kirin**, each its own pack with its mount: on your shoulder, small, or summoned at full size, 20 colours.
+- **Auras** *(new)*: a new tab in your Regalia. The **Spirit Armor** rises from the ground around you as a glowing spirit rib cage, close fit or large, 20 colours, and stays with you on a mount (Aura Pack).
 - Ten props are free for everyone. Shops show only what is for sale.
 
 ---
@@ -50,7 +53,7 @@ Every key can be changed in *Settings › Key Bindings › FiveM*
 1. **Earn it**: buy it at a mount shop (walk up, press **E**), use its item, or receive it from an admin. Some mounts are free for all. Its colours come with it, unless you were given only some.
 2. **Call it**: press **F6** (`/mountvip`) for **My Mounts**: every mount you may ride right now. Pick a colour, then **Ride**. **Send back** puts it away.
 3. **Keep it**: a VIP can press **Lock** in F6 to bind a mount from the bag to the character for good.
-4. **Your pet's mount**: the ninja pets, dragons, gryphon, phoenix, wolf, kitsune and golem are ridden through their pet: summon it, then press **J**.
+4. **Your pet's mount**: the ninja pets, dragons, gryphon, phoenix, wolf, kitsune and golem, the Necrotic Bear, Six-Eyed Spider, King Cobra, Stormcrest Hawk and Ninja Kirin are ridden through their pet: summon it, then press **J**.
 
 <p align="center"><img src="docs/img/stable-f6.png" alt="My Mounts (F6): every mount you may ride, its colours, Lock and Ride" width="420"></p>
 <p align="center"><i>F6 · My Mounts: pick a colour, then Ride. A VIP can Lock a mount from the bag.</i></p>
@@ -78,11 +81,11 @@ Screens: **F6** My Mounts · **J** ride your pet · **F7** arrange the mount UI 
 
 A picture of every mount and prop, with what comes free and what is in each add-on pack: **[Every model](https://rklgaming.github.io/mountsandanimatedprop/#mounts)** on the guide page (filter by category, free or pack, and search).
 
-**Free with Dynamic Mounts:** Blood Dragon (Crimson, Azure) · Demon, Fairy and Vampire Wings · Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey · Broomstick, Cloud, Hoverboard, Gale Fan, Dune Disc · Umbra Cloud, Tide Cloud, Crimson Cloud (animated) · GTA's own Dolphin, Orca, Manta, Hammerhead, Tiger Shark, War Boar, Ox, Stag, Cougar, Panther
+**Free with Dynamic Mounts:** Blood Dragon (Crimson, Azure) · Demon, Fairy and Vampire Wings · Ironclad Destrier, Elven Palfrey, Wayfarer Courser, Peddler's Donkey · Broomstick, Cloud, Hoverboard, Gale Fan, Dune Disc · GTA's own Dolphin, Orca, Manta, Hammerhead, Tiger Shark, War Boar, Ox, Stag, Cougar, Panther
 
 **Free with Dynamic Animated Pets & Props:** One-Tailed Fox · Demon Tail · Dragon Tail · Arcane Sigil and Infernal Pyre (large and small) · Void Kitsune pet
 
-**Add-on packs:** Flying Mounts (more Blood Dragon colours, Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, the Spirit Colossus with its Bone and Armored Forms, Angelic and Celestial Wings) · Ninja Mounts · Fantasy Land Mounts · Fox Tails · Magic Circles I and II · Wings · Ninja Pets · Fantasy Pets
+**Add-on packs:** Flying Mounts (more Blood Dragon colours, Fantasy, Chinese Fantasy and Celestial Dragons, Gryphon Boss, Fantasy Phoenix, the Spirit Colossus with its Bone and Armored Forms, Angelic and Celestial Wings) · Ninja Mounts · Fantasy Land Mounts · Cloud Mounts (Umbra, Tide and Crimson Cloud) · Fox Tails · Magic Circles I and II · Wings · Ninja Pets · Fantasy Pets · Aura (Spirit Armor) · one pack each, pet and mount: Necrotic Bear, Six-Eyed Spider, King Cobra, Stormcrest Hawk, Ninja Kirin
 
 ### See them turn
 
@@ -99,8 +102,13 @@ A picture of every mount and prop, with what comes free and what is in each add-
 </tr><tr>
 <td align="center"><img src="docs/img/spin/spiritcolossus.webp" width="170" alt="Spirit Colossus"><br>Spirit Colossus · new</td>
 <td align="center"><img src="docs/img/spin/spiritbone.webp" width="170" alt="Spirit Colossus, Bone Form"><br>Bone Form · new</td>
-<td align="center"><img src="docs/img/spin/umbracloud.webp" width="170" alt="Umbra Cloud"><br>Umbra Cloud · free · new</td>
-<td align="center"><img src="docs/img/spin/tidecloud.webp" width="170" alt="Tide Cloud"><br>Tide Cloud · free · new</td>
+<td align="center"><img src="docs/img/spin/umbracloud.webp" width="170" alt="Umbra Cloud"><br>Umbra Cloud · new</td>
+<td align="center"><img src="docs/img/spin/tidecloud.webp" width="170" alt="Tide Cloud"><br>Tide Cloud · new</td>
+</tr><tr>
+<td align="center"><img src="docs/img/spin/pet_necrobearn.webp" width="170" alt="Necrotic Bear"><br>Necrotic Bear · new</td>
+<td align="center"><img src="docs/img/spin/pet_stormcrestn.webp" width="170" alt="Stormcrest Hawk"><br>Stormcrest Hawk · new</td>
+<td align="center"><img src="docs/img/spin/pet_chinesedragonn.webp" width="170" alt="Chinese Fantasy Dragon pet"><br>Chinese Fantasy Dragon pet</td>
+<td align="center"><img src="docs/img/spin/aura_spirit.webp" width="170" alt="Spirit Armor aura"><br>Spirit Armor aura · new</td>
 </tr></table>
 
 Every model turns on the guide page: point at it in **[Every model](https://rklgaming.github.io/mountsandanimatedprop/#mounts)**.
@@ -129,7 +137,7 @@ Every model turns on the guide page: point at it in **[Every model](https://rklg
 
 ## V · Props & pets
 
-1. **Wear props**: `/animatedprop` opens your **Regalia**: tails, wings, magic circles, pets and more. Equip, pick a colour, take it off.
+1. **Wear props**: `/animatedprop` opens your **Regalia**: tails, wings, magic circles, auras, pets and more. Equip, pick a colour, take it off.
 2. **Your pet**: `/petmenu` for its moves, **Stay**, **Roam**, **Stop**. `/petsummon` calls it out at full size or sends it back to your shoulder.
 3. **Ride your pet**: summon it and press **J**: its mount stands where it stood. Dismount and your pet is there again.
 4. **Prop moves**: `/apflare`, `/apswish`, `/apshake`, `/apflick` play a move on the prop you wear.
